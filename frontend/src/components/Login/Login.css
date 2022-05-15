@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #5f9ea0;
+  background-color: rgba(53,68,88,0.8);
 }
 
 .container .introduction {
@@ -14,7 +14,8 @@
   padding-right: 10px;
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuQ9rQYy9VTruTI34l1YVW-LU6nT8wibuYiT0zFA2daaj8zfllsyXsot-9ddz39dQ2T3w&usqp=CAU');
   background-size: 100%;
-  color: darkblue;
+  font-size: 20px;
+  color: rgb(0, 0, 0);
 }
 
 .container .introduction h1, p { 
@@ -27,8 +28,16 @@
   margin-left: 20px;
   font-family: 'Arial';
   font-weight: 100;
-  color: rgb(0, 0, 105);
+  max-width: 500px;
+}
 
+.container .introduction .think img { width: 300px; }
+
+.container .introduction .think { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px; 
 }
 
 .container .login {
@@ -45,9 +54,8 @@
   max-width: 500px;
 } 
 
-button {
-  cursor: pointer;
-}
+button { cursor: pointer;}
+
 .container .login form .inputLabel, .loginButton {
   width: 300px;
   padding: 6px;
@@ -69,10 +77,4 @@ button {
   border-radius: 8px;
   padding: 15px;
 
-}
-
-@media all and (max-width: 480px) {
-  .login form {
-    margin: -92px 40px 0 40px;
-  }
 }

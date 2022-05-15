@@ -49,11 +49,13 @@ function Login() {
 
       <div className="introduction">
         <h1>iLearn</h1>
-        <p> iLearn é uma ferramenta web desenvolvida com o intuito de ajudar os alunos
-          iniciantes em programação a melhor compreenderem o algoritimo desenvolvido por
-          ele. Essa ferramenta possuii algumas questões onde o aluno podera desenvolver
-          um algoritimo numa determinada linguagem, esse algoritimo será corrigido pelo
-          professor que dará um feedback, apontando pontos de melhorias</p>
+        <p> iLearn é uma ferramenta desenvolvida com o intuito de ajudar os alunos
+          iniciantes em programação a melhorar sua escrita de algoritimos.</p>
+
+          <div className="think">
+            <img src="https://cdn.pixabay.com/photo/2017/10/08/19/52/i-am-a-student-2831334_960_720.png" alt="pessoa pensando"></img>
+
+          </div>
       </div>
 
       <div className="login">
