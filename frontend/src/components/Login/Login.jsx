@@ -47,48 +47,44 @@ function Login() {
   return (
     <div className="container">
 
-      <div className="introduction">
+      <div className="left">
         <h1>iLearn</h1>
         <p> iLearn é uma ferramenta desenvolvida com o intuito de ajudar os alunos
-          iniciantes em programação a melhorar sua escrita de algoritimos.</p>
+          iniciantes em programação a melhorar sua lógica e escrita de algoritimos.
+        </p>
 
-          <div className="think">
-            <img src="https://cdn.pixabay.com/photo/2017/10/08/19/52/i-am-a-student-2831334_960_720.png" alt="pessoa pensando"></img>
-
-          </div>
+        <div className="study">
+          <img src="https://cdn.pixabay.com/photo/2017/10/08/19/52/i-am-a-student-2831334_960_720.png" alt="img_livro_formatura" />
+        </div>
       </div>
 
-      <div className="login">
+      <div className="right">
         <Form onSubmit={handleSubmit}>
           <div>
             <h1>Entrar</h1>
             <span>Já estou cadastrado</span>
           </div>
+
           <Form.Group size="lg" controlId="email">
-            <Form.Control className="inputLabel" autoFocus type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
+            <Form.Control className="ipt_label" autoFocus type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
+
           <Form.Group size="lg" controlId="password">
-            <Form.Control className="inputLabel" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
+            <Form.Control className="ipt_label" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
             <span className="error-message">{error}</span>
           </Form.Group>
 
-          <Button className="loginButton" block size="lg" type="submit">
+          <Button className="btn_login" block size="lg" type="submit">
             Login
           </Button>
-
-          <div className="register">
-            <Button className="registerButton" block size="lg" type="submit">
-              FAÇA SEU CADASTRO
-            </Button>
-          </div>
-
         </Form>
+
+        <div className="register">
+        <Button className="btn_register" block size="lg" type="submit">
+          FAÇA SEU CADASTRO
+        </Button>
       </div>
-
-      {/* <div className="register">
-
-
-      </div> */}
+      </div>
     </div>
   );
 }

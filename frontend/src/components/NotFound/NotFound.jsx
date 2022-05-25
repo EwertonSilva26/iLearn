@@ -4,9 +4,9 @@ import './NotFound.css';
 
 function ErrorPage() {
     return (
-        <div class="principal">
-            <p class="error">404</p>
-            <p>Pagina não encontrada.</p>
+        <div id="principal">
+            <h1 id="error">404</h1>
+            <h2 id='message'>Pagina não encontrada.</h2>
         </div>
 
     );
