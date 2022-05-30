@@ -26,9 +26,12 @@ function Login() {
     };
 
     axios
-      .post("http://localhost:3003/login", object)
+      .post("http://localhost:8080/login", object)
       .then((response) => {
-        if (response.status === 200) {
+        console.log("[RESPONSE FORA]: - " + response.data);
+        debugger 
+        if (response.data.status === 200) {
+          console.log("[RESPONSE DENTRO]: - " + JSON.stringify(response))
           authUser(response.data);
           setError("");
 
@@ -40,7 +43,9 @@ function Login() {
         }
       })
       .catch((err) => {
-        setError(err.response.data.message);
+        // setError(err.response.message);
+        navigate("/login");
+        console.log("[RESPONSE ERROR]: - " + JSON.stringify(err))
       });
   }
 
