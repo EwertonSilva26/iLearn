@@ -10,13 +10,7 @@ module.exports = {
   },
 
   /** Retorna senha hash salva no banco e dados */
-  getHash: async function (email, connection) {    
-    let value = await checkEmail(email, connection);
-
-    if (value <= 0) { 
-      return Promise.resolve(value)
-      .then(() => { return 0; }); 
-    }
+  getHash: async function (email, connection) {
 
     let hash = new Promise((resolve, reject) => {
       sql = `select user_pwd from users where user_email = '${email}'`;
@@ -29,21 +23,22 @@ module.exports = {
     })
 
     return await hash;
-  }
-}
-/** Verifica se e-mail existe no banco de dados */
-const checkEmail = async (email, connection) => {
-  sql = `select count(*) as value from users where user_email = '${email}'`;
+  },
 
-  let value = new Promise((resolve, reject) => {
-    connection.query(sql, function (error, result) {
-      if (error) {
-        reject(error);
-      }
-      resolve(result[0].value);
+  /** Verifica se e-mail existe no banco de dados */
+  checkEmail: async function (email, connection) {
+    sql = `select count(*) as value from users where user_email = '${email}'`;
+
+    let value = new Promise((resolve, reject) => {
+      connection.query(sql, function (error, result) {
+        if (error) {
+          reject(error);
+        }
+        resolve(result[0].value);
+      })
     })
-  })
 
-  return await value;
+    return await value;
 
+  }
 }

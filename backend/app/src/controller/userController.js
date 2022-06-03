@@ -2,37 +2,42 @@ const dbConnection = require("../config/dbserver");
 const connection = dbConnection();
 const auth = require("../config/authentication");
 const jwt = require('jsonwebtoken');
+const SECRET = process.env.SECRET;
 
-const { login, getHash } = require("../model/userModel");
+const { login, checkEmail, getHash } = require("../model/userModel");
 
 module.exports = {
     loginController: async function (app, req, res) {
-        console.log(`[UserController] - Iniciando login: ${req.body.email}`)
+        let email = req.body.email;
+        console.log(`[UserController] - Iniciando login: ${email}`)
 
-        const hash = await getUserHash(req.body.email);
-        if (hash == 0) {
+        const isEmailvalid = await checkEmail(email, connection);
+        const hash = await getHash(email, connection);
+        if (isEmailvalid <= 0) {
             res.status(400).send({ status: 400, message: 'E-mail invalido!' });
+            return;
+        } else if (hash == 0) {
+            res.status(400).send({ status: 400, message: 'Senha invalida!' });
             return;
         }
 
         const isMatch = auth.decryptPassword(req.body.password, hash);
-        if (isMatch || (hash != 0)) {
+        req.body.password = hash;
+        if (isMatch) {
             login(req.body, connection, function (error, result) {
                 if (error) {
-                    res.status(403).send({ status: 403, registed: false, error });
+                    res.status(403).send({
+                        status: 403, error,
+                        message: "Não foi possivel efetuar login!"
+                    });
                 }
-                let id = result.id_user;
-                let token = jwt.sign({ id }, process.env.SECRET, {
-                    expiresIn: 300 // expira in 5min
-                });
-                res.status(200).send({ status: 200, registed: true, token })
+                let id = result[0].id_user;
+                let token = jwt.sign({ id }, SECRET, { expiresIn: 300 });
+
+                res.status(200).send({ status: 200, user_id: id, token, email })
             })
         } else {
-            throw new Error("Senha incorreta");
+            res.status(400).send({ status: 400, message: 'Senha invalida!' });
         }
     }
-}
-
-const getUserHash = async (email) => {
-    return await getHash(email, connection);
 }
