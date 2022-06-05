@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
-import { HomeContext } from "../../context/HomeProvider";
+import { HomeTeacherContext } from "../../context/HomeTeacherProvider";
 
-import "./Home.css";
+import "./HomeTeacher.css";
 
 // useEffect(() => {
 //     axios
@@ -17,8 +17,8 @@ import "./Home.css";
 //       });
 //   });
 
-const Home = () => {
-    const { home } = useContext(HomeContext);
+const HomeTeacher = () => {
+    const { HomeTeacher } = useContext(HomeTeacherContext);
 
     return (
         <div className="main">
@@ -43,4 +43,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomeTeacher;

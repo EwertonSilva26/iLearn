@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export const HomeContext = React.createContext();
+export const HomeTeacherContext = React.createContext();
 
-const HomeProvider = (props) => {
+const HomeTeacherProvider = (props) => {
   // let [error, setError] = React.useState("");
   let navigate = useNavigate();
 
@@ -21,13 +21,13 @@ const HomeProvider = (props) => {
   }
 
   return (
-    <HomeContext.Provider
+    <HomeTeacherContext.Provider
       value={{
         createClass: createClass
       }}
     >
       {props.children}
-    </HomeContext.Provider>
+    </HomeTeacherContext.Provider>
   );
 };
-export default HomeProvider;
+export default HomeTeacherProvider;
