@@ -3,7 +3,7 @@ let sql;
 
 module.exports = {
 
-  //Faz login de usuario
+  /** Faz login de usuario **/
   login: function (body, connection, callback) {
     sql = `select id_user from users where user_email = '${body.email}' and user_pwd = '${body.password}'`;
     connection.query(sql, callback);
@@ -25,7 +25,7 @@ module.exports = {
     return await hash;
   },
 
-  /** Verifica se e-mail existe no banco de dados */
+  /** Verifica se e-mail passado existe no banco de dados **/
   checkEmail: async function (email, connection) {
     sql = `select count(*) as value from users where user_email = '${email}'`;
 
