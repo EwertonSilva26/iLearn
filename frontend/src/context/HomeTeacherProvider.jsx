@@ -5,25 +5,30 @@ import { useNavigate } from "react-router-dom";
 export const HomeTeacherContext = React.createContext();
 
 const HomeTeacherProvider = (props) => {
-  // let [error, setError] = React.useState("");
+  let [error, setError] = React.useState("");
   let navigate = useNavigate();
 
-  const createClass = (info) => {
+  const createNewClass = (info) => {
     axios
-      .post("http://localhost:3003/login", info)
+      .post("http://localhost:3003/class/create", info)
       .then((response) => {
-
+        if(response.data.status === 201) {
+          // navigate("/login");
+        } 
+        else {
+          setError("Erro ao criar a turma");
+          console.log(`Não foi possivel criar a turma - ${JSON.stringify(response.data)}`)
+        }
       })
       .catch((err) => {
-        // navigate("/login");
-        console.log("[ERROR]: - " + JSON.stringify(err))
+        setError("Erro ao criar a turma");
       });
   }
 
   return (
     <HomeTeacherContext.Provider
       value={{
-        createClass: createClass
+        createNewClass: createNewClass
       }}
     >
       {props.children}

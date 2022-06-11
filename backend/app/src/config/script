@@ -16,7 +16,7 @@ create table tb_user(
 create table tb_class(
 	id_class int auto_increment,
 	class_name varchar(100),
-  	class_number varchar(100),
+  	class_code varchar(100),
     
     	primary key(id_class)
 );
