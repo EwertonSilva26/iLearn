@@ -13,7 +13,7 @@ const HomeTeacherProvider = (props) => {
       .post("http://localhost:3003/class/create", info)
       .then((response) => {
         if(response.data.status === 201) {
-          // navigate("/login");
+          navigate("/classes");
         } 
         else {
           setError("Erro ao criar a turma");

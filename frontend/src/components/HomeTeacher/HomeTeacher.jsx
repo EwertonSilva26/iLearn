@@ -9,16 +9,6 @@ import { HomeTeacherContext } from "../../context/HomeTeacherProvider";
 
 import "./HomeTeacher.css";
 
-// useEffect(() => {
-//     axios
-//       .get("http://localhost:3003/")
-//       .then((response) => { })
-//       .catch((err) => {
-//         // console.log(`Erro: ${err}`);
-//       });
-//   });
-
-
 const HomeTeacher = () => {
     const { createNewClass } = useContext(HomeTeacherContext);
     let className = "";
@@ -29,8 +19,6 @@ const HomeTeacher = () => {
 
     function createClass() {
         let classCode = uuidv4().replaceAll('-', '').substring(0, 9);
-        debugger
-        console.log("Nome da turma: " + className)
         if(className !== ""){
             const objClass = {
                 classCode,
@@ -38,7 +26,6 @@ const HomeTeacher = () => {
             }
             createNewClass(objClass)
         }
-
     }
 
     return (

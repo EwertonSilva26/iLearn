@@ -1,5 +1,8 @@
 const {check, validationResult } = require("express-validator");
-const { createClassController } = require("../controller/classController");
+const { 
+  createClassController, 
+  getAllClassesController 
+} = require("../controller/classController");
 
 // const { verifyJWT } = require("../../utils");
 
@@ -11,7 +14,13 @@ module.exports = {
       } catch(error) {
         throw error;
       }
+    });
+  },
 
+  getClasses: function (app) {
+    app.get("/classes", (req, res) => {
+      getAllClassesController(app, req, res);
     });
   }
+
 };
