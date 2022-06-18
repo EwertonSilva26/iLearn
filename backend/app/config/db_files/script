@@ -1,0 +1,86 @@
+create database ilearn_db;
+
+use ilearn_db;
+
+create table tb_user(
+
+	id_user int auto_increment,
+    user_email varchar(50) NOT NULL UNIQUE,
+    user_pwd varchar(60) NOT NULL,
+    
+    primary key(id_user)
+);
+
+
+create table tb_student(
+	id_student int auto_increment,
+	student_first_name varchar(40),
+    student_middle_name varchar(40),
+    student_last_nane varchar(40),
+    id_user int,
+    
+    primary key(id_student),
+    foreign key (id_user) references tb_user (id_user)
+ 
+);
+
+create table tb_teacher(
+	id_teacher int auto_increment,
+	teacher_first_name varchar(40),
+    teacher_middle_name varchar(40),
+    teacher_last_nane varchar(40),
+    id_user int,
+    
+    primary key(id_teacher),
+    foreign key (id_user) references tb_user (id_user)
+);
+
+create table tb_student_teacher(
+	id_student_teacher int auto_increment,
+	id_student int,
+    id_teacher int,
+    
+    primary key(id_student_teacher),
+	foreign key (id_student) references tb_student (id_student),
+    foreign key (id_teacher) references tb_teacher (id_teacher)
+);
+
+create table tb_class(
+	id_class int auto_increment,
+	class_name varchar(100) UNIQUE,
+  	class_code varchar(100) UNIQUE,
+    
+    primary key(id_class)
+);
+
+create table tb_student_teacher_class(
+	id_user_class int auto_increment,
+    id_student int,
+    id_teacher int,
+    id_class int,
+    
+    primary key(id_user_class),
+    foreign key (id_student) references tb_student (id_student),
+    foreign key (id_teacher) references tb_teacher (id_teacher),
+    foreign key (id_class) references tb_class (id_class)
+);
+
+create table tb_question(
+	id_question int auto_increment,
+	question text,
+    teacher_answer text,
+    student_answer text,
+    
+    primary key(id_question)
+);
+
+create table tb_classe_question(
+	id_class_question int auto_increment,
+    id_class int,
+    id_question int,
+    
+	primary key(id_class_question),
+    foreign key (id_class) references tb_class (id_class),
+    foreign key (id_question) references tb_question (id_question)
+);
+

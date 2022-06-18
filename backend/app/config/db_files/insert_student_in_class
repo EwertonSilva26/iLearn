@@ -1,0 +1,13 @@
+DELIMITER $$
+CREATE PROCEDURE insert_student_in_class (idStudent INT, className varchar(100))
+BEGIN
+	DECLARE classId INT;
+	
+    SELECT id_class FROM tb_class WHERE class_name = className INTO classId;
+
+	SET FOREIGN_KEY_CHECKS=0;
+	UPDATE tb_student_teacher_class SET id_student = idStudent WHERE id_class = classId;
+END $$
+DELIMITER ;
+
+CALL insert_student_in_class(1, "TurmaB");
