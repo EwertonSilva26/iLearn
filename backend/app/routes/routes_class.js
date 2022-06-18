@@ -1,7 +1,9 @@
 const {check, validationResult } = require("express-validator");
 const { 
   createClassController, 
-  getAllClassesController 
+  getAllClassesController,
+  insertStudentInClassesController,
+  getStudentClassesController
 } = require("../controller/classController");
 
 // const { verifyJWT } = require("../../utils");
@@ -21,6 +23,18 @@ module.exports = {
     app.get("/classes", (req, res) => {
       getAllClassesController(app, req, res);
     });
-  }
+  },
 
+  insertStudentsInClasses: function (app) {
+    app.get("students/classes", (req, res) => {
+      insertStudentInClassesController(app, req, res);
+    });
+  },
+
+  getStudentClasses: function (app) {
+    app.get("students/student/classes/search", (req, res) => {
+      getStudentClassesController(app, req, res);
+    });
+  }
+  
 };
