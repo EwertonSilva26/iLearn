@@ -34,7 +34,7 @@ module.exports = {
                 let id = result[0].id_user;
                 let token = jwt.sign({ id }, SECRET, { expiresIn: 300 });
 
-                res.status(200).send({ status: 200, user_id: id, token, email })
+                res.status(200).send({ status: 200, id_user: id, token, email })
             })
         } else {
             res.status(400).send({ status: 400, message: 'Senha invalida!' });
