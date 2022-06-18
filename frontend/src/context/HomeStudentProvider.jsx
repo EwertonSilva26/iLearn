@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const HomeStudentContext = React.createContext();
 
 const HomeStudentProvider = (props) => {
   // let [error, setError] = React.useState("");
+  const { id } = useParams();
   let navigate = useNavigate();
 
-  const createClass = (info) => {
+  const getClass = (classCode) => {
+    debugger
+    const obj = {
+      idStudent: id,
+      classCode: classCode
+    }
     axios
-      .post("http://localhost:3003/login", info)
+      .post("http://localhost:3003/student/classes", obj)
       .then((response) => {
-
+        navigate("/classes/" + response.data.id_class);
       })
       .catch((err) => {
-        // navigate("/login");
+        // navigate("/classes/" + response.data.id_class);
         console.log("[ERROR]: - " + JSON.stringify(err))
       });
   }
@@ -23,7 +29,7 @@ const HomeStudentProvider = (props) => {
   return (
     <HomeStudentContext.Provider
       value={{
-        createClass: createClass
+        getClass: getClass
       }}
     >
       {props.children}

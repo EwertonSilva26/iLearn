@@ -1,43 +1,52 @@
 import React from "react";
 import { useState, useEffect } from "react";
 // import { Button } from "react-bootstrap";
-// import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { propTypes } from "react-bootstrap/esm/Image";
 import { HomeStudentContext } from "../../context/HomeStudentProvider";
 
 import "./HomeStudent.css";
 
-// useEffect(() => {
-//     axios
-//       .get("http://localhost:3003/")
-//       .then((response) => { })
-//       .catch((err) => {
-//         // console.log(`Erro: ${err}`);
-//       });
-//   });
-
 const HomeStudent = () => {
-    const { homeStudent } = useContext(HomeStudentContext);
+    const { getClass } = useContext(HomeStudentContext);
+
+    let classCode = "";
+
+    function setClassCode(event) {
+        classCode = event.target.value;
+    }
+
+    function searchClass() {
+        if(classCode !== ""){
+            console.log("EVENT: " + classCode);
+
+            getClass(classCode)
+        }
+    }
+
 
     return (
         <div className="main">
             <div id="classes">
                 <h1>Ver minhas turmas</h1>
-                <button>Minhas turmas</button>
+                <button id="id_myClasses">Minhas turmas</button>
             </div>
 
             <div id="container">
                 <div id="new_classes">
                     <h1>Nova turma</h1>
-                    <input></input>
-                    <button id="btn_create_class">Entrar na turma</button>
+
+                    <input placeholder="Digite o codigo da turma" onKeyUp={(e) => setClassCode(e)}></input>
+                    {/* <Link to={"/classes/"}> */}
+                    <button id="btn_create_class" onClick={searchClass}>Entrar na turma</button>
+                    {/* </Link> */}
                 </div>
 
                 <div id="new_quiz">
-                    <h1>Questionários</h1>
-                    <button id="btn_see_questions">Meus questionários</button>
-                    <button id="btn_create_questions">Novo questionário</button>
+                    <h1>Há um total de 0 feedBacks do professor</h1>
+                    {/* <button id="btn_see_questions">Meus questionários</button>
+                    <button id="btn_create_questions">Novo questionário</button> */}
                 </div>
             </div>
         </div>

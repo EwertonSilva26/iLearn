@@ -15,7 +15,7 @@ const Class = ({ props }) => {
                 <h1>Nome da turma: {props.class_name}</h1>
                 <h1 id="h1Id">ID: {props.class_code}</h1>
                 <div id="btn_rigth">
-                    <Link to={"/class/" + props.id_class} className="card-link">
+                    <Link to={"/choice/"} className="card-link">
                     <button>Entrar</button>
                     </Link>
                 </div>

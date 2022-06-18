@@ -12,7 +12,6 @@ const ClassList = () => {
             <h1>Minhas turmas</h1>
             {classes.length > 0 ? (
                 classes.map((item) => {
-                    console.log("CLASSE: " + JSON.stringify(item))
                     return <Class key={item.id_class} props={item}></Class>;
                 })
             ) : (

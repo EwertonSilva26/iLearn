@@ -18,7 +18,7 @@ const HomeTeacher = () => {
     }
 
     function createClass() {
-        let classCode = uuidv4().replaceAll('-', '').substring(0, 9);
+        let classCode = uuidv4().replaceAll('-', '').substring(0, 10);
         if(className !== ""){
             const objClass = {
                 classCode,

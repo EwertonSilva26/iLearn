@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 export const ClassContext = React.createContext();
@@ -6,15 +7,14 @@ export const ClassContext = React.createContext();
 const ClassProvider = (props) => {
   const [classes, setClasses] = useState([]);
   const [error, setError] = useState("");
+  
+  const { id } = useParams();
 
   useEffect(() => {
     axios
       .get("http://localhost:3003/classes")
       .then((response) => {
-          // console.log("############# FRONTEND " + JSON.stringify(response.data))
           setClasses(response.data.result);
-           console.log("############# FRONTEND " + classes[0])
-
       })
       .catch((err) => {
         console.log(`Erro ao buscar turmas ${err}`)

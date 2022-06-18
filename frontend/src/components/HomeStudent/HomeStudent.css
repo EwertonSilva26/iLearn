@@ -22,6 +22,8 @@ button {
     width: 200px;
 }
 
+#id_myClasses { margin-top: 60px;}
+
 #container {
     margin: 15px;
     width: calc(100% - 30px);

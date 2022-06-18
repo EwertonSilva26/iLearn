@@ -6,17 +6,19 @@ import { useContext } from "react";
 import { LoginContext } from "../../context/LoginProvider";
 
 function Login() {
-  const { loggin, token, error } = useContext(LoginContext);
+  const { loggin, error } = useContext(LoginContext);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    const userInfo = { 
-      email: event.target[0].value, 
-      password: event.target[1].value, };
 
+    const userInfo = {
+      email: event.target[0].value, 
+      password: event.target[1].value 
+    }
+    
     loggin(userInfo);
     
   }

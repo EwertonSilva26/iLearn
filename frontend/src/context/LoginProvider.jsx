@@ -18,14 +18,11 @@ const LoginProvider = (props) => {
           setError("");
 
           let email = response.data.email;
-          console.log("VERIFY: " + email.includes("@prof"))
           setTimeout(() => {
-            if (email.includes("@prof")) {
-              console.log("logando como professor");
-              // navigate("/login");
+            if (email.includes("@professor")) {
+              navigate("/teacher/" + response.data.id_user);
             } else if (email.includes("@aluno")) {
-              console.log("locando como aluno");
-              // navigate("/login");
+              navigate("/student/" + response.data.id_user);
             } else {
               console.log("locando como administrador");
               // navigate("/login");
@@ -36,15 +33,13 @@ const LoginProvider = (props) => {
         }
       })
       .catch((err) => {
-        // setError(response.message);
-        // navigate("/login");
         console.log("[ERROR]: - " + JSON.stringify(err))
       });
   }
 
   const authUser = (response) => {
     let data = {
-      userId: response.user_id,
+      userId: response.id_user,
       email: response.email,
       token: response.token,
     };
