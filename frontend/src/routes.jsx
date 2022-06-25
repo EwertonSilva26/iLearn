@@ -19,8 +19,8 @@ const routes = () => {
             <Route path="/home" element={<Login />} />
             <Route path="/teacher/:id" element={<HomeTeacher />} />
             <Route path="/student/:id" element={<HomeStudent />} />
-            <Route path="/classes" element={<ClassList />} />
-            <Route path="/classe/:id" element={<ClassList />} />
+            <Route path="/classes/:id" element={<ClassList />} />
+            <Route path="/classe" element={<ClassList />} />
             <Route path="/choice" element={<Optional />} />
             <Route path="/questions" element={<QuestionList />} />
             <Route path="*" element={<NotFound />} />

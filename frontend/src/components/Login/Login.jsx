@@ -13,16 +13,22 @@ function Login() {
   function handleSubmit(event) {
     event.preventDefault();
 
-
     const userInfo = {
-      email: event.target[0].value, 
-      password: event.target[1].value 
+      email: event.target[0].value,
+      password: event.target[1].value
     }
-    
+
     loggin(userInfo);
-    
+
   }
-  
+
+
+  function createUser() {
+    // event.preventDefault();
+    console.log("Botão funcionando")
+
+  }
+
   return (
     <div className="container">
 
@@ -59,9 +65,7 @@ function Login() {
         </Form>
 
         <div className="register">
-          <Button className="btn_register" block size="lg" type="submit">
-            FAÇA SEU CADASTRO
-          </Button>
+          <button id="btn_register" onClick={createUser}>FAÇA SEU CADASTRO</button>
         </div>
       </div>
     </div>

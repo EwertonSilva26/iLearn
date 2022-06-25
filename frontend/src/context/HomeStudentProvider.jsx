@@ -10,11 +10,12 @@ const HomeStudentProvider = (props) => {
   let navigate = useNavigate();
 
   const getClass = (classCode) => {
-    debugger
+  
     const obj = {
       idStudent: id,
       classCode: classCode
     }
+    
     axios
       .post("http://localhost:3003/student/classes", obj)
       .then((response) => {

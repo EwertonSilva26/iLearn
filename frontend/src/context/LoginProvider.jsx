@@ -6,7 +6,7 @@ export const LoginContext = React.createContext();
 
 const LoginProvider = (props) => {
   const [token, setToken] = useState(getAuthUser());
-  let [error, setError] = React.useState("");
+  let [error, setError] = useState("");
   let navigate = useNavigate();
 
   const loggin = (info) => {
@@ -24,13 +24,25 @@ const LoginProvider = (props) => {
             } else if (email.includes("@aluno")) {
               navigate("/student/" + response.data.id_user);
             } else {
-              console.log("locando como administrador");
+              console.log("logando como administrador");
               // navigate("/login");
             }
           }, 200);
         } else {
           console.log("erro - status: " + response.data.status);
         }
+      })
+      .catch((err) => {
+        console.log("[ERROR]: - " + JSON.stringify(err))
+      });
+  }
+
+  const registerUser = (request) => {
+    axios
+      .post("http://localhost:3003/create/user", request)
+      .then((response) => {
+        console.log(JSON.stringify(response.data))
+          navigate("/home");
       })
       .catch((err) => {
         console.log("[ERROR]: - " + JSON.stringify(err))
@@ -63,7 +75,8 @@ const LoginProvider = (props) => {
         token: token,
         error: error,
         authUser: authUser,
-        loggin: loggin
+        loggin: loggin,
+        registerUser: registerUser
       }}
     >
       {props.children}
