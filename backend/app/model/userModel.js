@@ -38,6 +38,21 @@ module.exports = {
     })
 
     return await value;
-  }
-  
+  },
+
+    /** Cria novo usuario **/
+    createUser: function (body, connection, callback) {
+      if(body.email.includes("@aluno")) {
+        sql = `CALL insert_user_student(
+          '${body.email}', '${body.password}', '${body.name}', 
+          '${body.middleName}', '${body.lastName}')`;
+      } 
+      else if(body.email.includes("@professor")){
+        sql = `CALL insert_user_teacher(
+          '${body.email}', '${body.password}', '${body.name}', 
+          '${body.middleName}', '${body.lastName}')`;
+      }
+      connection.query(sql, callback);
+    }
+    
 }

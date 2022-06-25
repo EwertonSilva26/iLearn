@@ -1,5 +1,5 @@
 const {check, validationResult } = require("express-validator");
-const { loginController } = require("../controller/userController");
+const { loginController, createUserController } = require("../controller/userController");
 
 // const { verifyJWT } = require("../../utils");
 
@@ -9,12 +9,26 @@ module.exports = {
       try{
         loginController(app, req, res);
       } catch(error) {
-        console.log("Deu ruim: " + error)
+        console.log("Login não foi efetuado: " + error)
         throw error;
       }
 
     });
+  },
+
+  createUser: function(app) {
+    app.post("/create/user", (req, res) => {
+      try{
+        createUserController(app, req, res);
+      } catch(error) {
+        console.log("Usuário não foi cadastrado: " + error)
+        throw error;
+      }
+    })
   }
+
+
+
   // loginUser: function (app, bcrypt, jwt) {
   //   app.post("/login",[
   //     check('email').isEmail().withMessage('Campo deve ser prrenchido com email valido.'),
