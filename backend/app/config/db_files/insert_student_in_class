@@ -1,13 +1,14 @@
 DELIMITER $$
-CREATE PROCEDURE insert_student_in_class (idStudent INT, className varchar(100))
+CREATE PROCEDURE insert_student_in_class (idStudent INT, classCode varchar(100))
 BEGIN
 	DECLARE classId INT;
+    
+    SELECT id_class FROM tb_class WHERE class_code = classCode INTO classId;
 	
-    SELECT id_class FROM tb_class WHERE class_name = className INTO classId;
-
-	SET FOREIGN_KEY_CHECKS=0;
-	UPDATE tb_student_teacher_class SET id_student = idStudent WHERE id_class = classId;
+    SET FOREIGN_KEY_CHECKS=0;
+    INSERT tb_student_class (id_student, id_class) values (idStudent, classId);
 END $$
 DELIMITER ;
 
-CALL insert_student_in_class(1, "TurmaB");
+
+CALL insert_student_in_class(5, 'a5o1bo7qq4');
