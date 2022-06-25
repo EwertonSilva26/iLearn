@@ -92,4 +92,4 @@ button { cursor: pointer;}
 
 .container .register #btn_register:hover{ background-color: #b6c8db; }
 .container .right form .btn_login:hover { background-color: #b6c8db; }
-.container .right form .ipt_label:focus { background-color: #b6c8db; }
+.container .right form .ipt_label:focus { background-color: lightgray; }
