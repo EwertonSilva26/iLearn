@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(53,68,88,0.8);
 }
 
 .container .left {
@@ -39,42 +38,58 @@
   margin-top: 80px; 
 }
 
+.container .left h1 { font-size: 20px}
+
 .container .right {
   height: 100%;
-  width: 800px;
-  padding-left: 25px;
+  width: 80%;
   margin-top: 60px;
-  font-size: 20px;
-  color: #ffffff;
+  color: #000000;
 }
 
 .container .right form {
   width: 100%;
   max-width: 500px;
+  margin-left: 30px;
 } 
 
 button { cursor: pointer;}
 
 .container .right form .ipt_label, .btn_login {
-  width: 300px;
-  padding: 8px;
+  width: calc(100% - 10px);
+  padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
 }
 
 .container .right form .btn_login {
-  width: 100px;
-  padding: 8px;
+  width: 150px;
+  padding: 10px;
   margin-bottom: 25px;
+  background-color: #ffffff;
+  box-shadow: 2px 4px #000000;
 }
 
-.container .register { border-top: 1px solid #ffffff; }
+.container .right form #enter h1, span {
+  font-size: 20px;
+}
+
+.container .register { border-top: 1px solid #000000; }
 
 .container .register #btn_register {
   margin-top: 25px;
   width: calc(100% - 25px);
   border-radius: 8px;
   padding: 15px;
+  background-color: #ffffff;
+  box-shadow: 2px 4px #000000;
+
 }
 
+.btn_login,#btn_register{ color: #000000;}
+
 .register { text-align: center; }
+
+.container .register #btn_register:hover{ background-color: #b6c8db; }
+.container .right form .btn_login:hover { background-color: #b6c8db; }
+.container .right form .ipt_label:focus { background-color: #b6c8db; }

@@ -45,7 +45,7 @@ function Login() {
 
       <div className="right">
         <Form onSubmit={handleSubmit}>
-          <div>
+          <div id="enter">
             <h1>Entrar</h1>
             <span>Já estou cadastrado</span>
           </div>
