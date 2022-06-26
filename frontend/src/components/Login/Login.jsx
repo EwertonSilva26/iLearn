@@ -13,6 +13,9 @@ function Login() {
   function handleSubmit(event) {
     event.preventDefault();
 
+    // if(event.target[0].value == "" || event.target[1].value == "") {
+
+    // }
     const userInfo = {
       email: event.target[0].value,
       password: event.target[1].value
@@ -54,9 +57,9 @@ function Login() {
             <Form.Control className="ipt_label" autoFocus type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
 
-          <Form.Group size="lg" controlId="password">
+          <Form.Group id="pwd_group" size="lg" controlId="password">
             <Form.Control className="ipt_label" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
-            <span className="error-message">{error}</span>
+            <span id="error_message" className="error-message">{error}</span>
           </Form.Group>
 
           <Button className="btn_login" block size="lg" type="submit">

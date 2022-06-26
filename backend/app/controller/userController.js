@@ -17,11 +17,13 @@ module.exports = {
         console.log(`[UserController] - Iniciando login: ${email}`);
 
         const isEmailvalid = await checkEmail(email, connection);
-        const hash = await getHash(email, connection);
         if (isEmailvalid <= 0) {
             res.status(400).send({ status: 400, message: 'E-mail invalido!' });
             return;
-        } else if (hash == 0) {
+        } 
+
+        const hash = await getHash(email, connection);
+        if (hash == 0) {
             res.status(400).send({ status: 400, message: 'Senha invalida!' });
             return;
         }

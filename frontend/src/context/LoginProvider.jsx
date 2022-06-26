@@ -9,6 +9,9 @@ const LoginProvider = (props) => {
   let [error, setError] = useState("");
   let navigate = useNavigate();
 
+  useEffect(()=> {})
+
+
   const loggin = (info) => {
     axios
       .post("http://localhost:3003/login", info)
@@ -28,12 +31,12 @@ const LoginProvider = (props) => {
               // navigate("/login");
             }
           }, 200);
-        } else {
-          console.log("erro - status: " + response.data.status);
         }
       })
       .catch((err) => {
-        console.log("[ERROR]: - " + JSON.stringify(err))
+        console.log("[Erro]: " + JSON.stringify(err));
+        navigate("/login");
+        setError("Login ou senha invalido!");
       });
   }
 
