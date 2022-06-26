@@ -25,7 +25,8 @@ const ClassProvider = (props) => {
   return (
     <ClassContext.Provider
       value={{
-        classes: classes
+        classes: classes,
+        error: error
       }}>
       {props.children}
     </ClassContext.Provider>

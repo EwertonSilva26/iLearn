@@ -9,9 +9,6 @@ const LoginProvider = (props) => {
   let [error, setError] = useState("");
   let navigate = useNavigate();
 
-  useEffect(()=> {})
-
-
   const loggin = (info) => {
     axios
       .post("http://localhost:3003/login", info)

@@ -39,12 +39,12 @@ module.exports = {
 
     insertStudentInClassesController: async function (app, req, res) {
         insertStudentInClass(req.body, connection, function (error, result) {
-
+            const classCode = req.body.classCode;
             if(error){
                 res.status(400).send({ status: 400, error });
             }
 
-            res.status(201).send({ status: 200, result });
+            res.status(201).send({ status: 200, classCode, result });
         })
     },
 

@@ -19,8 +19,6 @@ const HomeStudent = () => {
 
     function searchClass() {
         if(classCode !== ""){
-            console.log("EVENT: " + classCode);
-
             getClass(classCode)
         }
     }
@@ -37,10 +35,8 @@ const HomeStudent = () => {
                 <div id="new_classes">
                     <h1>Nova turma</h1>
 
-                    <input placeholder="Digite o codigo da turma" onKeyUp={(e) => setClassCode(e)}></input>
-                    {/* <Link to={"/classes/"}> */}
+                    <input placeholder="Digite o codigo da turma" onMouseOut={(e) => setClassCode(e)}></input>
                     <button id="btn_create_class" onClick={searchClass}>Entrar na turma</button>
-                    {/* </Link> */}
                 </div>
 
                 <div id="new_quiz">

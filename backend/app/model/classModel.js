@@ -18,7 +18,7 @@ module.exports = {
 
     /** Insere aluno em um turma **/
     insertStudentInClass: function (body, connection, callback) {
-      console.log("[MODEL] - Buscando turmas")
+      console.log(`[MODEL] - Inserindo aluno na turma de código: ${body.classCode}` )
       sql = `CALL insert_student_in_class(${body.idStudent}, '${body.classCode}')`;
       connection.query(sql, callback);
     },

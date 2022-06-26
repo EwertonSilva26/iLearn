@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const HomeStudentContext = React.createContext();
 
 const HomeStudentProvider = (props) => {
-  // let [error, setError] = React.useState("");
-  const { id } = useParams();
-  let navigate = useNavigate();
+  const id = JSON.parse(sessionStorage.getItem('token')).userId;
+  const navigate = useNavigate();
+  // const [error, setError] = React.useState("");
 
   const getClass = (classCode) => {
-  
+
     const obj = {
       idStudent: id,
       classCode: classCode
     }
-    
+debugger
     axios
       .post("http://localhost:3003/student/classes", obj)
       .then((response) => {
-        navigate("/classes/" + response.data.id_class);
+        navigate("/classes/" + response.data.classCode);
       })
       .catch((err) => {
-        // navigate("/classes/" + response.data.id_class);
-        console.log("[ERROR]: - " + JSON.stringify(err))
+        navigate("/student/" + id);
+        console.log("[ERROR]: " + JSON.stringify(err))
       });
   }
 
