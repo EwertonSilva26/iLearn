@@ -1,0 +1,31 @@
+DELIMITER $$
+CREATE PROCEDURE insert_question (TextQuestion TEXT, teacherAnswer TEXT, idClass INT)
+BEGIN
+	DECLARE questionId INT;
+
+	INSERT INTO tb_question (question, teacher_answer) VALUES (TextQuestion, teacherAnswer);
+	
+    SELECT id_question FROM tb_question WHERE question = TextQuestion INTO questionId;
+
+	SET FOREIGN_KEY_CHECKS=0;
+	INSERT INTO tb_classe_question (id_class, id_question) VALUES (idClass, questionId);
+END $$
+DELIMITER ;
+
+CALL insert_question(' Esccreva um programa que leia o ano atual e o ano de nascimento de uma pessoa. Escrever uma mensagem que diga se ela
+poderá ou não votar este ano (não é necessário considerar o mês em que a pessoa nasceu). ', 
+'#include <stdio.h>
+int main()
+{
+    int anoAtual, anoNascimento;
+    printf("Digite o ano atual: ");
+    scanf("%d", &anoAtual);
+    printf("Digite o ano de nascimento: ");
+    scanf("%d", &anoNascimento);
+    if((anoAtual - anoNascimento) >= 18){
+        printf("Você poderá voltar esse ano");
+    } else {
+        printf("Você não poderá voltar esse ano");
+    }
+    return 0;
+}', 5);
