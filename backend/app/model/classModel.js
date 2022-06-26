@@ -10,9 +10,17 @@ module.exports = {
   },
 
   /** Busca todas as turmas **/
-  getAllClasses: function (body, connection, callback) {
+  getAllClasses: function (req, connection, callback) {
     console.log("[MODEL] - Buscando turmas")
-    sql = "SELECT * FROM tb_class";
+    
+    sql = `SELECT c.class_name, c.class_code 
+    FROM tb_student AS s
+    INNER JOIN tb_student_class AS sc
+    ON sc.id_student = s.id_student
+    INNER JOIN tb_class AS c
+    ON sc.id_class = c.id_class
+    WHERE s.id_student = ${req.params.id};`;
+
     connection.query(sql, callback);
   },
 

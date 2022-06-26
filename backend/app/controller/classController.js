@@ -27,8 +27,7 @@ module.exports = {
     },
 
     getAllClassesController: async function (app, req, res) {
-        getAllClasses(req.body, connection, function (error, result) {
-
+        getAllClasses(req, connection, function (error, result) {
             if(error){
                 res.status(400).send({ status: 400, error });
             }

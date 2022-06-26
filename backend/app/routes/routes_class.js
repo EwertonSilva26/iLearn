@@ -20,7 +20,7 @@ module.exports = {
   },
 
   getClasses: function (app) {
-    app.get("/classes", (req, res) => {
+    app.get("/classes/:id", (req, res) => {
       getAllClassesController(app, req, res);
     });
   },
