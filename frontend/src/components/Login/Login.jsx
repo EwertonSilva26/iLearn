@@ -33,7 +33,7 @@ function Login() {
   }
 
   return (
-    <div className="container">
+    <div className="containerLogin">
 
       <div className="left">
         <h1>iLearn</h1>

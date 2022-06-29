@@ -29,23 +29,23 @@ const HomeTeacher = () => {
     }
 
     return (
-        <div className="main">
-            <div id="classes">
+        <div className="mainTeacher">
+            <div className="classesTeacher">
                 <h1>Ver minhas turmas</h1>
-                <button>Minhas turmas</button>
+                <button className="myClassesTeacher">Minhas turmas</button>
             </div>
 
-            <div id="container">
-                <div id="new_classes">
+            <div className="containerTeacher">
+                <div className="new_classes_teacher">
                     <h1>Criar nova turma</h1>
                     <h2>insira um nome para a turma</h2>
                     <input placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
-                    <button id="btn_create_class" onClick={createClass}>Criar turma</button>
+                    <button className="btn_create_class" onClick={createClass}>Criar turma</button>
                 </div>
 
-                <div id="new_answer">
+                <div className="new_answer_teacher">
                     <h1>Respostas</h1>
-                    <p id="question_number">Um total de N questoes foram respondidas</p>
+                    <p className="question_number">Um total de N questoes foram respondidas</p>
                 </div>
             </div>
         </div>

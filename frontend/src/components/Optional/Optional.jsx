@@ -13,7 +13,7 @@ const Optional = () => {
         <div className="main">
             <div id="container">
                 <div id="btn_left">
-                    <Link to={"/ansers/"} >
+                    <Link to={"/questions/"} >
                     <button>Questoẽs</button>
                     </Link>
                 </div>

@@ -1,4 +1,4 @@
-#principal {
+.main {
     margin-top: 100px;
     text-align: center;
     color: #ffffff;
@@ -6,9 +6,9 @@
     background-color: #f10446;
 }
 
-#error { font-size: 100px;}
+.error { font-size: 100px;}
 
-#message { 
+.message { 
     font-size: 30px; 
     margin-top: -70px; 
     padding: 20px;

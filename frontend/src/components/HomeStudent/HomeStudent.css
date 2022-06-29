@@ -1,10 +1,11 @@
 
-#classes {
+.myClasses {
     background-color: #f5f5f5;
     border: solid 1px black;
     padding: 15px;
     margin: 15px;
     font-family: 'Courier New', Courier, monospace;
+    height: 130px;
 }
 
 h1 {
@@ -22,15 +23,16 @@ button {
     width: 200px;
 }
 
-#id_myClasses { margin-top: 60px;}
+.btn_myClasses { margin-top: 60px; }
 
-#container {
+.containerStudent {
     margin: 15px;
     width: calc(100% - 30px);
     display: inline-flex;
+    height: 200px;
 }
 
-#new_classes, #new_quiz {
+.new_classes_student, .feedbacks {
     background-color: #f5f5f5;
     border: solid 1px black;
     width: 50%;
@@ -38,13 +40,19 @@ button {
     margin: 0px;
 }
 
+.feedbacks { text-align: center; }
 input { 
     padding: 10px;
     border-radius: 5px;
-    width: 50%;
+    width: calc(100% - 25px);
 }
 
-#new_classes { margin-right: 20px; }
-#new_classes button {display: block;}
 
-#new_quiz button { margin-top: 30px; }
+.new_classes_student button {
+    display: block; 
+    margin-top: 60px;
+}
+
+.new_classes_student { margin-right: 20px; }
+
+.feedbacks .h1Feedbacks { margin-top: 50px;}

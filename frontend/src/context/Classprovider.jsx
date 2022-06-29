@@ -10,7 +10,7 @@ const ClassProvider = (props) => {
   
   
   useEffect(() => {
-    if(sessionStorage.getItem('token') != undefined){
+    if(sessionStorage.getItem('token') !== null){
     const id = JSON.parse(sessionStorage.getItem('token')).userId;
     
     axios

@@ -5,17 +5,17 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ClassContext } from "../../context/Classprovider";
 
-import "./Class.css";
+// import "./Class.css";
 
 const Class = ({ props }) => {
 
     return (
-        <div className="main">
-            <div id="classes">
+        <div className="mainClass">
+            <div className="Allclasses">
                 <h1>Nome da turma: {props.class_name}</h1>
-                <h1 id="h1Id">ID: {props.class_code}</h1>
-                <div id="btn_rigth">
-                    <Link to={"/choice/"} className="card-link">
+                <h1 className="h1Id">ID: {props.class_code}</h1>
+                <div className="btn_enter">
+                    <Link to={"/choice/"} >
                     <button>Entrar</button>
                     </Link>
                 </div>
