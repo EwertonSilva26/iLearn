@@ -8,22 +8,24 @@
     height: 130px;
 }
 
-h1 {
+.my_classes_student {
     font-size: 16px;
     margin-top: 0;
 }
 
-button {
+.mainStudent button {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 60px;
     font-size: 15px;
     padding: 8px;
-    width: 200px;
 }
 
-.btn_myClasses { margin-top: 60px; }
+.btn_myClasses { 
+    margin-top: 60px; 
+    width: 200px;
+}
 
 .containerStudent {
     margin: 15px;
@@ -41,18 +43,19 @@ button {
 }
 
 .feedbacks { text-align: center; }
-input { 
+
+.containerStudent .new_classes_student #ipt_new_class_student { 
     padding: 10px;
     border-radius: 5px;
     width: calc(100% - 25px);
 }
 
-
 .new_classes_student button {
     display: block; 
     margin-top: 60px;
+    width: 200px;
 }
 
 .new_classes_student { margin-right: 20px; }
 
-.feedbacks .h1Feedbacks { margin-top: 50px;}
+.containerStudent .feedbacks h1 { margin-top: 50px;}

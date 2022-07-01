@@ -1,4 +1,4 @@
-#container {
+#container_opt {
     display: flex;
     justify-content: center;
     background-color: #f5f5f5;
@@ -10,8 +10,8 @@
     width: calc(100% - 60px);
 }
 
-button { width: 500px; }
+#container_opt #btn_left_opt button { width: 500px; }
 
-#btn_left, #btn_rigth { margin-top: 60px; }
+#btn_left_opt, #btn_rigth_opt { margin-top: 60px; }
 
-#btn_rigth{ margin-left: 10px } 
+#btn_rigthIopt{ margin-left: 10px } 

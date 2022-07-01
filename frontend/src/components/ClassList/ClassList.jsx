@@ -9,7 +9,7 @@ const ClassList = () => {
 
     return (
         <div className="main">
-            <h1>Minhas turmas</h1>
+            <h1 style={{margin: "20px", fontSize: "25px"}}>Minhas turmas</h1>
             {classes.length > 0 ? (
                 classes.map((item) => {
                     return <Class key={item.id_class} props={item}></Class>;

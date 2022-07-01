@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { HomeStudentContext } from "../../context/HomeStudentProvider";
 
@@ -24,7 +23,7 @@ const HomeStudent = () => {
     return (
         <div className="mainStudent">
             <div className="myClasses">
-                <h1>Ver minhas turmas</h1>
+                <h1 className="my_classes_student">Ver minhas turmas</h1>
                 <Link to={"/classes"} >
                     <button className="btn_myClasses">Minhas turmas</button>
                 </Link>
@@ -32,14 +31,14 @@ const HomeStudent = () => {
 
             <div className="containerStudent">
                 <div className="new_classes_student">
-                    <h1>Nova turma</h1>
+                    <h1 className="my_classes_student">Nova turma</h1>
 
-                    <input placeholder="Insira o codigo da turma" onMouseOut={(e) => setClassCode(e)}></input>
-                    <button className="btn_create_class_student" onClick={inserStudentInClass}>Entrar na turma</button>
+                    <input id="ipt_new_class_student" placeholder="Insira o codigo da turma" onMouseOut={(e) => setClassCode(e)}></input>
+                    <button id="btn_create_class_student" onClick={inserStudentInClass}>Entrar na turma</button>
                 </div>
 
                 <div className="feedbacks">
-                    <h1 className="h1Feedbacks">Há um total de 0 feedBacks do professor</h1>
+                    <h1 className="my_classes_student">Há um total de 0 feedBacks do professor</h1>
                 </div>
             </div>
         </div>

@@ -1,5 +1,4 @@
-
-.Allclasses {
+.all_classes {
     background-color: #f5f5f5;
     border: solid 1px black;
     padding: 15px;
@@ -8,37 +7,18 @@
     font-family: 'Courier New', Courier, monospace;
 }
 
-h1 {
+.all_classes .class_name_id {
     font-size: 16px;
     padding: 15px;
-    margin: 15px;
     font-family: 'Courier New', Courier, monospace;
 }
 
-.Allclasses h1 {
-    padding: 0px;
-    margin: 0px;
-}
-
-.Allclasses #h1Id {
-    margin-top: 8px;
-}
-
-.Allclasses .btn_enter {
-    display: flex;
-    justify-content: right;
-    width: 200px;
-    float: right;
-    margin-top: 60px;
-}
-
-.Allclasses .btn_enter {
+.all_classes #enter_class button {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
+    margin-top: 10px;
     font-size: 15px;
     padding: 8px;
-    width: 300px;
+    width: 200px;
 }
-
-
