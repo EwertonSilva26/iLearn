@@ -36,8 +36,8 @@ function Login() {
     <div className="containerLogin">
 
       <div className="left">
-        <h1>iLearn</h1>
-        <p> iLearn é uma ferramenta desenvolvida com o intuito de ajudar os alunos
+        <h1 id="title_h1">iLearn</h1>
+        <p id="p_login"> iLearn é uma ferramenta desenvolvida com o intuito de ajudar os alunos
           iniciantes em programação a melhorar sua lógica e escrita de algoritimos.
         </p>
 
@@ -49,7 +49,7 @@ function Login() {
       <div className="right">
         <Form onSubmit={handleSubmit}>
           <div id="enter">
-            <h1>Entrar</h1>
+            <h1 className="title_h1">Entrar</h1>
             <span>Já estou cadastrado</span>
           </div>
 
