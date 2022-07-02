@@ -11,7 +11,7 @@ const Class = ({ props }) => {
                 <h1 className="class_name_id">Nome da turma: {props.class_name}</h1>
                 <h1 className="class_name_id">ID: {props.class_code}</h1>
                 <div id="enter_class">
-                    <Link to={"/choice/"} >
+                    <Link to={"/optional"} >
                         <button>Entrar</button>
                     </Link>
                 </div>

@@ -10,8 +10,18 @@
     width: calc(100% - 60px);
 }
 
-#container_opt #btn_left_opt button { width: 500px; }
+#container_opt  button { 
+    width: 400px;
+    height: 30px;
+    background: cornflowerblue;
+    color: #ffffff;
+}
+
+#container_opt  button:hover { 
+    background-color: #ffffff;
+    color: black;
+}
 
 #btn_left_opt, #btn_rigth_opt { margin-top: 60px; }
 
-#btn_rigthIopt{ margin-left: 10px } 
+#btn_rigth_opt{ margin-left: 10px } 
