@@ -1,0 +1,32 @@
+.main_questions_list #class_question_list {
+  text-align: center;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  margin: 50px 20px 0px 20px;
+  align-items: center;
+}
+
+#class_question_list table,
+th,
+td {
+  border: 1px solid;
+}
+
+#class_question_list table {
+  width: 1000px;
+  background-color: ghostwhite;
+}
+
+#class_question_list table tr #btn_answer {
+  background-color: #b6c8db;
+    color: #000000;
+    font-weight: bolder;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#class_question_list table tr #btn_answer:hover { background-color: aliceblue; }
+
+#class_question_list table #tr_header { background-color: #b6c8db; }

@@ -7,6 +7,8 @@ import HomeTeacherProvider from './context/HomeTeacherProvider';
 import HomeStudentProvider from './context/HomeStudentProvider';
 import Classprovider from './context/Classprovider';
 import Optionalprovider from './context/OptionalProvider';
+import QuestionProvider from './context/QuestionProvider';
+
 import Routes from './routes'
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
           <HomeStudentProvider>
             <Classprovider>
               <Optionalprovider>
-                <Routes />
+                <QuestionProvider>
+                  <Routes />
+                </QuestionProvider>
               </Optionalprovider>
             </Classprovider>
           </HomeStudentProvider>
