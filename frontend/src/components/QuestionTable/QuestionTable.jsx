@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { QuestionContext } from "../../context/QuestionProvider";
 import axios from "axios";
 
-import "./Question.css";
+import "./QuestionTable.css";
 
 let value = "";
 const initialValue = 1;
@@ -30,9 +30,7 @@ const Question = () => {
               });
           }
       });
-    
-
-
+  
     return (
         <div className="main_questions_list">
             <div id="class_question_list">
@@ -52,7 +50,7 @@ const Question = () => {
                                     <td>{question.title}</td>
                                     <td>{question.hasFeedback}</td>
                                     <td>
-                                    <Link to={`/question/${question.id_question}`} >
+                                    <Link to={`class/question/${question.id_question}`} >
                                         <button id="btn_answer">Responder</button>
                                     </Link>
                                     </td>

@@ -9,7 +9,7 @@ import ClassList from "./components/ClassList/ClassList";
 import Optional from "./components/Optional/Optional";
 import NotFound from "./components/NotFound/NotFound";
 // import QuestionList from "./components/QuestionList/QuestionList";
-import Question from "./components/Question/Question";
+import QuestionTable from "./components/QuestionTable/QuestionTable";
 
 
 const routes = () => {
@@ -25,9 +25,8 @@ const routes = () => {
             <Route path="/classes/:id" element={<ClassList />} />
             <Route path="/classes" element={<ClassList />} />
             <Route path="/optional/class/:code" element={<Optional />} />
-            <Route path="/questions" element={<Question />} />
-
-            <Route path="/class/questions/:code" element={<Question />} />
+            <Route path="/class/questions/:code" element={<QuestionTable />} />
+            <Route path="class/question/:id_question" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
 
