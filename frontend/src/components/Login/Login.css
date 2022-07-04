@@ -58,7 +58,7 @@
   color: crimson;
 }
 
-button { cursor: pointer;}
+.btn_login { cursor: pointer;}
 
 .containerLogin .right form .ipt_label, .btn_login {
   width: calc(100% - 10px);
