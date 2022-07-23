@@ -8,9 +8,9 @@ BEGIN
 	
     SELECT id_user FROM tb_user WHERE user_email = email INTO userId;
 
-	INSERT INTO tb_student (student_first_name, student_middle_name, student_last_nane, id_user) 
+	INSERT INTO tb_student (student_first_name, student_middle_name, student_last_name, id_user) 
 	VALUES (student_name, middle_name, last_name, userId);
 END $$
 DELIMITER ;
 
-CALL insert_user_student("aluno1@aluno.com", "456", "aluno1", "silva", "sauro");
+CALL insert_user_student("pedro@aluno.com", "$2b$10$/R.EI4p/RAVoXrJ.OD730uZcqeh7whtgUSzq42m80uq9kzuoVgDtm", "ewerton", "soares", "silva");

@@ -1,9 +1,11 @@
 DELIMITER $$
-CREATE PROCEDURE insert_question (TextQuestion TEXT, teacherAnswer TEXT, idClass INT)
+CREATE PROCEDURE insert_question (questionTitle varchar(200), TextQuestion TEXT,
+teacherAnswer TEXT, tipQuestion varchar(500), idClass INT)
 BEGIN
 	DECLARE questionId INT;
 
-	INSERT INTO tb_question (question, teacher_answer) VALUES (TextQuestion, teacherAnswer);
+	INSERT INTO tb_question (title, question, teacher_answer, tip) 
+    VALUES (questionTitle, TextQuestion, teacherAnswer, tipQuestion);
 	
     SELECT id_question FROM tb_question WHERE question = TextQuestion INTO questionId;
 
@@ -12,20 +14,21 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL insert_question(' Esccreva um programa que leia o ano atual e o ano de nascimento de uma pessoa. Escrever uma mensagem que diga se ela
-poderá ou não votar este ano (não é necessário considerar o mês em que a pessoa nasceu). ', 
+CALL insert_question('Maior de 16 anos poderá voltar','Pegue a data de nascimento da pessoa, 
+verifique se ela tem 16 ou mais anos de idade, se sim print na tela que
+a pessoa poderá votar na proxima eleição se não ela não poderá votar.', 
 '#include <stdio.h>
-int main()
+void main()
 {
     int anoAtual, anoNascimento;
     printf("Digite o ano atual: ");
     scanf("%d", &anoAtual);
     printf("Digite o ano de nascimento: ");
     scanf("%d", &anoNascimento);
-    if((anoAtual - anoNascimento) >= 18){
+    if((anoAtual - anoNascimento) >= 16){
         printf("Você poderá voltar esse ano");
     } else {
         printf("Você não poderá voltar esse ano");
     }
-    return 0;
-}', 5);
+}', 'Comece criando duas variaveis, uma para coletar o atual e outra para pegar o ano de nascimento da pessoa, 
+em seguida verique se a diferença entre o ano atual e o ano de nascimento da pessoa é maior ou igual a 16.', 2);

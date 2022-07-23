@@ -1,0 +1,59 @@
+DELIMITER $$
+
+CREATE PROCEDURE get_Question_Information(classCode varchar(100), questionId INT, userId INT)
+BEGIN
+
+DECLARE studentId INT DEFAULT NULL;
+DECLARE studentAnswer TEXT DEFAULT NULL;
+
+	SELECT id_student from tb_student WHERE id_user = userId INTO studentId;
+
+	IF studentId > 0 THEN
+		SELECT DISTINCT tas.student_answer FROM tb_question AS q INNER JOIN tb_classe_question AS cq
+		ON cq.id_question = q.id_question INNER JOIN tb_class AS c ON cq.id_class = c.id_class
+		INNER JOIN tb_student_class AS sc ON c.id_class = sc.id_class
+		INNER JOIN tb_student AS ts ON sc.id_student = ts.id_student
+		INNER JOIN tb_question_answer_student AS qas ON qas.id_question = ts.id_student
+		INNER JOIN tb_answer AS tas ON qas.id_question = tas.id_answer
+		WHERE c.class_code = classCode AND q.id_question = questionId AND 
+		ts.id_student = studentId INTO studentAnswer;
+        ELSE 
+			SET studentAnswer = "";
+	END IF;        
+        
+    IF studentAnswer <> "" THEN
+     SELECT DISTINCT q.question, q.tip, q.hasFeedBack, 
+     q.teacher_answer, tas.student_answer FROM tb_question AS q
+        INNER JOIN tb_classe_question AS cq
+        ON cq.id_question = q.id_question
+        INNER JOIN tb_class AS c
+        ON cq.id_class = c.id_class
+        INNER JOIN tb_student_class AS sc
+        ON c.id_class = sc.id_class
+        INNER JOIN tb_student AS ts
+        ON sc.id_student = ts.id_student
+        INNER JOIN tb_question_answer_student AS qas
+        ON qas.id_question = ts.id_student
+        INNER JOIN tb_answer AS tas
+        ON qas.id_question = tas.id_answer
+        WHERE c.class_code = classCode AND 
+        q.id_question = questionId AND 
+        ts.id_student = studentId;
+        
+    ELSE
+		SELECT DISTINCT q.question, q.tip, 
+        q.hasFeedBack, q.teacher_answer FROM tb_question AS q
+        INNER JOIN tb_classe_question AS cq
+        ON cq.id_question = q.id_question
+        INNER JOIN tb_class AS c
+        ON cq.id_class = c.id_class
+        INNER JOIN tb_student_class AS sc
+        ON c.id_class = sc.id_class
+        WHERE c.class_code = classCode 
+        AND q.id_question = questionId;
+        
+    END IF;
+END $$
+DELIMITER ;
+
+CALL get_Question_Information('p78ar6lt3', 1, 2);

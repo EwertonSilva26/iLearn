@@ -5,36 +5,36 @@ import axios from "axios";
 
 import "./QuestionTable.css";
 
-let value = "";
-const initialValue = 1;
+let count = 0;
+let classCode = "";
 const Question = () => {
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState("");
 
     useEffect(() => {
-          if (code !== value) {
+        classCode = code;
+        if (count === 0) {
+            count = 1;
             axios
-              .get(`http://localhost:3003/questions/${code}`)
-              .then((response) => {
-                if (response.data.status === 200) {
-                  setQuestions(response.data.result);
-                  setError("");
-                  value = code;
+                .get(`http://localhost:3003/questions/${code}`)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        setQuestions(response.data.result);
+                        setError("");
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Erro ao buscar questões ${err}`)
+                    setError("Erro ao buscar questões");
+                });
+        }
+    });
 
-                }
-              })
-              .catch((err) => {
-                console.log(`Erro ao buscar questões ${err}`)
-                setError("Erro ao buscar questões");
-              });
-          }
-      });
-  
     return (
         <div className="main_questions_list">
             <div id="class_question_list">
-            {questions.length > 0 ? (
+                {questions.length > 0 ? (
                 <table>
                     <tr id="tr_header">
                         <th>ID</th>
@@ -48,11 +48,11 @@ const Question = () => {
                                 <tr key={key}>
                                     <td>{question.id_question}</td>
                                     <td>{question.title}</td>
-                                    <td>{question.hasFeedback}</td>
+                                    <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
                                     <td>
-                                    <Link to={`class/question/${question.id_question}`} >
-                                        <button id="btn_answer">Responder</button>
-                                    </Link>
+                                        <Link to={`/class/question/${classCode}/${question.id_question}`} >
+                                            <button id="btn_answer">Responder</button>
+                                        </Link>
                                     </td>
 
                                 </tr>

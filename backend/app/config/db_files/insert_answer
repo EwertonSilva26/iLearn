@@ -1,0 +1,21 @@
+DELIMITER $$
+CREATE PROCEDURE insert_answer (studentAnswer TEXT, idUser int, questionId int,
+classCode varchar(100))
+BEGIN
+	DECLARE classId INT;
+  	DECLARE answerId INT;
+    DECLARE studentId INT;
+
+	INSERT INTO tb_answer (student_answer) VALUES (studentAnswer);
+	    
+    SELECT id_student FROM tb_student WHERE id_user = idUser INTO studentId;
+    SELECT id_answer FROM tb_answer WHERE student_answer = studentAnswer INTO answerId;
+
+	SET FOREIGN_KEY_CHECKS=0;
+	INSERT INTO tb_question_answer_student (id_question, id_answer, id_student) 
+    VALUES (questionId, answerId, studentId);
+    
+END $$
+DELIMITER ;
+
+CALL insert_answer('Resposta teste', 1, 1,'p78ar6lt3')

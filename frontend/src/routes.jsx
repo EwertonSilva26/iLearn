@@ -26,7 +26,7 @@ const routes = () => {
             <Route path="/classes" element={<ClassList />} />
             <Route path="/optional/class/:code" element={<Optional />} />
             <Route path="/class/questions/:code" element={<QuestionTable />} />
-            <Route path="class/question/:id_question" element={<Question />} />
+            <Route path="/class/question/:code/:id" element={<Question />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
 

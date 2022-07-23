@@ -11,7 +11,7 @@ module.exports = {
 
   /** Busca todas as turmas **/
   getAllClasses: function (req, connection, callback) {
-    console.log("[MODEL] - Buscando turmas")
+    console.log("[MODEL] - Buscando todas as turmas")
     
     sql = `SELECT c.class_name, c.class_code 
     FROM tb_student AS s
@@ -33,7 +33,7 @@ module.exports = {
 
     /** Busca turmas que o aluno esta cadastrado aluno em um turma **/
     getStudentClasses: function (body, connection, callback) {
-      console.log("[MODEL] - Buscando turmas")
+      console.log("[MODEL] - Buscando turmas onde o aluno esta cadastrado")
       sql = `SELECT * FROM tb_student_teacher_class AS stc
       LEFT JOIN tb_class AS c
       ON c.id_class = stc.id_class

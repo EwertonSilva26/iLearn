@@ -17,4 +17,32 @@ module.exports = {
 
         connection.query(sql, callback);
     },
+
+    /** Busca questão por id da questão, codigo da turma e id do usuario**/
+    getQuestionModel: function (req, connection, callback) {
+        console.log(`[MODEL] - Buscando questão com 
+        class code: ${req.params.code}, 
+        id da questão: ${req.params.id},
+        id do usuario: ${req.params.userId}`)
+
+        sql = `CALL get_Question_Information('${req.params.code}', 
+        ${req.params.id}, ${req.params.userId});`
+
+        console.log("SQL: " + sql);
+
+        connection.query(sql, callback);
+    },
+
+
+    /** Insere resposta do aluno**/
+    postAnswerModel: function (req, connection, callback) {
+        const body = req.body;
+        console.log(`[MODEL] - Inserindo resposta: ${JSON.stringify(body)}`)
+
+        sql = `CALL insert_answer('${body.answer}', ${body.userId}, 
+            ${body.questionId},'${body.classCode}')`;
+
+        connection.query(sql, callback);
+    }
+
 }

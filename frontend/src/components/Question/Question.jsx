@@ -1,13 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import swal from 'sweetalert';
 
 import lamp from "./lamp.png";
 import "./Question.css";
 
-const Question = ({ props }) => {
+let count = 0;
+let answer = "";
+const Question = () => {
+    const [question, setQuestion] = useState([]);
+    const [error, setError] = useState("");
+
+    const { id } = useParams();
+    const { code } = useParams();
+
+    const obj = {
+        questionId: id,
+        classCode: code,
+        userId: JSON.parse(sessionStorage.getItem('token')).userId
+    }
+
+    useEffect(() => {
+        if (count === 0) {
+            count = 1;
+            axios.get(`http://localhost:3003/question/${obj.classCode}/${obj.questionId}/${obj.userId}`)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        const result = response.data.result[0];
+                        setQuestion(result[0]);
+                        setError("");
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Erro ao buscar questão ${err}`)
+                    setError("Erro ao buscar questão");
+                });
+        }
+
+    });
+
+    function sendAnswer() {
+        if (answer !== "") {
+            obj.answer = answer;
+            axios
+                .post('http://localhost:3003/answer', obj)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        swal('Resposta enviada com sucesso');
+                        setError("");
+                    }
+                    else {
+                        throw Error();
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Erro ao enviar resposta ${err}`)
+                    setError("Erro ao enviar resposta");
+                });
+        }
+    }
+
+    function setAnswer(event) {
+        answer = event.target.value;
+    }
 
     const showTip = () => {
-        alert(``)
+        swal(`${question.tip}`);
+    }
+
+    const seeFeedBack = () => {
+        swal(`${question.hasFeedBack ?
+            question.feedBack : "Não há feedback para essa questão!"}`);
     }
 
     return (
@@ -15,25 +79,34 @@ const Question = ({ props }) => {
             <div id="question_container">
 
                 <div id="left_question">
-                    <textarea id="txt_id" placeholder="Escreva seu codigo aqui" />
+                    {question.student_answer !== null ? (
+                        <p>
+                            {question.student_answer}
+                        </p>
+
+                    ) : (
+                        
+                        <textarea id="txt_id" onKeyUp={(e) => setAnswer(e)}
+                            placeholder="Escreva seu codigo aqui">
+                        </textarea>
+                    )}
+
                 </div>
 
                 <div id="right_question">
 
-                    <p id="p_question">Se listarmos todos os números naturais
-                        abaixo de 10 que são múltiplos de 3 ou 5, obtemos 3, 5, 6 e 9.
-                        A soma desses múltiplos é 23. Encontre a soma de todos os
-                        múltiplos de 3 ou 5 abaixo de 1000.
-                    </p>
-
                     <button onClick={showTip}>
                         <img src={lamp}></img>
-                        <span className="tooltiptext">Clique para ter uma dica.</span>
+                        <span className="tooltiptext">
+                            Clique para ter uma dica.
+                        </span>
                     </button>
 
+                    <p id="p_question">{question.question}</p>
+
                     <div id="btns_question">
-                        <button>Enviar</button>
-                        <button>Ver Feedback</button>
+                        <button onClick={sendAnswer}>Enviar</button>
+                        <button onClick={seeFeedBack}>Ver Feedback</button>
                     </div>
                 </div>
 

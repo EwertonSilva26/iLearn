@@ -11,3 +11,5 @@ BEGIN
 	INSERT INTO tb_teacher_class (id_teacher, id_class) VALUES (userId, classId);
 END $$
 DELIMITER ;
+
+CALL insert_class('TURMA A', 'p78ar6lt3', 1);

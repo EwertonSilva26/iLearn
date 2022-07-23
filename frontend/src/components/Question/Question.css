@@ -33,8 +33,8 @@
 }
 
 .main_question_class #question_container #left_question #txt_id {
-    width: 497px;
-    height: 497px;
+    width: 540px;
+    height: 495px;
     background-color: #ffffff;
     font-size: 18px;
     resize: none;
@@ -42,7 +42,7 @@
 
 .main_question_class #question_container #right_question #btns_question {
     position: absolute;
-    bottom: 100px;
+    bottom: 115px;
     right: 40px;
 }
 
@@ -63,7 +63,7 @@
 }
 
 .main_question_class #question_container #right_question img {
-    width: 40px;
+    width: 30px;
 }
 
 .main_question_class #question_container #right_question button {
@@ -84,6 +84,7 @@
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
+    cursor: pointer;
 }
 
 .main_question_class #question_container #right_question button:hover .tooltiptext {

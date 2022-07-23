@@ -11,4 +11,4 @@ END $$
 DELIMITER ;
 
 
-CALL insert_student_in_class(5, 'a5o1bo7qq4');
+CALL insert_student_in_class(1, 'p78ar6lt3');

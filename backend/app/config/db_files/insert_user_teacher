@@ -8,9 +8,10 @@ BEGIN
 	
     SELECT id_user FROM tb_user WHERE user_email = email INTO userId;
 
-	INSERT INTO tb_teacher (teacher_first_name, teacher_middle_name, teacher_last_nane, id_user) 
+	INSERT INTO tb_teacher (teacher_first_name, teacher_middle_name, teacher_last_name, id_user) 
 	VALUES (teacher_name, middle_name, last_name, userId);
 END $$
 DELIMITER ;
 
-CALL insert_user_teacher("professor@professor.com", "456", "professor", "silva", "sauro");
+CALL insert_user_teacher("professor@professor.com", 
+"$2b$10$/R.EI4p/RAVoXrJ.OD730uZcqeh7whtgUSzq42m80uq9kzuoVgDtm", "professor", "silva", "sauro");

@@ -1,44 +1,43 @@
-import React from "react";
-// import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+
+import axios from "axios";
 
 export const QuestionContext = React.createContext();
 
 // let count = 0;
-// const initialValue = 1;
 const QuestionProvider = (props) => {
-  // const [questions, setQuestions] = useState([]);
-  // const [error, setError] = useState("");
+  const [question, setQuestion] = useState([]);
+  const [error, setError] = useState("");
   // let code = "";
 
   // const setParams = (params) => {
   //   code = params;
   // }
 
+  // const { id_question } = useParams();
+
   // useEffect(() => {
-  //   if (code !== undefined && code !== "") {
-  //     count += initialValue;
-  //     if (count === initialValue) {
+  //   debugger
   //       axios
-  //         .get(`http://localhost:3003/questions/${code}`)
+  //         .get(`http://localhost:3003/questions/p78ar6lt3`)
   //         .then((response) => {
   //           if (response.data.status === 200) {
-  //             setQuestions(response.data.result);
+  //             setQuestion(response.data.result);
   //             setError("");
   //           }
   //         })
   //         .catch((err) => {
-  //           console.log(`Erro ao buscar questões ${err}`)
-  //           setError("Erro ao buscar questões");
+  //           console.log(`Erro ao buscar questão ${err}`)
+  //           setError("Erro ao buscar questão");
   //         });
-  //     }
-  //   }
-  // });
+  //     });
 
 
   return (
     <QuestionContext.Provider
       value={{
-        // questions: questions,
+        // question: question,
         // error: error,
         // setParams: setParams
       }}

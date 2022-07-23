@@ -5,7 +5,7 @@ import axios from "axios";
 export const ClassContext = React.createContext();
 
 const ClassProvider = (props) => {
-  const [classes, setClasses] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
   const [error, setError] = useState("");
   
   
@@ -16,7 +16,7 @@ const ClassProvider = (props) => {
     axios
       .get("http://localhost:3003/classes/" + id)
       .then((response) => {
-          setClasses(response.data.result);
+        setAllClasses(response.data.result);
       })
       .catch((err) => {
         console.log(`Erro ao buscar turmas ${err}`)
@@ -28,7 +28,7 @@ const ClassProvider = (props) => {
   return (
     <ClassContext.Provider
       value={{
-        classes: classes,
+        allClasses: allClasses,
         error: error
       }}>
       {props.children}
