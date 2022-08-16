@@ -47,18 +47,18 @@ module.exports = {
         })
     },
 
-    getStudentClassesController: async function (app, req, res) {
-        getStudentClasses(req.body, connection, function (error, result) {
+    // getStudentClassesController: async function (app, req, res) {
+    //     getAllClasses(req.body, connection, function (error, result) {
 
-            if(error){
-                res.status(400).send({ status: 400, error });
-            }
+    //         if(error){
+    //             res.status(400).send({ status: 400, error });
+    //         }
 
-            const resp = {
+    //         const resp = {
 
-            }
+    //         }
 
-            res.status(201).send({ status: 200, resp });
-        })
-    }
+    //         res.status(201).send({ status: 200, resp });
+    //     })
+    // }
 }

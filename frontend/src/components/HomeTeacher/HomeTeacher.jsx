@@ -1,5 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { HomeTeacherContext } from "../../context/HomeTeacherProvider";
 
@@ -15,11 +16,14 @@ const HomeTeacher = () => {
 
     function createClass() {
         let classCode = uuidv4().replaceAll('-', '').substring(0, 10);
-        if(className !== ""){
+        debugger
+        if (className !== "") {
             const objClass = {
                 classCode,
-                className
+                className: className.toUpperCase(),
+                userId: JSON.parse(sessionStorage.getItem('token')).userId
             }
+
             createNewClass(objClass)
         }
     }
@@ -28,14 +32,16 @@ const HomeTeacher = () => {
         <div className="mainTeacher">
             <div className="classesTeacher">
                 <h1 className="my_class_teacher">Ver minhas turmas</h1>
-                <button className="myClassesTeacher">Minhas turmas</button>
+                <Link to={"/classes"} >
+                    <button className="myClassesTeacher">Minhas turmas</button>
+                </Link>
             </div>
 
             <div className="containerTeacher">
                 <div className="new_classes_teacher">
                     <h1 className="my_class_teacher">Criar nova turma</h1>
                     <h2>insira um nome para a turma</h2>
-                    <input id="ipt_new_class"placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
+                    <input id="ipt_new_class" placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
                     <button className="btn_create_class" onClick={createClass}>Criar turma</button>
                 </div>
 

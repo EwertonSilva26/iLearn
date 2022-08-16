@@ -28,6 +28,7 @@ const Question = () => {
                 .then((response) => {
                     if (response.data.status === 200) {
                         const result = response.data.result[0];
+                        debugger
                         setQuestion(result[0]);
                         setError("");
                     }
@@ -58,6 +59,9 @@ const Question = () => {
                     console.log(`Erro ao enviar resposta ${err}`)
                     setError("Erro ao enviar resposta");
                 });
+        } else {
+            swal('Campo resposta não pode estar vazio');
+
         }
     }
 
@@ -76,16 +80,28 @@ const Question = () => {
 
     return (
         <div className="main_question_class">
-            <div id="question_container">
+            <div id="div_question">
+                <p>{question.question}</p>
+            </div>
 
+            <div id="div_tip">
+                <button id="btn_tip" onClick={showTip}>
+                    <span className="tooltiptext">
+                        Clique para ter uma dica.
+                    </span>
+                    <img src={lamp}></img>
+                </button>
+            </div>
+
+            <div id="question_container">
                 <div id="left_question">
-                    {question.student_answer !== null ? (
+                    {question.student_answer ? (
                         <p>
                             {question.student_answer}
                         </p>
 
                     ) : (
-                        
+
                         <textarea id="txt_id" onKeyUp={(e) => setAnswer(e)}
                             placeholder="Escreva seu codigo aqui">
                         </textarea>
@@ -95,18 +111,13 @@ const Question = () => {
 
                 <div id="right_question">
 
-                    <button onClick={showTip}>
-                        <img src={lamp}></img>
-                        <span className="tooltiptext">
-                            Clique para ter uma dica.
-                        </span>
-                    </button>
+                    <div id="id_feedback">
+                        <p id="p_feedback">Clique para ter acesso ao feedback enviado pelo professor</p>
+                        <button id="btn_feedback" onClick={seeFeedBack}>Ver Feedback</button>
+                    </div>
 
-                    <p id="p_question">{question.question}</p>
-
-                    <div id="btns_question">
-                        <button onClick={sendAnswer}>Enviar</button>
-                        <button onClick={seeFeedBack}>Ver Feedback</button>
+                    <div id="div_question">
+                        <button id="btn_send_answer" onClick={sendAnswer}>Enviar</button>
                     </div>
                 </div>
 

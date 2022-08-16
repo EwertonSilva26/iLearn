@@ -11,16 +11,15 @@ const ClassList = () => {
     // const { allClassesclasses } = useContext(ClassContext);
     const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
-
+debugger
     useEffect(() => {
         if (sessionStorage.getItem('token') !== null && count === 0) {
             count = 1;
-            const id = JSON.parse(sessionStorage.getItem('token')).userId;
-
+debugger
             axios
-                .get("http://localhost:3003/classes/" + id)
+                .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
                 .then((response) => {
-                    setClasses(response.data.result);
+                    setClasses(response.data.result[0]);
                 })
                 .catch((err) => {
                     console.log(`Erro ao buscar turmas ${err}`)

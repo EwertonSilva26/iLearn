@@ -28,7 +28,7 @@ const HomeTeacherProvider = (props) => {
   return (
     <HomeTeacherContext.Provider
       value={{
-        createNewClass: createNewClass
+        createNewClass: createNewClass,
       }}
     >
       {props.children}

@@ -4,6 +4,7 @@ import { QuestionContext } from "../../context/QuestionProvider";
 import axios from "axios";
 
 import "./QuestionTable.css";
+import next from "./next.png";
 
 let count = 0;
 let classCode = "";
@@ -40,7 +41,7 @@ const Question = () => {
                         <th>ID</th>
                         <th>Descrição / Titulo</th>
                         <th>Feedback</th>
-                        <th>---</th>
+                        <th>Click para responder</th>
                     </tr>
                     {questions.length > 0 ? (
                         questions.map((question, key) => {
@@ -51,7 +52,7 @@ const Question = () => {
                                     <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
                                     <td>
                                         <Link to={`/class/question/${classCode}/${question.id_question}`} >
-                                            <button id="btn_answer">Responder</button>
+                                            <button id="btn_answer"><img id="next" src={next}></img></button>
                                         </Link>
                                     </td>
 

@@ -1,0 +1,35 @@
+DELIMITER $$
+CREATE PROCEDURE get_all_classes (userId INT)
+BEGIN
+	DECLARE userNumber INT;
+	DECLARE teacherId INT;
+    DECLARE studentId INT;
+
+	SELECT COUNT(*) FROM tb_teacher WHERE id_user = userId INTO userNumber;
+    
+    IF userNumber > 0 THEN
+		SELECT id_teacher FROM tb_teacher WHERE id_user = userId INTO teacherId;
+
+		SELECT tc.class_name, tc.class_code 
+		FROM tb_teacher AS tt
+		INNER JOIN tb_teacher_class AS ttc
+		ON tt.id_teacher = ttc.id_teacher
+		INNER JOIN tb_class AS tc
+		ON tc.id_class = ttc.id_class
+		WHERE tt.id_teacher = teacherId;
+	ELSE 
+    	SELECT id_student FROM tb_student WHERE id_user = userId INTO studentId;
+
+		SELECT c.class_name, c.class_code 
+		FROM tb_student AS s
+		INNER JOIN tb_student_class AS sc
+		ON sc.id_student = s.id_student
+		INNER JOIN tb_class AS c
+		ON sc.id_class = c.id_class
+		WHERE s.id_student = studentId;
+	END IF;  
+	
+END $$
+DELIMITER ;
+
+call get_all_classes(2);

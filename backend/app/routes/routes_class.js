@@ -33,7 +33,7 @@ module.exports = {
 
   getStudentClasses: function (app) {
     app.get("students/student/classes/search", (req, res) => {
-      getStudentClassesController(app, req, res);
+      getAllClassesController(app, req, res);
     });
   }
   

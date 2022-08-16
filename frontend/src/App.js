@@ -8,8 +8,10 @@ import HomeStudentProvider from './context/HomeStudentProvider';
 import Classprovider from './context/Classprovider';
 import Optionalprovider from './context/OptionalProvider';
 import QuestionProvider from './context/QuestionProvider';
+import Header from './components/Header/Header';
 
 import Routes from './routes'
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             {/* <Classprovider> */}
               <Optionalprovider>
               {/* <QuestionProvider> */}
+                  <Header />
+                  <Footer />
                   <Routes />
               {/* </QuestionProvider> */}
               </Optionalprovider>

@@ -27,7 +27,7 @@
 .containerTeacher {
     margin: 15px;
     width: calc(100% - 30px);
-    height: 200px;
+    height: 210px;
     display: inline-flex;
 }
 
@@ -51,6 +51,17 @@
     margin-top: 15px;
     margin-bottom: 2px;
     font-size: 16px; 
+}
+
+.containerTeacher .new_classes_teacher .btn_create_class {
+    background: cornflowerblue;
+    color: #ffffff;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 8px;
+    width: 200px;
+    margin-top: 30px;
 }
 
 .containerTeacher .btn_create_class { margin-top: 35px;}
@@ -77,3 +88,4 @@
 
 .new_classes_teacher { margin-right: 20px; }
 
+h1 { font-size: 20px;}

@@ -20,22 +20,24 @@ td {
 
 #class_question_list table tr #btn_answer {
   height: 35px;
-  background-color: #b6c8db;
-  color: #000000;
+  /* border: none; */
   font-weight: bolder;
   border-radius: 5px;
   cursor: pointer;
   padding: 5px;
+  color: white;
 }
 
 #class_question_list table tr #btn_answer:hover {
-  background-color: white;
+  background-color: cornflowerblue;
 }
+
+#class_question_list table tr #btn_answer #next { margin-top: 0;}
 
 #class_question_list table #tr_header {
   background-color: #b6c8db;
 }
 
-#class_question_list table tr td {
-  padding: 10px;
-}
+#class_question_list table tr td { padding: 10px; }
+
+#next { width: 20px;}

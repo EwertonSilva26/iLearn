@@ -1,12 +1,11 @@
 .main_question_class #question_container {
     width: 100%;
-    height: 500px;
-    margin-top: 60px;
+    height: 370px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
 
 .main_question_class #question_container #right_question,
 #left_question {
@@ -19,74 +18,91 @@
 
 .main_question_class #question_container #left_question {
     margin-left: 20px;
-    width: 40%;
+    width: 50%;
 }
 
-.main_question_class #question_container #right_question {
-    margin-right: 20px;
-}
-
-.main_question_class #question_container #right_question #p_question {
-    margin: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-}
+.main_question_class #question_container #right_question { margin-right: 20px; }
 
 .main_question_class #question_container #left_question #txt_id {
-    width: 540px;
-    height: 495px;
+    width: 595px;
+    height: 365px;
     background-color: #ffffff;
     font-size: 18px;
     resize: none;
 }
 
-.main_question_class #question_container #right_question #btns_question {
+#div_question {
+    margin: 30px;
+    margin-top: 80px;
+    font-size: 25px;
+}
+
+#div_tip {
     position: absolute;
-    bottom: 115px;
-    right: 40px;
+    right: 0;
+    margin-top: -60px;
+    margin-right: 20px;
 }
 
-.main_question_class #question_container #right_question #btns_question button {
-    width: 200px;
-    height: 40px;
-    background: cornflowerblue;
-    color: #ffffff;
-    font-weight: bolder;
-    font-size: 16px;
-    margin: 3px;
-    cursor: pointer;
-}
-
-.main_question_class #question_container #right_question #btns_question button:hover {
-    background-color: #b6c8db;
-    ;
-}
-
-.main_question_class #question_container #right_question img {
-    width: 30px;
-}
-
-.main_question_class #question_container #right_question button {
+#div_tip #btn_tip { 
     background: none;
     border: none;
     cursor: pointer;
 }
 
-.main_question_class #question_container #right_question button .tooltiptext {
+#div_tip #btn_tip .tooltiptext { 
     visibility: hidden;
     width: 120px;
-    background-color: black;
+    background-color: cornflowerblue;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-
-    /* Position the tooltip */
     position: absolute;
     z-index: 1;
+    margin-top: 15px;
+    right: 37px;
     cursor: pointer;
 }
 
-.main_question_class #question_container #right_question button:hover .tooltiptext {
-    visibility: visible;
+#div_tip #btn_tip:hover .tooltiptext { visibility: visible; }
+
+#id_feedback {
+    display: flex;
+    margin-left: 25px;
 }
+
+#id_feedback #btn_feedback {
+    width: 100px;
+    height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background: cornflowerblue;
+    color: #ffffff;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+#id_feedback #btn_feedback:hover { background-color: #b6c8db }
+
+#id_feedback #p_feedback { font-size: 20px; }
+
+#right_question #div_question { 
+    text-align: right;
+    margin-top: 250px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+#right_question #div_question #btn_send_answer {
+    background: cornflowerblue;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 15px;
+    padding: 8px;
+    width: 200px;
+    cursor: pointer;
+ }
+
+ #right_question #div_question #btn_send_answer:hover { background-color: #b6c8db }
