@@ -1,12 +1,34 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useContext } from "react";
 import { HomeStudentContext } from "../../context/HomeStudentProvider";
 
 import "./HomeStudent.css";
 
 const HomeStudent = () => {
-    const { insertClass } = useContext(HomeStudentContext);
+    // const { insertClass } = useContext(HomeStudentContext);
+    const navigate = useNavigate();
+
+    const insertClass = (classCode) => {
+        const id = JSON.parse(sessionStorage.getItem('token')).userId;
+    
+        const obj = {
+          idStudent: id,
+          classCode: classCode
+        }
+    debugger
+        axios
+          .post("http://localhost:3003/student/classes", obj)
+          .then((response) => {
+            console.log(response);
+            navigate("/classes/");
+          })
+          .catch((err) => {
+            navigate("/student/" + id);
+            console.log("[ERROR]: " + JSON.stringify(err))
+          });
+    }
 
     let classCode = "";
 

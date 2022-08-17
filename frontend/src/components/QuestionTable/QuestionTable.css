@@ -5,6 +5,7 @@
   flex-direction: column;
   margin: 50px 20px 0px 20px;
   align-items: center;
+  margin-top: 100px;
 }
 
 #class_question_list table,

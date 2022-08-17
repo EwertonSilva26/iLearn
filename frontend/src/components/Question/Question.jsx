@@ -112,11 +112,11 @@ const Question = () => {
                 <div id="right_question">
 
                     <div id="id_feedback">
-                        <p id="p_feedback">Clique para ter acesso ao feedback enviado pelo professor</p>
+                        <p id="p_feedback">Clique para ter acesso ao feedback enviado pelo seu professor:</p>
                         <button id="btn_feedback" onClick={seeFeedBack}>Ver Feedback</button>
                     </div>
 
-                    <div id="div_question">
+                    <div id="div_answer">
                         <button id="btn_send_answer" onClick={sendAnswer}>Enviar</button>
                     </div>
                 </div>

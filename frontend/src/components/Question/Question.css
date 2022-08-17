@@ -1,6 +1,6 @@
 .main_question_class #question_container {
     width: 100%;
-    height: 370px;
+    height: 320px;
     margin-top: 30px;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@
 
 .main_question_class #question_container #left_question #txt_id {
     width: 595px;
-    height: 365px;
+    height: 315px;
     background-color: #ffffff;
     font-size: 18px;
     resize: none;
@@ -73,36 +73,44 @@
 }
 
 #id_feedback #btn_feedback {
-    width: 100px;
+    width: 200px;
     height: 30px;
-    margin-top: 15px;
-    margin-left: 10px;
+    margin-top: 5px;
+    margin-right: 25px;
     padding: 5px;
-    border-radius: 10px;
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bolder;
+    border-radius: 10px;
     cursor: pointer;
 }
 
 #id_feedback #btn_feedback:hover { background-color: #b6c8db }
 
-#id_feedback #p_feedback { font-size: 20px; }
+#id_feedback #p_feedback { 
+    font-size: 18px;
+    margin-top: 10px;
+    margin-right: 10px;
+ }
 
-#right_question #div_question { 
-    text-align: right;
-    margin-top: 250px;
+#right_question #div_answer { 
+    width: 100%;
+    margin-top: 200px;
     font-family:'Times New Roman', Times, serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#right_question #div_question #btn_send_answer {
+#right_question #div_answer #btn_send_answer {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 18px;
     padding: 8px;
-    width: 200px;
-    cursor: pointer;
+    width: 400px;
+    border-radius: 10px;
+   cursor: pointer;
  }
 
- #right_question #div_question #btn_send_answer:hover { background-color: #b6c8db }
+ #right_question #div_answer #btn_send_answer:hover { background-color: #b6c8db }
