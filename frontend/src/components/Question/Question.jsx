@@ -6,14 +6,13 @@ import swal from 'sweetalert';
 import lamp from "./lamp.png";
 import "./Question.css";
 
-let count = 0;
 let answer = "";
 const Question = () => {
     const [question, setQuestion] = useState([]);
     const [error, setError] = useState("");
 
-    const { id } = useParams();
-    const { code } = useParams();
+    const {id} = useParams();
+    const {code} = useParams();
 
     const obj = {
         questionId: id,
@@ -22,8 +21,7 @@ const Question = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3003/question/${obj.questionId}
-        /${obj.classCode}/${obj.userId}`)
+        axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
             .then((response) => {
                 if (response.data.status === 200) {
                     const result = response.data.result[0];
@@ -42,8 +40,7 @@ const Question = () => {
             obj.answer = answer;
 
             checkPercentage(answer);
-            debugger
-            return;
+
             axios
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
@@ -60,7 +57,7 @@ const Question = () => {
                     setError("Erro ao enviar resposta");
                 });
         } else {
-            swal('Campo resposta não pode estar vazio');
+            swal("Campo vazio", 'Campo resposta não pode estar vazio');
 
         }
     }
@@ -70,11 +67,11 @@ const Question = () => {
     }
 
     const showTip = () => {
-        swal(`${question.tip}`);
+        swal("Dica",`${question.tip}`);
     }
 
     const seeFeedBack = () => {
-        swal(`${question.hasFeedBack ?
+        swal("Feedback", `${question.hasFeedBack ?
             question.feedBack : "Não há feedback para essa questão!"}`);
     }
 
@@ -88,10 +85,8 @@ const Question = () => {
                 count += 1;
             }
         }
-
         let result = ((count * 1) / teacherAnswer.length)*100;
-
-        swal(`Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
+        swal("Resposta enviada!", `Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
     }
 
     return (
@@ -112,7 +107,7 @@ const Question = () => {
             <div id="question_container">
                 <div id="left_question">
                     {question.student_answer ? (
-                        <p>
+                        <p id="answer">
                             {question.student_answer}
                         </p>
 

@@ -21,6 +21,11 @@
     width: 50%;
 }
 
+.main_question_class #question_container 
+#left_question #answer {
+    margin: 10px;
+}
+
 .main_question_class #question_container #right_question {
     margin-right: 20px;
 }

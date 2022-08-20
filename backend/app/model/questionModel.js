@@ -28,8 +28,6 @@ module.exports = {
         sql = `CALL get_Question_Information('${req.params.code}', 
         ${req.params.id}, ${req.params.userId});`
 
-        console.log("SQL: " + sql);
-
         connection.query(sql, callback);
     },
 
