@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { HomeTeacherContext } from "../../context/HomeTeacherProvider";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "./HomeTeacher.css";
 
 const HomeTeacher = () => {
-    const { createNewClass } = useContext(HomeTeacherContext);
+    let [error, setError] = useState("");
+    let navigate = useNavigate();
+
     let className = "";
+
+    function createNewClass(info) {
+        axios
+            .post("http://localhost:3003/class/create", info)
+            .then((response) => {
+                if (response.data.status === 201) {
+                    navigate("/classes");
+                }
+                else {
+                    setError("Erro ao criar a turma");
+                    console.log(`Não foi possivel criar a turma - 
+              ${JSON.stringify(response.data)}`)
+                }
+            })
+            .catch((err) => {
+                setError("Erro ao criar a turma");
+            });
+    }
 
     function setClassName(event) {
         className = event.target.value;
@@ -16,7 +36,7 @@ const HomeTeacher = () => {
 
     function createClass() {
         let classCode = uuidv4().replaceAll('-', '').substring(0, 10);
-        debugger
+
         if (className !== "") {
             const objClass = {
                 classCode,
@@ -24,7 +44,7 @@ const HomeTeacher = () => {
                 userId: JSON.parse(sessionStorage.getItem('token')).userId
             }
 
-            createNewClass(objClass)
+            createNewClass(objClass);
         }
     }
 

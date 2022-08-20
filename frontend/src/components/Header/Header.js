@@ -1,12 +1,6 @@
 import React from "react";
 import { Form, Button, Nav, Navbar } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
-
-import { useContext } from "react";
-// import { UfsContext } from "../../context/UfsProvider";
-// import { NewContext } from "../../context/NewProvider";
-import { LoginContext } from "../../context/LoginProvider";
-
 import { useNavigate, useLocation } from "react-router-dom";
 
 import "./Header.css";
@@ -16,41 +10,38 @@ import back from "./img/back.png";
 const style = { marginRight: "10px" };
 
 function Header() {
-  const { token } = useContext(LoginContext);
-//   const { ufs } = useContext(UfsContext);
-//   const { selectUf } = useContext(NewContext);
+  const token = sessionStorage.getItem("token");
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  let navigate = useNavigate();
-  let location = useLocation();
-
-  function handleButton() {
+  function logout() {
     if (token) {
       sessionStorage.removeItem("token");
     }
 
     setTimeout(() => {
-        navigate("/login");
+      navigate("/login");
     }, 100);
   }
 
   return (
     <div>
-    {token && !location.pathname.match("/login") && (
+      {token && (!location.pathname.match("/login") ||
+        !location.pathname.match("/")) ? (
 
-      <div id="header">
-        <img src={back} id="back"></img>
-        <img src={home} id="home"></img>
+        <div className="header">
+          <img src={back} id="back"></img>
+          <img src={home} id="home"></img>
 
-        <button id="leave">Sair</button>
+          <button id="leave" onClick={logout}>Sair</button>
 
+        </div>
+      ) : (
+        <div className="header">
+          <p id="welcome">Bem vindo</p>
+        </div>
 
-
-          {/* <Button variant="outline-info" onClick={handleButton}>
-            {token && !location.pathname.match("/login") ? "Sair" : "Entrar"}
-          </Button> */}
-      </div>
       )}
-      {/* {token && !location.pathname.match("/login") && <div className="user-info">Bem-vindo(a), {token.user_name}</div>} */}
     </div>
   );
 }

@@ -1,31 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Class from "../Class/Class";
-import { useContext } from "react";
-import { ClassContext } from "../../context/Classprovider";
 import axios from "axios";
 
 // import { Link } from "react-router-dom";
 
-let count = 0;
 const ClassList = () => {
-    // const { allClassesclasses } = useContext(ClassContext);
     const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
-debugger
+
     useEffect(() => {
-        if (sessionStorage.getItem('token') !== null && count === 0) {
-            count = 1;
-debugger
-            axios
-                .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
-                .then((response) => {
-                    setClasses(response.data.result[0]);
-                })
-                .catch((err) => {
-                    console.log(`Erro ao buscar turmas ${err}`)
-                    setError("Erro ao buscar turmas");
-                });
-        }
+        axios
+            .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
+            .then((response) => {
+                setClasses(response.data.result[0]);
+            })
+            .catch((err) => {
+                console.log(`Erro ao buscar turmas ${err}`)
+                setError("Erro ao buscar turmas");
+            });
     });
 
     return (

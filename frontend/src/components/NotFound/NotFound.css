@@ -6,10 +6,12 @@
     background-color: #f10446;
 }
 
-.error { font-size: 100px;}
+.error {
+    font-size: 100px;
+}
 
-.message { 
-    font-size: 30px; 
-    margin-top: -70px; 
+.message {
+    font-size: 30px;
+    margin-top: -70px;
     padding: 20px;
 }

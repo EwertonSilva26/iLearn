@@ -22,23 +22,18 @@ const Question = () => {
     }
 
     useEffect(() => {
-        if (count === 0) {
-            count = 1;
-            axios.get(`http://localhost:3003/question/${obj.classCode}/${obj.questionId}/${obj.userId}`)
-                .then((response) => {
-                    if (response.data.status === 200) {
-                        const result = response.data.result[0];
-                        debugger
-                        setQuestion(result[0]);
-                        setError("");
-                    }
-                })
-                .catch((err) => {
-                    console.log(`Erro ao buscar questão ${err}`)
-                    setError("Erro ao buscar questão");
-                });
-        }
-
+        axios.get(`http://localhost:3003/question/${obj.classCode}/${obj.questionId}/${obj.userId}`)
+            .then((response) => {
+                if (response.data.status === 200) {
+                    const result = response.data.result[0];
+                    setQuestion(result[0]);
+                    setError("");
+                }
+            })
+            .catch((err) => {
+                console.log(`Erro ao buscar questão ${err}`)
+                setError("Erro ao buscar questão");
+            });
     });
 
     function sendAnswer() {
@@ -103,7 +98,7 @@ const Question = () => {
                     ) : (
 
                         <textarea id="txt_id" onKeyUp={(e) => setAnswer(e)}
-                            placeholder="Escreva seu codigo aqui">
+                            placeholder="Escreva seu algoritimo aqui">
                         </textarea>
                     )}
 

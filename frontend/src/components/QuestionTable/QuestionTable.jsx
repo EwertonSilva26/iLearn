@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { QuestionContext } from "../../context/QuestionProvider";
 import axios from "axios";
 
 import "./QuestionTable.css";
@@ -36,35 +35,35 @@ const Question = () => {
         <div className="main_questions_list">
             <div id="class_question_list">
                 {questions.length > 0 ? (
-                <table>
-                    <tr id="tr_header">
-                        <th>ID</th>
-                        <th>Descrição / Titulo</th>
-                        <th>Feedback</th>
-                        <th>Click para responder</th>
-                    </tr>
-                    {questions.length > 0 ? (
-                        questions.map((question, key) => {
-                            return (
-                                <tr key={key}>
-                                    <td>{question.id_question}</td>
-                                    <td>{question.title}</td>
-                                    <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
-                                    <td>
-                                        <Link to={`/class/question/${classCode}/${question.id_question}`} >
-                                            <button id="btn_answer"><img id="next" src={next}></img></button>
-                                        </Link>
-                                    </td>
+                    <table>
+                        <tr id="tr_header">
+                            <th>ID</th>
+                            <th>Descrição / Titulo</th>
+                            <th>Feedback</th>
+                            <th>Click para responder</th>
+                        </tr>
+                        {questions.length > 0 ? (
+                            questions.map((question, key) => {
+                                return (
+                                    <tr key={key}>
+                                        <td>{question.id_question}</td>
+                                        <td>{question.title}</td>
+                                        <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
+                                        <td>
+                                            <Link to={`/question/${question.id_question}/class/${classCode}`} >
+                                                <button id="btn_answer"><img id="next" src={next}></img></button>
+                                            </Link>
+                                        </td>
 
-                                </tr>
-                            )
-                        })
+                                    </tr>
+                                )
+                            })
 
-                    ) : (
-                        <h1>Nenhuam questão adicionada!</h1>
-                    )}
+                        ) : (
+                            <h1>Nenhuam questão adicionada!</h1>
+                        )}
 
-                </table>
+                    </table>
                 ) : (
                     <h1>Nenhuam questão adicionada!</h1>
                 )}

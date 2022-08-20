@@ -1,28 +1,86 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
 import "./Login.css";
-import { useContext } from "react";
-import { LoginContext } from "../../context/LoginProvider";
 
 function Login() {
-  const { loggin, error } = useContext(LoginContext);
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [token, setToken] = useState(getAuthUser());
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const loggin = (info) => {
+    axios
+      .post("http://localhost:3003/login", info)
+      .then((response) => {
+        if (response.data.status === 200) {
+          authUser(response.data);
+          setError("");
+
+          let email = response.data.email;
+          setTimeout(() => {
+            if (email.includes("@professor")) {
+              navigate("/teacher/" + response.data.id_user);
+            } else if (email.includes("@aluno")) {
+              navigate("/student/" + response.data.id_user);
+            } else {
+              console.log("logando como administrador");
+              // navigate("/login");
+            }
+          }, 200);
+        }
+      })
+      .catch((err) => {
+        console.log("[Erro]: " + JSON.stringify(err));
+        navigate("/login");
+        setError("Login ou senha invalido!");
+      });
+  }
+
+  const registerUser = (request) => {
+    axios
+      .post("http://localhost:3003/create/user", request)
+      .then((response) => {
+        console.log(JSON.stringify(response.data))
+        navigate("/home");
+      })
+      .catch((err) => {
+        console.log("[ERROR]: - " + JSON.stringify(err))
+      });
+  }
+
+  const authUser = (response) => {
+    let data = {
+      userId: response.id_user,
+      email: response.email,
+      token: response.token,
+    };
+
+    sessionStorage.setItem("token", JSON.stringify(data));
+    setToken(token);
+  };
+
+  function getAuthUser() {
+    const auth = sessionStorage.getItem("token");
+    if (!auth) {
+      return;
+    }
+
+    return JSON.parse(auth);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    // if(event.target[0].value == "" || event.target[1].value == "") {
-
-    // }
     const userInfo = {
       email: event.target[0].value,
       password: event.target[1].value
     }
 
     loggin(userInfo);
-
   }
 
 
@@ -50,7 +108,6 @@ function Login() {
         <Form onSubmit={handleSubmit}>
           <div id="enter">
             <h1 className="title_h1">Entrar</h1>
-            <span>Já estou cadastrado</span>
           </div>
 
           <Form.Group size="lg" controlId="email">
@@ -58,9 +115,13 @@ function Login() {
           </Form.Group>
 
           <Form.Group id="pwd_group" size="lg" controlId="password">
-            <Form.Control className="ipt_label" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
-            <span id="error_message" className="error-message">{error}</span>
+            <Form.Control id="password" className="ipt_label" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
+          {error ? (
+            <span className="error-message" style={{ display: "block" }}>{error}</span>
+          ) : (
+            <span className="error-message" style={{ display: "none" }}>{error}</span>
+          )}
 
           <Button className="btn_login" block size="lg" type="submit">
             Login

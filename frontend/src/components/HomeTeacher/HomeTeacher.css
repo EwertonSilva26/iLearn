@@ -1,10 +1,8 @@
-
 .classesTeacher {
     background-color: #f5f5f5;
     border: solid 1px black;
     padding: 15px;
     margin: 15px;
-    font-family: 'Courier New', Courier, monospace;
     height: 130px;
 }
 
@@ -31,7 +29,8 @@
     display: inline-flex;
 }
 
-.new_classes_teacher, .new_answer_teacher {
+.new_classes_teacher,
+.new_answer_teacher {
     background-color: #f5f5f5;
     border: solid 1px black;
     width: 50%;
@@ -39,9 +38,11 @@
     margin: 0px;
 }
 
-.new_classes_teacher { margin-right: 20px; }
+.new_classes_teacher {
+    margin-right: 20px;
+}
 
-.containerTeacher .new_classes_teacher input { 
+.containerTeacher .new_classes_teacher input {
     padding: 10px;
     border-radius: 5px;
     width: calc(100% - 20px);
@@ -50,7 +51,7 @@
 .containerTeacher .new_classes_teacher h2 {
     margin-top: 15px;
     margin-bottom: 2px;
-    font-size: 16px; 
+    font-size: 16px;
 }
 
 .containerTeacher .new_classes_teacher .btn_create_class {
@@ -64,7 +65,9 @@
     margin-top: 30px;
 }
 
-.containerTeacher .btn_create_class { margin-top: 35px;}
+.containerTeacher .btn_create_class {
+    margin-top: 35px;
+}
 
 .new_classes_teacher {
     background-color: #f5f5f5;
@@ -74,7 +77,7 @@
     margin: 0px;
 }
 
-.containerTeacher .new_classes_teacher #ipt_new_class { 
+.containerTeacher .new_classes_teacher #ipt_new_class {
     padding: 10px;
     border-radius: 5px;
     width: 50%;
@@ -82,10 +85,14 @@
 
 
 .new_classes_teacher button {
-    display: block; 
+    display: block;
     margin-top: 20px;
 }
 
-.new_classes_teacher { margin-right: 20px; }
+.new_classes_teacher {
+    margin-right: 20px;
+}
 
-h1 { font-size: 20px;}
+h1 {
+    font-size: 20px;
+}

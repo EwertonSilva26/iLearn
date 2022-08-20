@@ -4,20 +4,17 @@
     padding: 15px;
     margin: 15px;
     height: 200px;
-    font-family: 'Courier New', Courier, monospace;
 }
 
 .all_classes .class_name_id {
     font-size: 16px;
-    padding: 15px;
-    font-family: 'Courier New', Courier, monospace;
 }
 
 .all_classes #enter_class button {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
-    margin-top: 10px;
+    margin-top: 80px;
     font-size: 15px;
     padding: 8px;
     width: 200px;

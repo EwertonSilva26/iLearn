@@ -1,16 +1,14 @@
-
 .myClasses {
     background-color: #f5f5f5;
     border: solid 1px black;
     padding: 15px;
     margin: 15px;
     margin-top: 80px;
-    font-family: 'Courier New', Courier, monospace;
     height: 130px;
 }
 
 .my_classes_student {
-    font-size: 16px;
+    font-size: 20px;
     margin-top: 0;
 }
 
@@ -18,13 +16,13 @@
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
-    margin-top: 60px;
+    margin-top: 50px;
     font-size: 15px;
     padding: 8px;
 }
 
-.btn_myClasses { 
-    margin-top: 60px; 
+.btn_myClasses {
+    margin-top: 60px;
     width: 200px;
 }
 
@@ -35,7 +33,8 @@
     height: 200px;
 }
 
-.new_classes_student, .feedbacks {
+.new_classes_student,
+.feedbacks {
     background-color: #f5f5f5;
     border: solid 1px black;
     width: 50%;
@@ -43,20 +42,26 @@
     margin: 0px;
 }
 
-.feedbacks { text-align: center; }
+.feedbacks {
+    text-align: center;
+}
 
-.containerStudent .new_classes_student #ipt_new_class_student { 
+.containerStudent .new_classes_student #ipt_new_class_student {
     padding: 10px;
     border-radius: 5px;
     width: calc(100% - 25px);
 }
 
 .new_classes_student button {
-    display: block; 
-    margin-top: 60px;
+    display: block;
+    margin-top: 50px;
     width: 200px;
 }
 
-.new_classes_student { margin-right: 20px; }
+.new_classes_student {
+    margin-right: 20px;
+}
 
-.containerStudent .feedbacks h1 { margin-top: 50px;}
+.containerStudent .feedbacks h1 {
+    margin-top: 50px;
+}

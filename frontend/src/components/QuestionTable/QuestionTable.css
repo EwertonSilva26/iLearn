@@ -15,7 +15,7 @@ td {
 }
 
 #class_question_list table {
-  width: 1000px;
+  width: 100%;
   background-color: ghostwhite;
 }
 
@@ -33,12 +33,18 @@ td {
   background-color: cornflowerblue;
 }
 
-#class_question_list table tr #btn_answer #next { margin-top: 0;}
+#class_question_list table tr #btn_answer #next {
+  margin-top: 0;
+}
 
 #class_question_list table #tr_header {
   background-color: #b6c8db;
 }
 
-#class_question_list table tr td { padding: 10px; }
+#class_question_list table tr td {
+  padding: 10px;
+}
 
-#next { width: 20px;}
+#next {
+  width: 20px;
+}
