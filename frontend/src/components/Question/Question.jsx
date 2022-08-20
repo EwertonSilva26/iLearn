@@ -22,7 +22,8 @@ const Question = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3003/question/${obj.classCode}/${obj.questionId}/${obj.userId}`)
+        axios.get(`http://localhost:3003/question/${obj.questionId}
+        /${obj.classCode}/${obj.userId}`)
             .then((response) => {
                 if (response.data.status === 200) {
                     const result = response.data.result[0];
@@ -39,6 +40,10 @@ const Question = () => {
     function sendAnswer() {
         if (answer !== "") {
             obj.answer = answer;
+
+            checkPercentage(answer);
+            debugger
+            return;
             axios
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
@@ -73,6 +78,22 @@ const Question = () => {
             question.feedBack : "Não há feedback para essa questão!"}`);
     }
 
+    const checkPercentage = (answer) => {
+        const studentAnswer = answer.replaceAll("\n", "").split(" ");
+        const teacherAnswer = question.teacher_answer.replaceAll("\n", "").split(" ");
+        let count = 0;
+
+        for (let i = 0; i < studentAnswer.length; i++) {
+            if (studentAnswer[i] === teacherAnswer[i]) {
+                count += 1;
+            }
+        }
+
+        let result = ((count * 1) / teacherAnswer.length)*100;
+
+        swal(`Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
+    }
+
     return (
         <div className="main_question_class">
             <div id="div_question">
@@ -98,6 +119,7 @@ const Question = () => {
                     ) : (
 
                         <textarea id="txt_id" onKeyUp={(e) => setAnswer(e)}
+                            onMouseOut={(e) => setAnswer(e)}
                             placeholder="Escreva seu algoritimo aqui">
                         </textarea>
                     )}

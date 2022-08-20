@@ -16,7 +16,7 @@ module.exports = {
   },
 
   getQuestion: function (app) {
-    app.get("/question/:code/:id/:userId", (req, res) => {
+    app.get("/question/:id/:code/:userId", (req, res) => {
         try {
             getQuestionController(app, req, res);
         } catch(error) {
