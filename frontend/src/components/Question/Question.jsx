@@ -17,7 +17,7 @@ const Question = () => {
     const obj = {
         questionId: id,
         classCode: code,
-        userId: JSON.parse(sessionStorage.getItem('token')).userId
+        userId: JSON.parse(localStorage.getItem('token')).userId
     }
 
     useEffect(() => {
@@ -109,6 +109,7 @@ const Question = () => {
                     {question.student_answer ? (
                         <p id="answer">
                             {question.student_answer}
+                            <button id="btn_edit">Editar</button>
                         </p>
 
                     ) : (

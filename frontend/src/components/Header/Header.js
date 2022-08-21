@@ -10,13 +10,13 @@ import back from "./img/back.png";
 const style = { marginRight: "10px" };
 
 function Header() {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
 
   function logout() {
     if (token) {
-      sessionStorage.removeItem("token");
+      localStorage.removeItem("token");
     }
 
     setTimeout(() => {

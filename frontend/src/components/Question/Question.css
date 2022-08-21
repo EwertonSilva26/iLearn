@@ -26,6 +26,15 @@
     margin: 10px;
 }
 
+.main_question_class #question_container 
+#left_question #answer #btn_edit {
+    margin-top: 15px;
+    background-color: cornflowerblue;
+    color: #fff;
+    font-weight: bolder;
+    padding: 5px;
+    border-radius: 5px;
+}
 .main_question_class #question_container #right_question {
     margin-right: 20px;
 }

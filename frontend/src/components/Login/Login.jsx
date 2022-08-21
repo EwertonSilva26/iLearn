@@ -59,12 +59,12 @@ function Login() {
       token: response.token,
     };
 
-    sessionStorage.setItem("token", JSON.stringify(data));
+    localStorage.setItem("token", JSON.stringify(data));
     setToken(token);
   };
 
   function getAuthUser() {
-    const auth = sessionStorage.getItem("token");
+    const auth = localStorage.getItem("token");
     if (!auth) {
       return;
     }

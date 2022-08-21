@@ -41,7 +41,7 @@ const HomeTeacher = () => {
             const objClass = {
                 classCode,
                 className: className.toUpperCase(),
-                userId: JSON.parse(sessionStorage.getItem('token')).userId
+                userId: JSON.parse(localStorage.getItem('token')).userId
             }
 
             createNewClass(objClass);
