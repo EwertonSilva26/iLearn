@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Class from "../Class/Class";
 import axios from "axios";
 
-// import { Link } from "react-router-dom";
-
 const ClassList = () => {
     const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
@@ -28,7 +26,7 @@ const ClassList = () => {
                     return <Class key={item.id_class} props={item}></Class>;
                 })
             ) : (
-                <h1>Nenhuam turma adicionada!</h1>
+                <h1 style={{margin: "15px"}}>Nenhuam turma adicionada!</h1>
             )}
         </div>
     );

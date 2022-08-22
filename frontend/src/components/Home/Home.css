@@ -1,4 +1,4 @@
-.myClasses {
+.classes {
     background-color: #f5f5f5;
     border: solid 1px black;
     padding: 15px;
@@ -7,12 +7,12 @@
     height: 130px;
 }
 
-.my_classes_student {
+.my_classes {
     font-size: 20px;
     margin-top: 0;
 }
 
-.mainStudent button {
+button {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
@@ -26,14 +26,14 @@
     width: 200px;
 }
 
-.containerStudent {
+.container {
     margin: 15px;
     width: calc(100% - 30px);
     display: inline-flex;
     height: 200px;
 }
 
-.new_classes_student,
+.new_classes,
 .feedbacks {
     background-color: #f5f5f5;
     border: solid 1px black;
@@ -46,22 +46,24 @@
     text-align: center;
 }
 
-.containerStudent .new_classes_student #ipt_new_class_student {
+.container .new_classes #ipt_new_class {
     padding: 10px;
     border-radius: 5px;
     width: calc(100% - 25px);
 }
 
-.new_classes_student button {
+.new_classes button {
     display: block;
     margin-top: 50px;
     width: 200px;
 }
 
-.new_classes_student {
+.new_classes {
     margin-right: 20px;
 }
 
-.containerStudent .feedbacks h1 {
+.container .feedbacks h1 {
     margin-top: 50px;
 }
+
+.container .new_classes #btn_create_class { margin-top: 8px;}
