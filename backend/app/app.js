@@ -14,4 +14,5 @@ classRoutes.getStudentClasses(app);
 
 questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);
-questionRoutes.postAnswer(app)
+questionRoutes.postAnswer(app);
+questionRoutes.sendQuestion(app);

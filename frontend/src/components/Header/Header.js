@@ -1,15 +1,13 @@
-import React from "react";
-import { Form, Button, Nav, Navbar } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import "./Header.css";
 import home from "./img/home.png";
 import back from "./img/back.png";
 
-const style = { marginRight: "10px" };
 
 function Header() {
+  const [msg, setMsg] = useState("")
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,10 +17,18 @@ function Header() {
       localStorage.removeItem("token");
     }
 
-    setTimeout(() => {
-      navigate("/login");
-    }, 100);
+    navigate("/login");
   }
+
+  useEffect(() => {
+    if (token && (location.pathname.includes("/teacher/class/") &&
+      location.pathname.includes("/add/question"))) {
+
+      setMsg("Adicionar questão");
+
+    }
+
+  })
 
   return (
     <div>
@@ -30,6 +36,10 @@ function Header() {
         !location.pathname.match("/")) ? (
 
         <div className="header">
+          {/* <div id="add_question">
+            <p>{msg}</p>
+          </div> */}
+
           <img src={back} id="back"></img>
           <img src={home} id="home"></img>
 

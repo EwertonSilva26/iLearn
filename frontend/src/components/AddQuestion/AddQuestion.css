@@ -1,0 +1,124 @@
+.add-question-body {
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-question-container #input_title,
+textarea {
+  width: 800px;
+  height: 30px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+textarea {
+  resize: none !important;
+  height: 80px;
+  margin-bottom: 0px;
+}
+
+.add-question-container h1 {
+  margin: 0px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.add-question-container #insert_info {
+  color: grey;
+  font-size: 20px;
+}
+
+.add-question-container button {
+  margin-top: 5px;
+  width: 200px;
+}
+
+.add-question-container form {
+  margin-top: 20px;
+}
+
+.add-question-container label {
+  font-size: 15px;
+  display: flex;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.error-message {
+  color: red !important;
+  margin-bottom: 0;
+  font-size: 15px;
+  display: flex;
+  justify-content: left;
+  width: 200px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal_id {
+  display: block;
+}
+
+.p_message {
+  margin-bottom: 100px;
+  font-size: 30px;
+  background-color: cornflowerblue;
+  margin: 50px;
+  height: 40px;
+}
+
+button {
+  margin-right: 2px;
+  border-radius: 5px;
+  height: 40px;
+}

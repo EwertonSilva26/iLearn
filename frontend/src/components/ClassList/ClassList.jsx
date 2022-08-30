@@ -6,6 +6,8 @@ const ClassList = () => {
     const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
 
+    let count = 0;
+
     useEffect(() => {
         axios
             .get(`http://localhost:3003/classes/${JSON.parse(localStorage.getItem('token')).userId}`)
@@ -23,6 +25,11 @@ const ClassList = () => {
             <h1 style={{ margin: "20px", fontSize: "25px" }}>Minhas turmas</h1>
             {classes.length > 0 ? (
                 classes.map((item) => {
+                    item.itemTotal = 0;
+                    count++;
+                    if(count === (classes.length)){
+                        item.itemTotal = count;
+                    }
                     return <Class key={item.id_class} props={item}></Class>;
                 })
             ) : (

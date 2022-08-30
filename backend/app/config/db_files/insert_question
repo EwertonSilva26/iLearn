@@ -1,17 +1,19 @@
 DELIMITER $$
-CREATE PROCEDURE insert_question (questionTitle varchar(200), TextQuestion TEXT,
-teacherAnswer TEXT, tipQuestion varchar(500), idClass INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_question`(questionTitle varchar(200), TextQuestion TEXT,
+teacherAnswer TEXT, tipQuestion varchar(500), classCode varchar(100))
 BEGIN
 	DECLARE questionId INT;
+    DECLARE idClass INT;
 
 	INSERT INTO tb_question (title, question, teacher_answer, tip) 
     VALUES (questionTitle, TextQuestion, teacherAnswer, tipQuestion);
 	
     SELECT id_question FROM tb_question WHERE question = TextQuestion INTO questionId;
+	SELECT id_class FROM tb_class WHERE class_code = classCode INTO idClass;
 
 	SET FOREIGN_KEY_CHECKS=0;
 	INSERT INTO tb_classe_question (id_class, id_question) VALUES (idClass, questionId);
-END $$
+END
 DELIMITER ;
 
 CALL insert_question('Maior de 16 anos poderá voltar','Pegue a data de nascimento da pessoa, 
@@ -31,4 +33,4 @@ void main()
         printf("Você não poderá voltar esse ano");
     }
 }', 'Comece criando duas variaveis, uma para coletar o atual e outra para pegar o ano de nascimento da pessoa, 
-em seguida verique se a diferença entre o ano atual e o ano de nascimento da pessoa é maior ou igual a 16.', 2);
+em seguida verique se a diferença entre o ano atual e o ano de nascimento da pessoa é maior ou igual a 16.',"t8a5er3bn4");

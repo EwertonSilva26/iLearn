@@ -1,7 +1,8 @@
 const {
     getQuestionsByClassCodeController,
     getQuestionController,
-    postAnswerController
+    postAnswerController,
+    sendQuestionController
 } = require("../controller/questionController");
 
 module.exports = {
@@ -29,6 +30,16 @@ module.exports = {
     app.post("/answer", (req, res) => {
         try {
             postAnswerController(app, req, res);
+        } catch(error) {
+            throw error;
+        }
+    });
+  },
+
+  sendQuestion: function (app) {
+    app.post("/question", (req, res) => {
+        try {
+            sendQuestionController(app, req, res);
         } catch(error) {
             throw error;
         }

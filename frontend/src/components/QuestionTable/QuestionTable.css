@@ -7,7 +7,8 @@ button { margin-top: 0;}
   flex-direction: column;
   margin: 0px 20px 20px 20px;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 #class_question_list table,
@@ -43,7 +44,7 @@ td {
 }
 
 #class_question_list table tr td {
-  padding: 10px;
+  padding: 0;
 }
 
 #next {

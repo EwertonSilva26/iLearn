@@ -40,6 +40,7 @@ const Question = () => {
             obj.answer = answer;
 
             checkPercentage(answer);
+            return;
 
             axios
                 .post('http://localhost:3003/answer', obj)

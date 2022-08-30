@@ -7,6 +7,7 @@ import Home from "./components/Home/Home";
 import ClassList from "./components/ClassList/ClassList";
 import NotFound from "./components/NotFound/NotFound";
 import Question from "./components/Question/Question";
+import AddQuestion from './components/AddQuestion/AddQuestion';
 import QuestionTable from "./components/QuestionTable/QuestionTable";
 
 const routes = () => {
@@ -20,6 +21,7 @@ const routes = () => {
             <Route path="/student/:id" element={<Home />} />
             <Route path="/classes/student/:id" element={<ClassList />} />
             <Route path="/classes/teacher/:id" element={<ClassList />} />
+            <Route path="/teacher/class/:code/add/question" element={<AddQuestion />} />
             <Route path="/questions/class/:code" element={<QuestionTable />} />
             <Route path="/question/:id/class/:code" element={<Question />} />
             <Route path="*" element={<NotFound />} />

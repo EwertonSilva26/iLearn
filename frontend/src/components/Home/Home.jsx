@@ -100,7 +100,7 @@ const Home = () => {
                             <button onClick={inserStudentInClass}>Entrar na turma</button>
                         </div>
 
-                        <div className="feedbacks">
+                        <div className="feedbacks" style={{display: "none"}}>
                             <h1 className="my_classes">Há um total de 0 feedBacks do professor</h1>
                         </div>
                     </div>
@@ -123,7 +123,7 @@ const Home = () => {
                             <button id="btn_create_class" onClick={createClass}>Criar turma</button>
                         </div>
 
-                        <div className="new_classes">
+                        <div className="new_classes" style={{display: "none"}}>
                             <h1 className="my_classes">Respostas</h1>
                             <p className="question_number">Um total de N questoes foram respondidas</p>
                         </div>

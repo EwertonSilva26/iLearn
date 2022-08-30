@@ -4,7 +4,8 @@ const connection = dbConnection();
 const {
     getQuestionsByClassCodeModel,
     getQuestionModel,
-    postAnswerModel
+    postAnswerModel,
+    sendQuestionModel
 } = require("../model/questionModel");
 
 module.exports = {
@@ -36,6 +37,18 @@ module.exports = {
             }
 
             res.status(200).send({ status: 200, result });
+        })
+    },
+
+
+    sendQuestionController: async function (app, req, res) {
+        sendQuestionModel(req, connection, function (error, result) {
+            if(error){
+                res.status(400).send({ status: 400, error });
+            }
+
+            res.status(204).send({ status: 204, result,
+                 message: "Questão cadastrada com sucesso!" });
         })
     }
 

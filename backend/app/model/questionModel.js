@@ -41,6 +41,17 @@ module.exports = {
             ${body.questionId},'${body.classCode}')`;
 
         connection.query(sql, callback);
-    }
+    },
+
+        /** Insere questão **/
+        sendQuestionModel: function (req, connection, callback) {
+            const body = req.body;
+            console.log(`[MODEL] - Inserindo questão: ${JSON.stringify(body)}`)
+    
+            sql = `CALL insert_question('${body.title}', '${body.question}', 
+                '${body.teacherAnswer}','${body.tip}','${body.classCode}')`;
+    
+            connection.query(sql, callback);
+        }
 
 }
