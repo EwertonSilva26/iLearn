@@ -11,6 +11,7 @@ classRoutes.createClass(app);
 classRoutes.getClasses(app);
 classRoutes.insertStudentsInClasses(app);
 classRoutes.getStudentClasses(app);
+classRoutes.getClassInformation(app);
 
 questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);

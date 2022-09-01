@@ -67,7 +67,7 @@ const Question = () => {
                                         <td>{question.title}</td>
                                         <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
                                         <td>
-                                            <Link to={`/answers/question/${question.id_question}/class/${code}`} >
+                                            <Link to={`/class/${code}/question/${question.id_question}/answers`} >
                                                 <button id="btn_answer">
                                                     <img id="next" src={next}></img>
                                                 </button>

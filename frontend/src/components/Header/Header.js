@@ -32,8 +32,8 @@ function Header() {
 
   return (
     <div>
-      {token && (!location.pathname.match("/login") ||
-        !location.pathname.match("/")) ? (
+      {token && ((!location.pathname.match("/login")) ||
+        (!location.pathname.match("/"))) ? (
 
         <div className="header">
           {/* <div id="add_question">

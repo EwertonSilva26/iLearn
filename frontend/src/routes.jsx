@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound/NotFound";
 import Question from "./components/Question/Question";
 import AddQuestion from './components/AddQuestion/AddQuestion';
 import QuestionTable from "./components/QuestionTable/QuestionTable";
+import AnswerTable from './components/AnswerTable/AnswerTable';
 
 const routes = () => {
 
@@ -25,7 +26,7 @@ const routes = () => {
             <Route path="/questions/class/:code" element={<QuestionTable />} />
             <Route path="teacher/questions/class/:code" element={<QuestionTable />} />
             <Route path="/question/:id/class/:code" element={<Question />} />
-            <Route path="/answers/question/:id/class/:code" element={<Question />} />
+            <Route path="/class/:code/question/:id/answers" element={<AnswerTable />} />
             <Route path="*" element={<NotFound />} />
         </Routes>
 

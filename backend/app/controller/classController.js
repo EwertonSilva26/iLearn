@@ -5,7 +5,8 @@ const {
     createClass, 
     getAllClasses, 
     insertStudentInClass,
-    getStudentClasses 
+    // getStudentClasses 
+    getClassInformationModel
 } = require("../model/classModel");
 
 module.exports = {
@@ -61,4 +62,16 @@ module.exports = {
     //         res.status(201).send({ status: 200, resp });
     //     })
     // }
+
+    getClassInformationController: async function (app, req, res) {
+        getClassInformationModel(req, connection, function (error, result) {
+            if(error){
+                res.status(400).send({ status: 400, error });
+            }
+
+            console.log("RESULTADO: " + JSON.stringify(result[0]))
+            res.status(200).send({ status: 200, result });
+        })
+    }
+
 }

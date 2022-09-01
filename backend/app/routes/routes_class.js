@@ -3,7 +3,8 @@ const {
   createClassController, 
   getAllClassesController,
   insertStudentInClassesController,
-  getStudentClassesController
+  // getStudentClassesController,
+  getClassInformationController
 } = require("../controller/classController");
 
 // const { verifyJWT } = require("../../utils");
@@ -34,6 +35,16 @@ module.exports = {
   getStudentClasses: function (app) {
     app.get("students/student/classes/search", (req, res) => {
       getAllClassesController(app, req, res);
+    });
+  },
+
+  getClassInformation: function (app) {
+    app.get("/class/:code/question/:id/answers", (req, res) => {
+        try {
+            getClassInformationController(app, req, res);
+        } catch(error) {
+            throw error;
+        }
     });
   }
   
