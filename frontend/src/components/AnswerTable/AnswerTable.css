@@ -2,29 +2,30 @@ button {
     margin-top: 0;
   }
   
-  .main_questions_list #class_question_list {
+  .answer_list #class_answer_list {
     text-align: center;
     display: flex;
     justify-items: center;
     flex-direction: column;
     margin: 0px 20px 20px 20px;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 40px;
     margin-bottom: 100px;
   }
   
-  #class_question_list table,
+  #class_answer_list table,
   th,
   td {
     border: 1px solid;
   }
   
-  #class_question_list table {
+  #class_answer_list table {
     width: 80%;
     background-color: ghostwhite;
+    height: 430px;
   }
   
-  #class_question_list table tr #btn_answer {
+  #class_answer_list table tr #btn_answer {
     height: 35px;
     font-weight: bolder;
     border-radius: 5px;
@@ -33,24 +34,24 @@ button {
     color: white;
   }
   
-  #class_question_list table tr #btn_answer:hover {
+  #class_answer_list table tr #btn_answer:hover {
     background-color: cornflowerblue;
   }
   
-  #class_question_list table tr #btn_answer #next {
+  #class_answer_list table tr #btn_answer #next {
     margin-top: 0;
   }
   
-  #class_question_list table #tr_header {
+  #class_answer_list table #tr_header {
     background-color: #b6c8db;
   }
   
-  #class_question_list table #tr_header .tb_class {
+  #class_answer_list table #tr_header .tb_class {
     width: 180px;
     padding: 2px;
   }
   
-  #class_question_list table tr td {
+  #class_answer_list table tr td {
     padding: 10px;
     width: 300px;
   }

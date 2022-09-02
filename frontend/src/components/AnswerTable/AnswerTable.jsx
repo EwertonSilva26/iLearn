@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./AnswerTable.css";
-// import next from "./next.png";
+import next from "./next.png";
 
 let countReq = 0;
 const AnswerTable = () => {
@@ -30,48 +30,50 @@ const AnswerTable = () => {
     });
 
     return (
-        <div className="main_questions_list">
-            <div id="class_question_list">
+        <div className="answer_list">
+            <div id="class_answer_list">
+
                 {infos.length > 0 ? (
-                    <table>
-                        <tr id="tr_header">
-                            <th>Aluno</th>
-                            <th>Questão</th>
-                            <th>Algoritimo do Professor</th>
-                            <th>Algoritimo do Aluno</th>
-                            <th className="tb_class">Feedback</th>
-                            <th className="tb_class">Responder</th>
-                        </tr>
-                        {infos.length > 0 ? (
-                            infos.map((info, key) => {
-                                return (
-                                    <tr key={key}>
-                                        <td>{`${info.student_first_name.toUpperCase()} 
+                    <>
+                        <h1>{infos[0].class_name}</h1>
+                        <table>
+                            <tr id="tr_header">
+                                <th>Aluno</th>
+                                <th>Questão</th>
+                                <th>Algoritimo do Professor</th>
+                                <th>Algoritimo do Aluno</th>
+                                <th className="tb_class">Feedback</th>
+                                <th className="tb_class">Responder</th>
+                            </tr>
+                            {infos.length > 0 ? (
+                                infos.map((info, key) => {
+                                    return (
+                                        <tr key={key}>
+                                            <td>{`${info.student_first_name.toUpperCase()} 
                                             ${info.student_middle_name.toUpperCase()} 
                                             ${info.student_last_name.toUpperCase()}`}
-                                        </td>
-                                        <td>{info.question}</td>
-                                        <td>{info.teacher_answer}</td>
-                                        <td>{info.student_answer}</td>
-                                        <td>{info.hasFeedback ? info.feedback : 'Não'}</td>
-                                        <td>
-                                            <Link to={`/class/${code}/question/${info.id_question}/answers`} >
+                                            </td>
+                                            <td>{info.question}</td>
+                                            <td>{info.teacher_answer}</td>
+                                            <td>{info.student_answer}</td>
+                                            <td>{info.hasFeedback ? info.feedback : 'Não'}</td>
+                                            <td>
                                                 <button id="btn_answer">
-                                                    Dar Feedback
+                                                    <img id="next" src={next}></img>
                                                 </button>
-                                            </Link>
-                                        </td>
+                                            </td>
 
-                                    </tr>
-                                )
-                            })
+                                        </tr>
+                                    )
+                                })
 
-                        ) : (
+                            ) : (
 
-                            <h1>Nenhuam resposta adicionada!</h1>
-                        )}
+                                <h1>Nenhuam resposta adicionada!</h1>
+                            )}
 
-                    </table>
+                        </table>
+                    </>
 
                 ) : (
                     <h1>Nenhuam resposta adicionada!</h1>
