@@ -1,61 +1,137 @@
 button {
-    margin-top: 0;
-  }
-  
-  .answer_list #class_answer_list {
-    text-align: center;
-    display: flex;
-    justify-items: center;
-    flex-direction: column;
-    margin: 0px 20px 20px 20px;
-    align-items: center;
-    margin-top: 40px;
-    margin-bottom: 100px;
-  }
-  
-  #class_answer_list table,
-  th,
-  td {
-    border: 1px solid;
-  }
-  
-  #class_answer_list table {
-    width: 80%;
-    background-color: ghostwhite;
-    height: 430px;
-  }
-  
-  #class_answer_list table tr #btn_answer {
-    height: 35px;
-    font-weight: bolder;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 5px;
-    color: white;
-  }
-  
-  #class_answer_list table tr #btn_answer:hover {
-    background-color: cornflowerblue;
-  }
-  
-  #class_answer_list table tr #btn_answer #next {
-    margin-top: 0;
-  }
-  
-  #class_answer_list table #tr_header {
-    background-color: #b6c8db;
-  }
-  
-  #class_answer_list table #tr_header .tb_class {
-    width: 180px;
-    padding: 2px;
-  }
-  
-  #class_answer_list table tr td {
-    padding: 10px;
-    width: 300px;
-  }
-  
-  #next {
-    width: 20px;
-  }
+  margin-top: 0;
+}
+
+.answer_list #class_answer_list {
+  text-align: center;
+  display: flex;
+  justify-items: center;
+  flex-direction: column;
+  margin: 0px 20px 20px 20px;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+#class_answer_list table,
+th,
+td {
+  border: 1px solid;
+}
+
+#class_answer_list table {
+  width: 80%;
+  background-color: ghostwhite;
+  height: 430px;
+}
+
+#class_answer_list table tr #btn_answer {
+  height: 35px;
+  font-weight: bolder;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+  color: white;
+}
+
+#class_answer_list table tr #btn_answer:hover {
+  background-color: cornflowerblue;
+}
+
+#class_answer_list table tr #btn_answer #next {
+  margin-top: 0;
+}
+
+#class_answer_list table #tr_header {
+  background-color: #b6c8db;
+}
+
+#class_answer_list table #tr_header .tb_class {
+  width: 180px;
+  padding: 2px;
+}
+
+#class_answer_list table tr td {
+  padding: 10px;
+  width: 300px;
+}
+
+#next {
+  width: 20px;
+}
+
+/* Modal */
+.fdb_modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.fdb_modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  margin-top: 100px;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 42%;
+}
+
+.fdb_modal-content #txt_modal {
+  resize: none;
+  height: 150px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
+/* The Close Button */
+.btn_close {
+  color: #aaa;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.btn_close:hover,
+.btn_close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#modal_id {
+  display: block;
+}
+
+.fdb_p_message {
+  font-size: 30px;
+  font-weight: 600;
+  height: 35px;
+  margin-top: 0;
+}
+
+.buttons {
+  margin-top: 10px;
+  float: right;
+}
+
+.fdb_cancel {
+  height: 40px;
+  width: 100px;
+}
+
+.error_message {
+  display: none;
+  font-size: 15px;
+  font-weight: 600;
+  margin-left: 5px;
+  color: red;
+}

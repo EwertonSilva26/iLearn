@@ -17,3 +17,4 @@ questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);
 questionRoutes.postAnswer(app);
 questionRoutes.sendQuestion(app);
+questionRoutes.sendFeedback(app);

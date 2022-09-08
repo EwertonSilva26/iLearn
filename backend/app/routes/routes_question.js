@@ -2,47 +2,59 @@ const {
     getQuestionsByClassCodeController,
     getQuestionController,
     postAnswerController,
-    sendQuestionController
+    sendQuestionController,
+    sendFeedbackController
 } = require("../controller/questionController");
 
 module.exports = {
     getQuestionsByClassCode: function (app) {
-    app.get("/questions/:id", (req, res) => {
-        try {
-            getQuestionsByClassCodeController(app, req, res);
-        } catch(error) {
-            throw error;
-        }
-    });
-  },
+        app.get("/questions/:id", (req, res) => {
+            try {
+                getQuestionsByClassCodeController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
 
-  getQuestion: function (app) {
-    app.get("/question/:id/:code/:userId", (req, res) => {
-        try {
-            getQuestionController(app, req, res);
-        } catch(error) {
-            throw error;
-        }
-    });
-  },
+    getQuestion: function (app) {
+        app.get("/question/:id/:code/:userId", (req, res) => {
+            try {
+                getQuestionController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
 
-  postAnswer: function (app) {
-    app.post("/answer", (req, res) => {
-        try {
-            postAnswerController(app, req, res);
-        } catch(error) {
-            throw error;
-        }
-    });
-  },
+    postAnswer: function (app) {
+        app.post("/answer", (req, res) => {
+            try {
+                postAnswerController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
 
-  sendQuestion: function (app) {
-    app.post("/question", (req, res) => {
-        try {
-            sendQuestionController(app, req, res);
-        } catch(error) {
-            throw error;
-        }
-    });
-  }
+    sendQuestion: function (app) {
+        app.post("/question", (req, res) => {
+            try {
+                sendQuestionController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
+
+    sendFeedback: function (app) {
+        app.put("/class/:classId/question/:questionId/answer/:answerId/student/:studentId",
+            (req, res) => {
+                try {
+                    sendFeedbackController(app, req, res);
+                } catch (error) {
+                    throw error;
+                }
+            });
+    }
 }

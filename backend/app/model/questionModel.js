@@ -43,15 +43,50 @@ module.exports = {
         connection.query(sql, callback);
     },
 
-        /** Insere questão **/
-        sendQuestionModel: function (req, connection, callback) {
-            const body = req.body;
-            console.log(`[MODEL] - Inserindo questão: ${JSON.stringify(body)}`)
-    
-            sql = `CALL insert_question('${body.title}', '${body.question}', 
-                '${body.teacherAnswer}','${body.tip}','${body.classCode}')`;
-    
-            connection.query(sql, callback);
-        }
+    /** Insere questão **/
+    sendQuestionModel: function (req, connection, callback) {
+        const body = req.body;
+        console.log(`[MODEL] - Inserindo questão: ${JSON.stringify(body)}`)
 
+        sql = `CALL insert_question('${body.title}', '${body.question}', 
+                '${body.teacherAnswer}','${body.tip}','${body.classCode}')`;
+
+        connection.query(sql, callback);
+    },
+
+    /** Insere feedback a questão **/
+    sendFeedbackModel: function (req, connection, callback) {
+        const params = req.params;
+        console.log(`[MODEL] - Inserindo feedback com 
+        id_class = ${params.classId},
+        id_question = ${params.questionId},
+        id_answer = ${params.answerId},
+        id_student = ${params.studentId}`)
+
+        sql = `UPDATE tb_class_question_answer_student 
+        SET feedback = '${req.body.feedback}' 
+        WHERE id_class_question_answer_student = ${req.body.id} AND
+        id_class = ${params.classId} 
+        AND id_question = ${params.questionId} 
+        AND id_answer = ${params.answerId} 
+        AND id_student = ${params.studentId}`;
+
+        setHasFeedback(connection, params.questionId)
+
+        connection.query(sql, callback);
+
+    },
+}
+// Alterando hasFeedBack coluna na tb_question
+function setHasFeedback(connection, questionId) {
+    let strSql = `UPDATE tb_question SET hasFeedBack = true WHERE id_question = ${questionId};`
+    
+    connection.query(strSql, function (error, result) {
+        if(error){
+            console.log(`[MODEL] - Coluna hasFeedBack não alterada para true: 
+            ${JSON.stringify(error)}`);
+        }
+        
+        console.log(`[MODEL] - Coluna hasFeedBack alterada para true: ${JSON.stringify(result)}`);
+    });
 }

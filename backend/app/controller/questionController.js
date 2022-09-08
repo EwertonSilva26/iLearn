@@ -5,7 +5,8 @@ const {
     getQuestionsByClassCodeModel,
     getQuestionModel,
     postAnswerModel,
-    sendQuestionModel
+    sendQuestionModel,
+    sendFeedbackModel
 } = require("../model/questionModel");
 
 module.exports = {
@@ -50,6 +51,18 @@ module.exports = {
             res.status(204).send({ status: 204, result,
                  message: "Questão cadastrada com sucesso!" });
         })
+    },
+
+    sendFeedbackController: async function (app, req, res) {
+        sendFeedbackModel(req, connection, function (error, result) {
+            if(error){
+                res.status(400).send({ status: 400, error });
+            }
+
+            res.status(204).send({ status: 204, result,
+                 message: "Questão cadastrada com sucesso!" });
+        })
     }
+
 
 }
