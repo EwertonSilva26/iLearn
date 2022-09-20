@@ -9,7 +9,7 @@ let countReq = 0;
 const Question = () => {
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(sessionStorage.getItem("token"));
     let count = 1;
 
     useEffect(() => {

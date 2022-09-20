@@ -7,7 +7,7 @@ import { useParams, Link } from "react-router-dom";
 import "./AddQuestion.css";
 
 const AddQuestion = () => {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = JSON.parse(sessionStorage.getItem("token"));
     let [errorTitle, setErrorTitle] = useState("");
     let [errorQuestion, setErrorQuestion] = useState("");
     let [errorAnswer, setErrorAnswer] = useState("");

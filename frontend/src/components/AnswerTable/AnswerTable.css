@@ -20,9 +20,9 @@ td {
 }
 
 #class_answer_list table {
-  width: 80%;
+  width: 100%;
   background-color: ghostwhite;
-  height: 430px;
+  top: 0;
 }
 
 #class_answer_list table tr #btn_answer {
@@ -52,8 +52,7 @@ td {
 }
 
 #class_answer_list table tr td {
-  padding: 10px;
-  width: 300px;
+  padding: 8.2px;
 }
 
 #next {
@@ -135,3 +134,11 @@ td {
   margin-left: 5px;
   color: red;
 }
+
+#class_answer_list #queston {
+  font-size: 20px;
+  text-align: left;
+  margin-top: 0;
+}
+
+h1 {font-size: 25px; }

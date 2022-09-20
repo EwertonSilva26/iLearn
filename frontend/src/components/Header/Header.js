@@ -8,13 +8,13 @@ import back from "./img/back.png";
 
 function Header() {
   const [msg, setMsg] = useState("")
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const navigate = useNavigate();
   const location = useLocation();
 
   function logout() {
     if (token) {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
     }
 
     navigate("/login");

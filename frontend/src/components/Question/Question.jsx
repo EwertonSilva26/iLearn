@@ -7,46 +7,51 @@ import lamp from "./lamp.png";
 import "./Question.css";
 
 let answer = "";
+let countTimes = 0;
 const Question = () => {
-    const [question, setQuestion] = useState([]);
+    const [question, setQuestion] = useState({});
     const [error, setError] = useState("");
 
-    const {id} = useParams();
-    const {code} = useParams();
+    const { id } = useParams();
+    const { code } = useParams();
 
     const obj = {
         questionId: id,
         classCode: code,
-        userId: JSON.parse(localStorage.getItem('token')).userId
+        userId: JSON.parse(sessionStorage.getItem('token')).userId
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
-            .then((response) => {
-                if (response.data.status === 200) {
-                    const result = response.data.result[0];
-                    setQuestion(result[0]);
-                    setError("");
-                }
-            })
-            .catch((err) => {
-                console.log(`Erro ao buscar questão ${err}`)
-                setError("Erro ao buscar questão");
-            });
+        countTimes++;
+        if (countTimes === 1) {
+            axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        let result = response.data.result[0];
+                        setQuestion(result[0]);
+                        setError("");
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Erro ao buscar questão ${err}`)
+                    setError("Erro ao buscar questão");
+                });
+        }
     });
 
     function sendAnswer() {
         if (answer !== "") {
+            let result = checkPercentage(answer);
             obj.answer = answer;
-
-            checkPercentage(answer);
-            return;
+            obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
             axios
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        swal('Resposta enviada com sucesso');
+                        swal("Resposta enviada!", `Seu algoritimo tem 
+                        ${parseFloat(result.toFixed(2))}% de similaridade!`);
+
                         setError("");
                     }
                     else {
@@ -68,26 +73,57 @@ const Question = () => {
     }
 
     const showTip = () => {
-        swal("Dica",`${question.tip}`);
+        swal("Dica", `${question.tip}`);
     }
 
     const seeFeedBack = () => {
         swal("Feedback", `${question.hasFeedBack ?
-            question.feedBack : "Não há feedback para essa questão!"}`);
+            question.feedback.toUpperCase() : "Não há feedback para essa questão!"}`);
+    }
+
+    const removeString = (list) => {
+        for (let c = 0; c < list.length; c++) {
+            if (list[c].includes("printf") &&
+                (!list[c].includes("%d")) && (!list[c].includes("%i")) &&
+                (!list[c].includes("%f")) && (!list[c].includes("%c")) &&
+                (!list[c].includes("%s"))) {
+
+                list[c] = 'printf("")';
+
+            } else if (list[c].includes("printf") && (list[c].includes("%d"))) {
+                list[c] = 'printf(%d)';
+            } else if (list[c].includes("printf") && (list[c].includes("%i"))) {
+                list[c] = 'printf(%i)';
+            } else if (list[c].includes("printf") && (list[c].includes("%f"))) {
+                list[c] = 'printf(%f)';
+            } else if (list[c].includes("printf") && (list[c].includes("%c"))) {
+                list[c] = 'printf(%c)';
+            } else if (list[c].includes("printf") && (list[c].includes("%s"))) {
+                list[c] = 'printf(%s)';
+            }
+
+        }
+
+        return list;
     }
 
     const checkPercentage = (answer) => {
-        const studentAnswer = answer.replaceAll("\n", "").split(" ");
-        const teacherAnswer = question.teacher_answer.replaceAll("\n", "").split(" ");
-        let count = 0;
+        const studentAnswer = removeString(answer
+            .replace(/[\r\n]/gm, '').split(";"));
 
-        for (let i = 0; i < studentAnswer.length; i++) {
-            if (studentAnswer[i] === teacherAnswer[i]) {
-                count += 1;
+        const teacherAnswer = removeString(question.teacher_answer
+            .replace(/[\r\n]/gm, '').split(";"));
+
+        let count = 0;
+        for (let d = 0; d < studentAnswer.length; d++) {
+            if (studentAnswer[d] === teacherAnswer[d]) {
+                count++;
             }
         }
-        let result = ((count * 1) / teacherAnswer.length)*100;
-        swal("Resposta enviada!", `Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
+
+        let result = ((count * 1) / teacherAnswer.length) * 100;
+
+        return result;
     }
 
     return (
@@ -129,6 +165,10 @@ const Question = () => {
                         <p id="p_feedback">Clique para ter acesso ao feedback enviado pelo seu professor:</p>
                         <button id="btn_feedback" onClick={seeFeedBack}>Ver Feedback</button>
                     </div>
+                    <span style={{ marginLeft: "25px", fontSize: "20px", 
+                    fontWeight: "600", color: "cornflowerblue" }}>
+                        Sua resposta teve {question.percentage} de similaridade
+                    </span>
 
                     <div id="div_answer">
                         <button id="btn_send_answer" onClick={sendAnswer}>Enviar</button>

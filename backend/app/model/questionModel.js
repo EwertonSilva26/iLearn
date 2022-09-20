@@ -38,7 +38,7 @@ module.exports = {
         console.log(`[MODEL] - Inserindo resposta: ${JSON.stringify(body)}`)
 
         sql = `CALL insert_answer('${body.answer}', ${body.userId}, 
-            ${body.questionId},'${body.classCode}')`;
+            ${body.questionId},'${body.classCode}', '${body.percentage}')`;
 
         connection.query(sql, callback);
     },

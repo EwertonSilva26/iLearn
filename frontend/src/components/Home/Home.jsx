@@ -8,7 +8,7 @@ import "./Home.css";
 const Home = () => {
     let [error, setError] = useState("");
     const { id } = useParams();
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -19,7 +19,7 @@ const Home = () => {
             .post("http://localhost:3003/class/create", info)
             .then((response) => {
                 if (response.data.status === 201) {
-                    navigate("/classes");
+                    navigate(`/classes/teacher/${id}`);
                 }
                 else {
                     setError("Erro ao criar a turma");
@@ -43,7 +43,7 @@ const Home = () => {
             const objClass = {
                 classCode,
                 className: className.toUpperCase(),
-                userId: JSON.parse(localStorage.getItem('token')).userId
+                userId: JSON.parse(sessionStorage.getItem('token')).userId
             }
 
             createNewClass(objClass);
@@ -55,12 +55,12 @@ const Home = () => {
             idStudent: id,
             classCode: classCode
         }
-
+debugger
         axios
-            .post("http://localhost:3003/student/classes", obj)
+            .post("http://localhost:3003/student/classes/", obj)
             .then((response) => {
                 console.log(response);
-                navigate("/classes/");
+                navigate(`/classes/student/${id}`);
             })
             .catch((err) => {
                 navigate("/student/" + id);

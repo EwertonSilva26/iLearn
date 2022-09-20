@@ -7,7 +7,7 @@ import trashCan from "./img/trash-can.png";
 import plus from "./img/plus.png";
 
 const Class = ({ props }) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const location = useLocation();
 
     let id = "";

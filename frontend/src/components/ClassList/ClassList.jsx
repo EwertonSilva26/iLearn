@@ -10,7 +10,7 @@ const ClassList = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3003/classes/${JSON.parse(localStorage.getItem('token')).userId}`)
+            .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
             .then((response) => {
                 setClasses(response.data.result[0]);
             })

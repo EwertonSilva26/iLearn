@@ -27,7 +27,7 @@ module.exports = {
   },
 
   insertStudentsInClasses: function (app) {
-    app.post("/student/classes", (req, res) => {
+    app.post("/student/classes/", (req, res) => {
       insertStudentInClassesController(app, req, res);
     });
   },
