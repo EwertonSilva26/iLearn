@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import swal from 'sweetalert';
 
-import lamp from "./lamp.png";
+import lamp from "./img/lamp.png";
+import happy from "./img/happy.png";
+import tooHappy from "./img/too_happy.png";
+import sad from "./img/sad.png";
+
 import "./Question.css";
 
 let answer = "";
 let countTimes = 0;
+let emotion = {};
 const Question = () => {
     const [question, setQuestion] = useState({});
     const [error, setError] = useState("");
@@ -30,6 +38,8 @@ const Question = () => {
                         let result = response.data.result[0];
                         setQuestion(result[0]);
                         setError("");
+
+                        verifyPercentege(parseInt(result[0].percentage.split("%")));
                     }
                 })
                 .catch((err) => {
@@ -51,7 +61,6 @@ const Question = () => {
                     if (response.data.status === 200) {
                         swal("Resposta enviada!", `Seu algoritimo tem 
                         ${parseFloat(result.toFixed(2))}% de similaridade!`);
-
                         setError("");
                     }
                     else {
@@ -107,6 +116,19 @@ const Question = () => {
         return list;
     }
 
+    const verifyPercentege = (result) => {
+        if ((result >= 80) && (result <= 100)) {
+            emotion.image = tooHappy;
+            emotion.message = "Parabens, seu desempenho foi muito bom!"
+        } else if ((result >= 60) && (result < 80)) {
+            emotion.image = happy;
+            emotion.message = "Parabens, seu desempenho foi bom!"
+        } else {
+            emotion.image = sad;
+            emotion.message = "Você não teve um desempenho adequado!"
+        }
+    }
+
     const checkPercentage = (answer) => {
         const studentAnswer = removeString(answer
             .replace(/[\r\n]/gm, '').split(";"));
@@ -122,6 +144,8 @@ const Question = () => {
         }
 
         let result = ((count * 1) / teacherAnswer.length) * 100;
+
+        verifyPercentege(result);
 
         return result;
     }
@@ -144,10 +168,14 @@ const Question = () => {
             <div id="question_container">
                 <div id="left_question">
                     {question.student_answer ? (
-                        <p id="answer">
-                            {question.student_answer}
+                        <div className="answer">
+                            <p id="answer">
+                                <SyntaxHighlighter language="c" style={{docco}}>
+                                    {question.student_answer}
+                                </SyntaxHighlighter>
+                            </p>
                             <button id="btn_edit">Editar</button>
-                        </p>
+                        </div>
 
                     ) : (
 
@@ -165,14 +193,34 @@ const Question = () => {
                         <p id="p_feedback">Clique para ter acesso ao feedback enviado pelo seu professor:</p>
                         <button id="btn_feedback" onClick={seeFeedBack}>Ver Feedback</button>
                     </div>
-                    <span style={{ marginLeft: "25px", fontSize: "20px", 
-                    fontWeight: "600", color: "cornflowerblue" }}>
-                        Sua resposta teve {question.percentage} de similaridade
-                    </span>
 
-                    <div id="div_answer">
-                        <button id="btn_send_answer" onClick={sendAnswer}>Enviar</button>
+                    {question.percentage ? (
+                        <div className="percentageStyle">
+                            <span className="percentageSpan">
+                                Sua resposta teve {question.percentage} de similaridade
+                            </span>
+                        </div>
+                    ) : (
+
+                        <span className="percentageSpan" style={{ display: "none" }}></span>
+                    )}
+
+                    <div className="emotion"
+                        style={{ display: "flex", justifyContent: "center", marginRight: "10px" }}>
+
+                        <p style={{ marginRight: "10px" }}>{emotion.message}</p>
+                        
+                        <img src={emotion.image} style={{ width: "40px" }}></img>
                     </div>
+
+                    {!question.student_answer ? (
+                        <div className="div_answer">
+                            <button id="btn_send_answer" onClick={sendAnswer}>Enviar</button>
+                        </div>
+                    ) : (
+
+                        <div className="div_answer" style={{ display: "none" }}></div>
+                    )}
                 </div>
 
             </div>

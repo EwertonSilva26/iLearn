@@ -1,7 +1,6 @@
 .main_question_class #question_container {
     width: 100%;
-    height: 320px;
-    margin-top: 30px;
+    height: 380px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,27 +20,30 @@
     width: 50%;
 }
 
-.main_question_class #question_container 
-#left_question #answer {
+.main_question_class #question_container #left_question #answer {
     margin: 10px;
 }
 
-.main_question_class #question_container 
-#left_question #answer #btn_edit {
-    margin-top: 15px;
+.main_question_class #question_container #left_question #btn_edit {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    margin-left: 15px;
     background-color: cornflowerblue;
     color: #fff;
     font-weight: bolder;
     padding: 5px;
     border-radius: 5px;
+    width: 100px;
+    position: fixed;
 }
+
 .main_question_class #question_container #right_question {
     margin-right: 20px;
 }
 
 .main_question_class #question_container #left_question #txt_id {
     width: 595px;
-    height: 315px;
+    height: 345px;
     background-color: #ffffff;
     font-size: 18px;
     resize: none;
@@ -49,8 +51,9 @@
 
 #div_question {
     margin: 30px;
-    margin-top: 80px;
+    margin-top: 60px;
     font-size: 25px;
+    width: 90%;
 }
 
 #div_tip {
@@ -92,10 +95,9 @@
 
 #id_feedback #btn_feedback {
     width: 200px;
-    height: 30px;
     margin-top: 5px;
     margin-right: 25px;
-    padding: 5px;
+    padding: 3px;
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bolder;
@@ -108,30 +110,55 @@
 }
 
 #id_feedback #p_feedback {
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 10px;
     margin-right: 10px;
 }
 
-#right_question #div_answer {
+#right_question .div_answer {
     width: 100%;
-    margin-top: 180px;
+    position: relative;
+    bottom: -120px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#right_question #div_answer #btn_send_answer {
+#right_question .div_answer #btn_send_answer {
     background: cornflowerblue;
     color: #ffffff;
     font-weight: bold;
     font-size: 18px;
     padding: 8px;
-    width: 400px;
+    width: 80%;
     border-radius: 10px;
     cursor: pointer;
 }
 
-#right_question #div_answer #btn_send_answer:hover {
+#right_question .div_answer #btn_send_answer:hover {
     background-color: #b6c8db
 }
+
+.main_question_class #question_container #right_question .percentageStyle {
+    margin: 10px;
+    margin-top: 80px;
+    font-size: 25px;
+    margin-right: 30px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+}
+
+
+.main_question_class #question_container #left_question #answer { 
+    font-size: 15px; 
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    height: 300px;
+
+}
+
+/* .main_question_class #question_container #left_question .answer { 
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+} */
