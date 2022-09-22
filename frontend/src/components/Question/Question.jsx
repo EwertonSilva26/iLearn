@@ -19,6 +19,7 @@ let emotion = {};
 const Question = () => {
     const [question, setQuestion] = useState({});
     const [error, setError] = useState("");
+    const [fontText, fontTextError] = useState("");
 
     const { id } = useParams();
     const { code } = useParams();
@@ -38,6 +39,11 @@ const Question = () => {
                         let result = response.data.result[0];
                         setQuestion(result[0]);
                         setError("");
+
+                        debugger
+                        if(result[0].question.length >= 100) {
+                            fontTextError("font_size_class");
+                        }
 
                         verifyPercentege(parseInt(result[0].percentage.split("%")));
                     }
@@ -153,7 +159,7 @@ const Question = () => {
     return (
         <div className="main_question_class">
             <div id="div_question">
-                <p>{question.question}</p>
+                <p className={fontText}>{question.question}</p>
             </div>
 
             <div id="div_tip">

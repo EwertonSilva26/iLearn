@@ -55,7 +55,7 @@ const Home = () => {
             idStudent: id,
             classCode: classCode
         }
-debugger
+
         axios
             .post("http://localhost:3003/student/classes/", obj)
             .then((response) => {
@@ -96,11 +96,14 @@ debugger
                         <div className="new_classes">
                             <h1 className="my_classes">Nova turma</h1>
 
-                            <input id="ipt_new_class" placeholder="Insira o codigo da turma" onMouseOut={(e) => setClassCode(e)}></input>
+                            <input id="ipt_new_class" placeholder="Insira o codigo da turma"
+                                onMouseOut={(e) => setClassCode(e)}
+                                onKeyUp={(e) => setClassCode(e)}>
+                            </input>
                             <button onClick={inserStudentInClass}>Entrar na turma</button>
                         </div>
 
-                        <div className="feedbacks" style={{display: "none"}}>
+                        <div className="feedbacks" style={{ display: "none" }}>
                             <h1 className="my_classes">Há um total de 0 feedBacks do professor</h1>
                         </div>
                     </div>
@@ -123,7 +126,7 @@ debugger
                             <button id="btn_create_class" onClick={createClass}>Criar turma</button>
                         </div>
 
-                        <div className="new_classes" style={{display: "none"}}>
+                        <div className="new_classes" style={{ display: "none" }}>
                             <h1 className="my_classes">Respostas</h1>
                             <p className="question_number">Um total de N questoes foram respondidas</p>
                         </div>
