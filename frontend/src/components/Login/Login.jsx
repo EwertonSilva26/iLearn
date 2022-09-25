@@ -122,10 +122,10 @@ function Login() {
           ) : (
             <span className="error-message" style={{ display: "none" }}>{error}</span>
           )}
-
-          <Button className="btn_login" block size="lg" type="submit">
+          
+          <button className="btn_login" block size="lg" type="submit">
             Login
-          </Button>
+          </button>
         </Form>
 
         <div className="register">

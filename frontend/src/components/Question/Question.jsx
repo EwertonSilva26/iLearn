@@ -40,7 +40,6 @@ const Question = () => {
                         setQuestion(result[0]);
                         setError("");
 
-                        debugger
                         if(result[0].question.length >= 100) {
                             fontTextError("font_size_class");
                         }

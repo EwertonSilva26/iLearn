@@ -70,13 +70,9 @@
   display: none;
 }
 
-.btn_login {
-  cursor: pointer;
-}
-
 .containerLogin .right form .ipt_label,
 .btn_login {
-  width: 90%;
+  width: 80%;
   height: 15px;
   padding: 10px;
   margin-bottom: 10px;
@@ -84,13 +80,10 @@
 }
 
 .containerLogin .right form .btn_login {
-  width: 30%;
-  height: 40px;
-  display: block;
-  margin-top: 0;
-  background-color: #ffffff;
+  width: 70%;
+  height: 45px;
   box-shadow: 2px 4px #000000;
-  margin-left: 12px;
+  background-color: #ffffff;
 }
 
 .containerLogin .right form #enter h1 {
@@ -106,7 +99,7 @@
 .containerLogin .register {
   border-top: 2px solid #ffffff;
   margin: 10px;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .containerLogin .register #btn_register {

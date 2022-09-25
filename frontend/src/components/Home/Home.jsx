@@ -102,10 +102,6 @@ const Home = () => {
                             </input>
                             <button onClick={inserStudentInClass}>Entrar na turma</button>
                         </div>
-
-                        <div className="feedbacks" style={{ display: "none" }}>
-                            <h1 className="my_classes">Há um total de 0 feedBacks do professor</h1>
-                        </div>
                     </div>
                 </>
 
@@ -119,16 +115,11 @@ const Home = () => {
                     </div>
 
                     <div className="container">
-                        <div className="new_classes">
+                        <div className="new_classes" style={{height: "200px"}}>
                             <h1 className="my_classes">Criar nova turma</h1>
-                            <h2>insira um nome para a turma</h2>
+                            <h2 style={{fontSize: "20px"}}>insira um nome para a turma</h2>
                             <input id="ipt_new_class" placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
                             <button id="btn_create_class" onClick={createClass}>Criar turma</button>
-                        </div>
-
-                        <div className="new_classes" style={{ display: "none" }}>
-                            <h1 className="my_classes">Respostas</h1>
-                            <p className="question_number">Um total de N questoes foram respondidas</p>
                         </div>
                     </div>
                 </>

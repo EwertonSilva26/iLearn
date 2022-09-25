@@ -7,8 +7,7 @@ import back from "./img/back.png";
 
 
 function Header() {
-  const [msg, setMsg] = useState("")
-  const token = sessionStorage.getItem("token");
+  const token = JSON.parse(sessionStorage.getItem("token"));
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -24,25 +23,25 @@ function Header() {
     if (token && (location.pathname.includes("/teacher/class/") &&
       location.pathname.includes("/add/question"))) {
 
-      setMsg("Adicionar questão");
+      // setMsg("Adicionar questão");
 
     }
 
   })
 
   return (
-    <div>
+    <div>Teste
       {token && (!location.pathname.match("/login")) || (!location.pathname.match("/")) ? (
 
         <div className="header">
-          {/* <div id="add_question">
-            <p>{msg}</p>
-          </div> */}
 
-          <img src={back} id="back"></img>
-          <img src={home} id="home"></img>
+          <div id="images">
+            <img src={back} id="back"></img>
+            <img src={home} id="home"></img>
+            <p id="name">{token.email}</p>
+            <button id="leave" onClick={logout}>Sair</button>
+          </div>
 
-          <button id="leave" onClick={logout}>Sair</button>
 
         </div>
       ) : (
