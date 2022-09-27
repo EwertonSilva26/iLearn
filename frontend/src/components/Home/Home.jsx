@@ -64,9 +64,10 @@ const Home = () => {
         axios
             .post("http://localhost:3003/student/classes/", obj)
             .then((response) => {
-                console.log(response);
                 createMessage("success", "Sucesso", "Você foi cadastrado à turma com sucesso!")
+                console.log(response);
                 navigate(`/classes/student/${id}`);
+
             })
             .catch((err) => {
                 console.log("[ERROR]: " + JSON.stringify(err))
@@ -88,11 +89,14 @@ const Home = () => {
     }
 
     function createMessage(icon, title, text) {
-        swal.fire({
+        swal({
             icon: icon,
             title: title,
-            text: text
-        })
+            text: text,
+            button: {
+                text: "Fechar"
+            }
+        });
     }
 
     return (

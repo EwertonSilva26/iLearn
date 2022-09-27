@@ -59,7 +59,7 @@ const Question = () => {
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        swal("Resposta enviada!", `Seu algoritimo tem 
+                        createMessage("success", "Resposta enviada!", `Seu algoritimo tem 
                         ${parseFloat(result.toFixed(2))}% de similaridade!`);
                         setError("");
                     }
@@ -68,13 +68,24 @@ const Question = () => {
                     }
                 })
                 .catch((err) => {
+                    createMessage("error", "Erro ao enviar resposta", "Por favor tente novamente;");
                     console.log(`Erro ao enviar resposta ${err}`)
                     setError("Erro ao enviar resposta");
                 });
         } else {
-            swal("Campo vazio", 'Campo resposta não pode estar vazio');
-
+            createMessage("warning", "Campo vazio", 'Campo resposta não pode estar vazio');
         }
+    }
+
+    function createMessage(icon, title, text) {
+        swal({
+            icon: icon,
+            title: title,
+            text: text,
+            button: {
+                text: "Fechar"
+            }
+        });
     }
 
     function setAnswer(event) {
@@ -87,7 +98,7 @@ const Question = () => {
 
     const seeFeedBack = () => {
         swal("Feedback", `${question.hasFeedBack ?
-            question.feedback : "Não há feedback para essa questão!"}`);
+            question.feedback : "Ainda não há feedback para essa questão!"}`);
     }
 
     const removeString = (list) => {
