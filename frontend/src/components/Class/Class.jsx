@@ -19,7 +19,7 @@ const Class = ({ props }) => {
                 (!location.pathname.match(`/classes/student/${JSON.parse(token).userId}`))
                 ? (
                     <div className="all_classes" id={id}>
-                        <h1 className="class_name_id">Nome da turma: {props.class_name}</h1>
+                        <h1 className="class_name_id">{props.class_name}</h1>
                         <h1 className="class_name_id">ID: {props.class_code}</h1>
                         <div id="enter_class">
                             <Link to={`/questions/class/${props.class_code}`} >
@@ -38,7 +38,7 @@ const Class = ({ props }) => {
                     </div>
                 ) : (
                     <div className="all_classes" id={id}>
-                        <h1 className="class_name_id">Nome da turma: {props.class_name}</h1>
+                        <h1 className="class_name_id">{props.class_name}</h1>
                         <h1 className="class_name_id">ID: {props.class_code}</h1>
                         <div id="enter_class">
                             <Link to={`/questions/class/${props.class_code}`} >

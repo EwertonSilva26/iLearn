@@ -3,17 +3,14 @@ let sql;
 module.exports = {
     /** Busca questoẽs por codigo da turma **/
     getQuestionsByClassCodeModel: function (req, connection, callback) {
-        console.log(`[MODEL] - Buscando questoẽs ${req.params.id}`)
+        console.log(`[MODEL] - Buscando todas questoẽs da turma ${req.params.id}`)
 
-        sql = `SELECT DISTINCT q.id_question, q.title, 
-        q.hasFeedback FROM tb_question AS q
-        INNER JOIN tb_classe_question AS cq
-        ON cq.id_question = q.id_question
-        INNER JOIN tb_class AS c
-        ON cq.id_class = c.id_class
-        INNER JOIN tb_student_class AS sc
-        ON c.id_class = sc.id_class
-        WHERE c.class_code = '${req.params.id}'`;
+        sql = `SELECT * FROM tb_class_question_answer_student AS tcqas
+        INNER JOIN tb_class AS tc
+        ON tcqas.id_class = tc.id_class
+        INNER JOIN tb_question AS tq
+        ON tcqas.id_question = tq.id_question
+        WHERE tc.class_code = '${req.params.id}'`;
 
         connection.query(sql, callback);
     },
@@ -76,17 +73,32 @@ module.exports = {
         connection.query(sql, callback);
 
     },
+
+    /** Busca o numero total de questões no banco de dados pelo código da classe. **/
+    getQuestionsNumberByClassCodeCodeModel: function (req, connection, callback) {
+        console.log(`[MODEL] - Busca o numero total de questões com código da classe:
+         ${JSON.stringify(req.params.code)}`)
+
+        sql = `SELECT count(*) AS total FROM tb_class_question_answer_student AS tcqas
+        INNER JOIN tb_class AS tc
+        ON tcqas.id_class = tc.id_class
+        INNER JOIN tb_question AS tq
+        ON tcqas.id_question = tq.id_question
+        WHERE tc.class_code = '${req.params.code}'`;
+
+        connection.query(sql, callback);
+    }
 }
 // Alterando hasFeedBack coluna na tb_question
 function setHasFeedback(connection, questionId) {
     let strSql = `UPDATE tb_question SET hasFeedBack = true WHERE id_question = ${questionId};`
-    
+
     connection.query(strSql, function (error, result) {
-        if(error){
+        if (error) {
             console.log(`[MODEL] - Coluna hasFeedBack não alterada para true: 
             ${JSON.stringify(error)}`);
         }
-        
+
         console.log(`[MODEL] - Coluna hasFeedBack alterada para true: ${JSON.stringify(result)}`);
     });
 }

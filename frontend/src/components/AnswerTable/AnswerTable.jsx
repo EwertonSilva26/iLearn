@@ -6,7 +6,6 @@ import swal from 'sweetalert';
 import "./AnswerTable.css";
 import next from "./next.png";
 
-let countReq = 0;
 const AnswerTable = () => {
     const { code } = useParams();
     const { id } = useParams();
@@ -16,12 +15,9 @@ const AnswerTable = () => {
     let [modalId, setModalId] = useState("");
     let [error, setError] = useState("");
     
-    const token = JSON.parse(sessionStorage.getItem("token"));
-
     let feedback = "";
 
     useEffect(() => {
-        if (countReq === 0) {
             axios
                 .get(`http://localhost:3003/class/${code}/question/${id}/answers`)
                 .then((response) => {
@@ -32,9 +28,6 @@ const AnswerTable = () => {
                 .catch((err) => {
                     console.log(`Erro ao buscar informações ${err}`)
                 });
-
-            countReq++;
-        }
     });
 
     function sendFeedback() {

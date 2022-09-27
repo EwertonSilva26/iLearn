@@ -3,7 +3,8 @@ const {
     getQuestionController,
     postAnswerController,
     sendQuestionController,
-    sendFeedbackController
+    sendFeedbackController,
+    getQuestionsNumberByClassCodeCodeController
 } = require("../controller/questionController");
 
 module.exports = {
@@ -57,5 +58,15 @@ module.exports = {
                     throw error;
                 }
             });
+    },
+
+    getQuestionsNumberByClassCode: function (app) {
+        app.get("/questions/class/:code", (req, res) => {
+            try {
+                getQuestionsNumberByClassCodeCodeController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
     }
 }

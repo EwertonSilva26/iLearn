@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import swal from 'sweetalert';
 
 import "./AddQuestion.css";
 
@@ -14,8 +15,21 @@ const AddQuestion = () => {
     let [errorTip, setErrorTip] = useState("");
     let [modalId, setModalId] = useState("");
     let [errorModalId, setErrorModalId] = useState("");
+    let [total, setTotal] = useState(0);
+
     const { code } = useParams();
     let hasError = 0;
+
+    useEffect(() => {
+        axios
+        .get(`http://localhost:3003/questions/class/${code}`)
+        .then((response) => {
+            setTotal(response.data.result[0].total);
+        })
+        .catch((err) => {
+            console.log(`Erro ao buscar turmas ${JSON.stringify(err)}`)
+        });
+    })
 
     function validateForm(event) {
         if (event.target[0].value.length === 0) {
@@ -46,9 +60,15 @@ const AddQuestion = () => {
         return hasError > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
+        if(total >= 6) {
+            swal("Número de questões excedido!", 'Você só pode adicionar 10 questões por classe');
+            cleanFields();
+            return;
+        }
+        
         if (validateForm(event)) {
             return;
         }
@@ -92,6 +112,11 @@ const AddQuestion = () => {
         setErrorAnswer("");
         setErrorTip("");
 
+        cleanFields();
+
+    }
+
+    function cleanFields() {
         document.querySelector("#input_title").value = "";
         document.querySelector("#txt_question").value = "";
         document.querySelector("#txt_answer").value = "";
@@ -137,7 +162,7 @@ const AddQuestion = () => {
                     <label>Titulo</label>
                     <Form.Group size="lg" controlId="title">
                         <Form.Control id="input_title" autoFocus type="text"
-                            placeholder="Insira o título/descrição da questão" maxLength="500"
+                            placeholder="Insira o título / descrição da questão" maxLength="500"
                             onKeyUp={() => { setErrorTitle("") }} />
                     </Form.Group>
                     <span className="error-message">{errorTitle}</span>

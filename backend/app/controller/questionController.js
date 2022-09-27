@@ -6,7 +6,8 @@ const {
     getQuestionModel,
     postAnswerModel,
     sendQuestionModel,
-    sendFeedbackModel
+    sendFeedbackModel,
+    getQuestionsNumberByClassCodeCodeModel
 } = require("../model/questionModel");
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
+            console.log("##### RESULTADO: ", JSON.stringify(result))
             res.status(200).send({ status: 200, result });
         })
     },
@@ -26,7 +28,7 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
-            console.log("RESULTADO: " + JSON.stringify(result[0]))
+            // console.log("RESULTADO: " + JSON.stringify(result[0]))
             res.status(200).send({ status: 200, result });
         })
     },
@@ -61,6 +63,18 @@ module.exports = {
 
             res.status(204).send({ status: 204, result,
                  message: "Questão cadastrada com sucesso!" });
+        })
+    },
+
+    getQuestionsNumberByClassCodeCodeController: async function (app, req, res) {
+        getQuestionsNumberByClassCodeCodeModel(req, connection, function (error, result) {
+            if(error){
+                res.status(400).send({ status: 400, error });
+            }
+
+            console.log("### RESULTADO: ###: ", JSON.stringify(result))
+            res.status(200).send({ status: 200, result,
+                 message: "Numero total de questões retornado com sucesso!" });
         })
     }
 

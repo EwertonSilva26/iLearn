@@ -25,18 +25,6 @@ module.exports = {
     connection.query(sql, callback);
   },
 
-  /** Busca turmas que o aluno esta cadastrado aluno em um turma **/
-  // getStudentClasses: function (body, connection, callback) {
-  //   console.log("[MODEL] - Buscando turmas onde o aluno esta cadastrado")
-  //   sql = `SELECT * FROM tb_student_teacher_class AS stc
-  //   LEFT JOIN tb_class AS c
-  //   ON c.id_class = stc.id_class
-  //   LEFT JOIN tb_student AS s
-  //   ON s.id_student = stc.id_student
-  //   WHERE stc.id_student = ${body.idStudent}`;
-  //   connection.query(sql, callback);
-  // }
-
   /** Busca todas informações sobre a turma e questões por 
    * id da questão e codigo da turma. **/
   getClassInformationModel: function (req, connection, callback) {

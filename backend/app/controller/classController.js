@@ -1,11 +1,10 @@
 const dbConnection = require("../config/dbserver");
 const connection = dbConnection();
 
-const { 
-    createClass, 
-    getAllClasses, 
+const {
+    createClass,
+    getAllClasses,
     insertStudentInClass,
-    // getStudentClasses 
     getClassInformationModel
 } = require("../model/classModel");
 
@@ -19,7 +18,7 @@ module.exports = {
             //     });
             // }
 
-            if(error){
+            if (error) {
                 res.status(400).send({ status: 400, error });
             }
 
@@ -29,7 +28,7 @@ module.exports = {
 
     getAllClassesController: async function (app, req, res) {
         getAllClasses(req, connection, function (error, result) {
-            if(error){
+            if (error) {
                 res.status(400).send({ status: 400, error });
             }
 
@@ -40,7 +39,7 @@ module.exports = {
     insertStudentInClassesController: async function (app, req, res) {
         insertStudentInClass(req.body, connection, function (error, result) {
             const classCode = req.body.classCode;
-            if(error){
+            if (error) {
                 res.status(400).send({ status: 400, error });
             }
 
@@ -48,28 +47,14 @@ module.exports = {
         })
     },
 
-    // getStudentClassesController: async function (app, req, res) {
-    //     getAllClasses(req.body, connection, function (error, result) {
-
-    //         if(error){
-    //             res.status(400).send({ status: 400, error });
-    //         }
-
-    //         const resp = {
-
-    //         }
-
-    //         res.status(201).send({ status: 200, resp });
-    //     })
-    // }
-
     getClassInformationController: async function (app, req, res) {
         getClassInformationModel(req, connection, function (error, result) {
-            if(error){
+            if (error) {
                 res.status(400).send({ status: 400, error });
             }
 
             console.log("RESULTADO: " + JSON.stringify(result[0]))
+    
             res.status(200).send({ status: 200, result });
         })
     }

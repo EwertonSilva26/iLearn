@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
+import swal from 'sweetalert';
+
 
 import "./Home.css";
 
@@ -19,16 +21,19 @@ const Home = () => {
             .post("http://localhost:3003/class/create", info)
             .then((response) => {
                 if (response.data.status === 201) {
+                    createMessage("success", "Turma criada", "Uma nova turma foi criada com sucesso")
                     navigate(`/classes/teacher/${id}`);
                 }
                 else {
                     setError("Erro ao criar a turma");
-                    console.log(`Não foi possivel criar a turma - 
-              ${JSON.stringify(response.data)}`)
+                    console.log(`Não foi possivel criar a turma - ${JSON.stringify(response.data)}`)
+                    createMessage("error", "Não foi possivel criar a turma", "Por favor tente novamente!")
+
                 }
             })
             .catch((err) => {
-                setError("Erro ao criar a turma");
+                console.log("Erro ao criar a turma: " + err);
+                setError("Turma não criada - ERRO: " + error);
             });
     }
 
@@ -60,11 +65,13 @@ const Home = () => {
             .post("http://localhost:3003/student/classes/", obj)
             .then((response) => {
                 console.log(response);
+                createMessage("success", "Sucesso", "Você foi cadastrado à turma com sucesso!")
                 navigate(`/classes/student/${id}`);
             })
             .catch((err) => {
-                navigate("/student/" + id);
                 console.log("[ERROR]: " + JSON.stringify(err))
+                createMessage("error", "Algo deu errado!", "Por favor tente novamente!!")
+                navigate("/student/" + id);
             });
     }
 
@@ -78,6 +85,14 @@ const Home = () => {
         if (classCode !== "") {
             insertClass(classCode)
         }
+    }
+
+    function createMessage(icon, title, text) {
+        swal.fire({
+            icon: icon,
+            title: title,
+            text: text
+        })
     }
 
     return (
@@ -115,9 +130,9 @@ const Home = () => {
                     </div>
 
                     <div className="container">
-                        <div className="new_classes" style={{height: "200px"}}>
+                        <div className="new_classes" style={{ height: "200px" }}>
                             <h1 className="my_classes">Criar nova turma</h1>
-                            <h2 style={{fontSize: "20px"}}>insira um nome para a turma</h2>
+                            <h2 style={{ fontSize: "20px" }}>insira um nome para a turma</h2>
                             <input id="ipt_new_class" placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
                             <button id="btn_create_class" onClick={createClass}>Criar turma</button>
                         </div>

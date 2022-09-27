@@ -13,6 +13,7 @@ textarea {
   height: 30px;
   border-radius: 8px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 textarea {
@@ -79,6 +80,7 @@ textarea {
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  height: 200px;
 }
 
 /* The Close Button */

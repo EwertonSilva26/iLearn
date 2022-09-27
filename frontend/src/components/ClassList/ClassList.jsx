@@ -22,7 +22,7 @@ const ClassList = () => {
 
     return (
         <div className="main">
-            <h1 style={{ margin: "20px", marginTop: "35px", fontSize: "25px" }}>Minhas turmas</h1>
+            <h1 style={{ margin: "20px", marginTop: "60px", fontSize: "20px" }}>Minhas turmas</h1>
             {classes.length > 0 ? (
                 classes.map((item) => {
                     item.itemTotal = 0;

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import swal from 'sweetalert';
 
 import lamp from "./img/lamp.png";
@@ -14,7 +13,6 @@ import sad from "./img/sad.png";
 import "./Question.css";
 
 let answer = "";
-let countTimes = 0;
 let emotion = {};
 const Question = () => {
     const [question, setQuestion] = useState({});
@@ -31,28 +29,25 @@ const Question = () => {
     }
 
     useEffect(() => {
-        countTimes++;
-        if (countTimes === 1) {
-            axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
-                .then((response) => {
-                    if (response.data.status === 200) {
-                        let result = response.data.result[0];
-                        setQuestion(result[0]);
-                        setError("");
+        axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
+            .then((response) => {
+                if (response.data.status === 200) {
+                    let result = response.data.result[0];
+                    setQuestion(result[0]);
+                    setError("");
 
-                        if(result[0].question.length >= 100) {
-                            fontTextError("font_size_class");
-                        }
-
-                        verifyPercentege(parseInt(result[0].percentage.split("%")));
+                    if (result[0].question.length >= 100) {
+                        fontTextError("font_size_class");
                     }
-                })
-                .catch((err) => {
-                    console.log(`Erro ao buscar questão ${err}`)
-                    setError("Erro ao buscar questão");
-                });
-        }
-    });
+
+                    verifyPercentege(parseInt(result[0].percentage.split("%")));
+                }
+            })
+            .catch((err) => {
+                setError("Erro ao buscar questão: " + err);
+                console.log(`Erro Ocorrido: ${error}`)
+            });
+    })
 
     function sendAnswer() {
         if (answer !== "") {
@@ -92,7 +87,7 @@ const Question = () => {
 
     const seeFeedBack = () => {
         swal("Feedback", `${question.hasFeedBack ?
-            question.feedback.toUpperCase() : "Não há feedback para essa questão!"}`);
+            question.feedback : "Não há feedback para essa questão!"}`);
     }
 
     const removeString = (list) => {
@@ -175,7 +170,7 @@ const Question = () => {
                     {question.student_answer ? (
                         <div className="answer">
                             <p id="answer">
-                                <SyntaxHighlighter language="c" style={{docco}}>
+                                <SyntaxHighlighter language="c" style={{ docco }}>
                                     {question.student_answer}
                                 </SyntaxHighlighter>
                             </p>
@@ -214,8 +209,17 @@ const Question = () => {
                         style={{ display: "flex", justifyContent: "center", marginRight: "10px" }}>
 
                         <p style={{ marginRight: "10px" }}>{emotion.message}</p>
-                        
-                        <img src={emotion.image} style={{ width: "40px" }}></img>
+
+
+                        {emotion.image ? (
+                            <img id="emotion_img" src={emotion.image} style={{ width: "40px" }}></img>
+
+                        ) : (
+
+                            <img id="emotion_img" src={emotion.image} style={{ display: "none" }}></img>
+                        )}
+
+
                     </div>
 
                     {!question.student_answer ? (

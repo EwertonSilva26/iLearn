@@ -5,7 +5,6 @@ import axios from "axios";
 import "./QuestionTable.css";
 import next from "./next.png";
 
-let countReq = 0;
 const Question = () => {
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
@@ -13,20 +12,17 @@ const Question = () => {
     let count = 1;
 
     useEffect(() => {
-        if (countReq === 0) {
-            axios
-                .get(`http://localhost:3003/questions/${code}`)
-                .then((response) => {
-                    if (response.data.status === 200) {
-                        setQuestions(response.data.result);
-                    }
-                })
-                .catch((err) => {
-                    console.log(`Erro ao buscar questões ${err}`)
-                });
-
-            countReq++;
-        }
+        axios
+            .get(`http://localhost:3003/questions/${code}`)
+            .then((response) => {
+                if (response.data.status === 200) {
+                    debugger
+                    setQuestions(response.data.result);
+                }
+            })
+            .catch((err) => {
+                console.log(`Erro ao buscar questões ${err}`)
+            });
     });
 
     return (
@@ -37,8 +33,18 @@ const Question = () => {
                         <tr id="tr_header">
                             <th></th>
                             <th>Descrição / Titulo</th>
-                            <th className="tb_class">Feedback</th>
-                            <th className="tb_class">Click para responder</th>
+                            {token.email.includes("@aluno") ? (
+                                <th className="tb_class">Feedback</th>
+                            ) : (
+                                <th className="tb_class" style={{ display: "none" }}>Feedback</th>
+                            )}
+                            {token.email.includes("@aluno") ? (
+                                <th className="tb_class">Click para responder</th>
+                            ) : (
+                                <th className="tb_class">Click para ver respostas</th>
+
+                            )}
+
                         </tr>
                         {token.email.includes("@aluno") ? (
                             questions.map((question, key) => {
@@ -46,7 +52,7 @@ const Question = () => {
                                     <tr key={key}>
                                         <td>{count++}</td>
                                         <td>{question.title}</td>
-                                        <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
+                                        <td>{question.hasFeedBack ? 'Sim' : 'Não'}</td>
                                         <td>
                                             <Link to={`/question/${question.id_question}/class/${code}`} >
                                                 <button id="btn_answer">
@@ -65,7 +71,7 @@ const Question = () => {
                                     <tr key={key}>
                                         <td>{count++}</td>
                                         <td>{question.title}</td>
-                                        <td>{question.hasFeedback ? 'Sim' : 'Não'}</td>
+                                        {/* <td>{question.hasFeedBack ? 'Sim' : 'Não'}</td> */}
                                         <td>
                                             <Link to={`/class/${code}/question/${question.id_question}/answers`} >
                                                 <button id="btn_answer">
