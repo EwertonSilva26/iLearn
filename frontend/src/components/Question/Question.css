@@ -170,6 +170,8 @@
       width: 50%;
     }#question {
        font-size: 20px;
+    }#div_question {
+        font-size: 20px;
     }
     #right_question .div_answer #btn_send_answer {
         margin-top: -60px;
@@ -179,6 +181,17 @@
     }
     #id_feedback #btn_feedback {
         font-size: 12px;
-    }
+    } 
  
+  }
+
+  @media screen and (max-width: 800px) {
+    #success_msg {
+        margin-left: 25px;
+    }#emotion_img {
+        width: 30px;
+        
+    }.main_question_class #question_container #right_question .percentageStyle{
+        font-size: 15px;
+    }
   }

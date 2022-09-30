@@ -219,11 +219,11 @@ const Question = () => {
                     <div className="emotion"
                         style={{ display: "flex", justifyContent: "center", marginRight: "10px" }}>
 
-                        <p style={{ marginRight: "10px" }}>{emotion.message}</p>
+                        <p id="success_msg" style={{ marginRight: "3px" }}>{emotion.message}</p>
 
 
                         {emotion.image ? (
-                            <img id="emotion_img" src={emotion.image} style={{ width: "40px" }}></img>
+                            <img id="emotion_img" src={emotion.image} style={{ width: "45px" }}></img>
 
                         ) : (
 
