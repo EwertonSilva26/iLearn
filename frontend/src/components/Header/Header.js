@@ -4,13 +4,13 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import "./Header.css";
 import home from "./img/home.png";
 import back from "./img/back.png";
-
+import logo from "./img/logo.png";
 
 function Header() {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const navigate = useNavigate();
   const location = useLocation();
-  const code  = window.location.href.split('/class/')[1];
+  const code = window.location.href.split('/class/')[1];
   const localHost = "http://localhost:3000";
 
   function logout() {
@@ -36,7 +36,7 @@ function Header() {
       navigate(`/student/${token.userId}`);
     }
 
-    if(window.location.href === `${localHost}/questions/class/${code}`){
+    if (window.location.href === `${localHost}/questions/class/${code}`) {
       navigate(`/student/${token.userId}`);
     }
 
@@ -68,10 +68,14 @@ function Header() {
                 <img id="home" src={home}></img>
               </button>
             </div>
+            <button id="leave" onClick={logout}>Sair</button>
 
             <p id="name">{token.email}</p>
+
+          <div id="logo">
+              <img style={{width: "180px", marginTop: "-115px"}} src={logo}></img>
           </div>
-          <button id="leave" onClick={logout}>Sair</button>
+          </div>
 
         </div>
       ) : (

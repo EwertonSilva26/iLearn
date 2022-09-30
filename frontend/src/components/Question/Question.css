@@ -42,7 +42,7 @@
 }
 
 .main_question_class #question_container #left_question #txt_id {
-    width: 595px;
+    width: 100%;
     height: 375px;
     background-color: #ffffff;
     font-size: 18px;
@@ -90,7 +90,7 @@
 
 #id_feedback {
     display: flex;
-    margin-left: 25px;
+    margin-left: 10px;
 }
 
 #id_feedback #btn_feedback {
@@ -163,3 +163,22 @@
 .main_question_class #div_question .font_size_class {
     font-size: 20px;
 }
+
+@media screen and (max-width: 500px) {
+    #main_question_class {
+      font-size: 15px;
+      width: 50%;
+    }#question {
+       font-size: 20px;
+    }
+    #right_question .div_answer #btn_send_answer {
+        margin-top: -60px;
+    }
+    #id_feedback #p_feedback {
+        font-size: 18px;
+    }
+    #id_feedback #btn_feedback {
+        font-size: 12px;
+    }
+ 
+  }

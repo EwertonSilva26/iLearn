@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import axios from "axios";
 import swal from 'sweetalert';
 
@@ -147,14 +149,14 @@ const AnswerTable = () => {
             <div id="class_answer_list">
                 {infos.length > 0 ? (
                     <>
-                        <h1>{infos[0].class_name}</h1>
+                        <h1 className="class_name" style={{marginTop: "30px"}}>{infos[0].class_name}</h1>
                         <p id="queston">{infos[0].question}</p>
                         <table>
                             <tr id="tr_header">
-                                <th>Aluno</th>
-                                <th>Algoritimo do Professor</th>
-                                <th>Algoritimo do Aluno</th>
-                                <th>Porcentagem de similaridade</th>
+                                <th style={{width: "120px"}}>Aluno</th>
+                                <th>Algoritmo do Professor</th>
+                                <th>Algoritmo do Aluno</th>
+                                <th style={{padding: "10px"}}>Similaridade</th>
                                 <th className="tb_class">Feedback</th>
                                 <th className="tb_class">Deixe o feedback para os alunos</th>
                             </tr>
@@ -166,8 +168,24 @@ const AnswerTable = () => {
                                             ${info.student_middle_name.toUpperCase()} 
                                             ${info.student_last_name.toUpperCase()}`}
                                             </td>
-                                            <td>{info.teacher_answer}</td>
-                                            <td>{info.student_answer}</td>
+                                            <td>
+                                            <SyntaxHighlighter 
+                                            lineProps={{style: {whiteSpace: 'pre-wrap'}}} 
+                                            wrapLines={true}
+                                            language="c" style={{ docco }}>
+                                            {info.teacher_answer}
+                                            </SyntaxHighlighter>
+                                            </td>
+
+                                            <td>
+                                            <SyntaxHighlighter
+                                            lineProps={{style: {whiteSpace: 'pre-wrap'}}} 
+                                            wrapLines={true} 
+                                            language="c" style={{ docco }}>
+                                            {info.student_answer}
+                                            </SyntaxHighlighter>
+                                            </td>
+
                                             <td  style={{ fontSize: "20px" }}>{info.percentage}</td>
                                             <td>{info.feedback ? info.feedback : ''}</td>
                                             <td>

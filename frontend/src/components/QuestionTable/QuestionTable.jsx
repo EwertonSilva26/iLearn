@@ -16,7 +16,6 @@ const Question = () => {
             .get(`http://localhost:3003/questions/${code}`)
             .then((response) => {
                 if (response.data.status === 200) {
-                    debugger
                     setQuestions(response.data.result);
                 }
             })
@@ -31,7 +30,7 @@ const Question = () => {
                 {questions.length > 0 ? (
                     <table>
                         <tr id="tr_header">
-                            <th></th>
+                            <th id="number"></th>
                             <th>Descrição / Titulo</th>
                             {token.email.includes("@aluno") ? (
                                 <th className="tb_class">Feedback</th>

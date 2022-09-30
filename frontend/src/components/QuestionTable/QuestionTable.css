@@ -54,6 +54,25 @@ td {
   padding: 2px;
 }
 
+#tr_header #number {
+  padding: 15px;
+}
+
 #next {
   width: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+  #tr_header {
+    font-size: 15px;
+    width: 50%;
+  }#tr_header #number {
+     padding: 15px;
+  }
+  #next {
+      width: 10px;
+  }
+  #logo {
+      display: none;
+  }
 }

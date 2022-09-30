@@ -164,7 +164,7 @@ const Question = () => {
     return (
         <div className="main_question_class">
             <div id="div_question">
-                <p className={fontText}>{question.question}</p>
+                <p className={fontText} id="question">{question.question}</p>
             </div>
 
             <div id="div_tip">
