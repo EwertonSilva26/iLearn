@@ -21,7 +21,6 @@ module.exports = {
     getQuestion: function (app) {
         app.get("/question/:id/:code/:userId", (req, res) => {
             try {
-                console.log(`Parametros ${JSON.stringify(req.params)}`)
                 getQuestionController(app, req, res);
             } catch (error) {
                 throw error;

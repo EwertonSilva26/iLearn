@@ -11,7 +11,7 @@ const style = { marginRight: "10px" };
 function Footer() {
   return (
     <div>
-      <div class="footer">
+      <div className="footer">
         <img src={facebook}></img>
         <img src={instagram}></img>
         <img src={twitter}></img>

@@ -16,14 +16,42 @@ module.exports = {
     },
 
     /** Busca questão por id da questão, codigo da turma e id do usuario**/
-    getQuestionModel: function (req, connection, callback) {
+    getQuestionModel: async function (req, connection, callback) {
         console.log(`[MODEL] - Buscando questão com 
         class code: ${req.params.code}, 
         id da questão: ${req.params.id},
         id do usuario: ${req.params.userId}`)
 
-        sql = `CALL get_Question_Information('${req.params.code}', 
-        ${req.params.id}, ${req.params.userId});`
+        let idStudent = await getIdStudentByIdUser(req, connection);
+        let value = await verifyIfUserHasAnswer(req, idStudent, connection);
+        
+        if(value === 0) {
+            sql = `SELECT * FROM 
+            tb_class_question_answer_student AS tcqas
+            INNER JOIN tb_class AS tc
+            ON tcqas.id_class = tc.id_class
+            INNER JOIN tb_question AS tq
+            ON tcqas.id_question = tq.id_question
+            INNER JOIN tb_student AS ts
+            ON tcqas.id_student = ts.id_student
+            WHERE tc.class_code = '${req.params.code}' 
+            AND tq.id_question = ${req.params.id}
+            AND ts.id_student = ${idStudent};`
+        } else {
+            sql = `SELECT * FROM 
+            tb_class_question_answer_student AS tcqas
+            INNER JOIN tb_class AS tc
+            ON tcqas.id_class = tc.id_class
+            INNER JOIN tb_question AS tq
+            ON tcqas.id_question = tq.id_question
+            INNER JOIN tb_answer AS ta
+            ON tcqas.id_answer = ta.id_answer
+            INNER JOIN tb_student AS ts
+            ON tcqas.id_student = ts.id_student
+            WHERE tc.class_code = '${req.params.code}' 
+            AND tq.id_question = ${req.params.id}
+            AND ts.id_student = ${idStudent};`
+        }
 
         connection.query(sql, callback);
     },
@@ -79,7 +107,8 @@ module.exports = {
         console.log(`[MODEL] - Busca o numero total de questões com código da classe:
          ${JSON.stringify(req.params.code)}`)
 
-        sql = `SELECT count(*) AS total FROM tb_class_question_answer_student AS tcqas
+        sql = `SELECT count(*) AS total FROM 
+        tb_class_question_answer_student AS tcqas
         INNER JOIN tb_class AS tc
         ON tcqas.id_class = tc.id_class
         INNER JOIN tb_question AS tq
@@ -102,3 +131,54 @@ function setHasFeedback(connection, questionId) {
         console.log(`[MODEL] - Coluna hasFeedBack alterada para true: ${JSON.stringify(result)}`);
     });
 }
+
+/** Retorna o numero de usuário no banco com classCode, 
+ * idQuestion e idStudent esperece retornar 1 ou 0, */
+async function verifyIfUserHasAnswer(req, idStudent, connection) {
+    console.log("Verificando se o usuario respondeu a questão!");
+
+    let value = new Promise((resolve, reject) => {
+
+      sql = `SELECT COUNT(*) AS value FROM 
+      tb_class_question_answer_student AS tcqas
+      INNER JOIN tb_class AS tc
+      ON tcqas.id_class = tc.id_class
+      INNER JOIN tb_question AS tq
+      ON tcqas.id_question = tq.id_question
+      INNER JOIN tb_answer AS ta
+      ON tcqas.id_answer = ta.id_answer
+      INNER JOIN tb_student AS ts
+      ON tcqas.id_student = ts.id_student
+      WHERE tc.class_code = '${req.params.code}' 
+      AND tq.id_question = ${req.params.id}
+      AND ts.id_student = ${idStudent};`
+
+      connection.query(sql, function (error, result) {
+        if (!error) {
+          resolve(result[0].value);
+        }
+        reject(error);
+      });
+    })
+
+    return await value;
+  }
+
+
+  /** Retorna o idStudent pelo id do usuário, */
+  async function getIdStudentByIdUser(req, connection) {
+    console.log("Buscando id do aluno por id do usuario!");
+
+    let idStudent = new Promise((resolve, reject) => {
+      sql = `SELECT id_student AS idStudent FROM tb_student WHERE id_user = ${req.params.userId}`
+
+        connection.query(sql, function (error, result) {
+        if (!error) {
+          resolve(result[0].idStudent);
+        }
+        reject(error);
+      });
+    })
+
+    return await idStudent;
+  }

@@ -127,9 +127,9 @@ const AddQuestion = () => {
         <div className="add-question-body">
 
             {/* Modal de sucesso */}
-            <div id={modalId} class="modal">
-                <div class="modal-content">
-                    <span class="close" onClick={closeModal}>&times;</span>
+            <div id={modalId} className="modal">
+                <div className="modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
                     <p className="p_message">Questão adicionada com sucesso!</p>
                     <div className="buttons">
                         <button onClick={closeModal}>
@@ -148,9 +148,9 @@ const AddQuestion = () => {
             </div>
 
             {/* Modal de erro */}
-            <div id={errorModalId} class="modal">
-                <div class="modal-content">
-                    <span class="close" onClick={closeModal}>&times;</span>
+            <div id={errorModalId} className="modal">
+                <div className="modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
                     <p className="p_message" style={{ backgroundColor: "lightcoral" }}>
                         Erro ao enviar questão!
                     </p>

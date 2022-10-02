@@ -109,9 +109,9 @@ const AnswerTable = () => {
         <div className="answer_list">
 
             {/* Modal - Enviar feedback */}
-            <div id={modalId} class="fdb_modal">
-                <div class="fdb_modal-content">
-                    <span class="btn_close" onClick={closeModal}>&times;</span>
+            <div id={modalId} className="fdb_modal">
+                <div className="fdb_modal-content">
+                    <span className="btn_close" onClick={closeModal}>&times;</span>
                     <p className="fdb_p_message">Deixe seu feedback para o aluno!</p>
 
                     <textarea id="txt_modal"

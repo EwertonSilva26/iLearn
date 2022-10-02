@@ -14,10 +14,13 @@ import "./Question.css";
 
 let answer = "";
 let emotion = {};
+let count = 0;
 const Question = () => {
     const [question, setQuestion] = useState({});
     const [error, setError] = useState("");
     const [fontText, fontTextError] = useState("");
+    let [modalId, setModalId] = useState("");
+    let [newAnswer, setNewAnswer] = useState("");
 
     const { id } = useParams();
     const { code } = useParams();
@@ -33,14 +36,15 @@ const Question = () => {
             .then((response) => {
                 if (response.data.status === 200) {
                     let result = response.data.result[0];
-                    setQuestion(result[0]);
+                    setQuestion(result);
                     setError("");
 
-                    if (result[0].question.length >= 100) {
+                    if (result.question.length >= 100) {
                         fontTextError("font_size_class");
                     }
 
-                    verifyPercentege(parseInt(result[0].percentage.split("%")));
+                    verifyPercentege(parseInt(result.percentage.split("%")));
+                    
                 }
             })
             .catch((err) => {
@@ -161,8 +165,49 @@ const Question = () => {
         return result;
     }
 
+    function closeModal() {
+        if (modalId !== "") {
+            setModalId("");
+        }
+    }
+
+    function changeAnswer(e) {
+        e.preventDefault();
+        // answer = newAnswer;
+    }
+
+
     return (
         <div className="main_question_class">
+            {/* Modal de sucesso */}
+            <div id={modalId} className="new_modal">
+                <div className="new_modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
+                    <div style={{ textAlign: "center" }}>
+                        <p className="p_header">Editar questão!</p>
+                    </div>
+                    
+                    {/* TODO - Não esta sendo possivel editar a questão */}
+                    <textarea onChange={(e) => changeAnswer(e)} 
+                    value={newAnswer} className="edit_txt" placeholder="Escreva seu algoritimo aqui">
+                    </textarea>
+                    
+                    <div className="new_buttons">
+                        <button className="btn" onClick={closeModal}>
+                            Enviar
+                        </button>
+
+                        <button className="btn" id="leave_page"
+                            style={{ backgroundColor: "red" }}
+                            onClick={closeModal}>
+                            Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+
             <div id="div_question">
                 <p className={fontText} id="question">{question.question}</p>
             </div>
@@ -185,13 +230,14 @@ const Question = () => {
                                     {question.student_answer}
                                 </SyntaxHighlighter>
                             </p>
-                            <button id="btn_edit">Editar</button>
+                            <button id="btn_edit" onClick={() => { setModalId("modal_id") }}>Editar</button>
                         </div>
 
                     ) : (
 
-                        <textarea id="txt_id" onKeyUp={(e) => setAnswer(e)}
-                            onMouseOut={(e) => setAnswer(e)}
+                        <textarea id="txt_id" onChange={(e) => setAnswer(e)} 
+                        // onKeyUp={(e) => setAnswer(e)}
+                        //     onMouseOut={(e) => setAnswer(e)}
                             placeholder="Escreva seu algoritimo aqui">
                         </textarea>
                     )}
