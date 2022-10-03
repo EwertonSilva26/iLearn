@@ -63,7 +63,7 @@ const AddQuestion = () => {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        if(total >= 6) {
+        if(total >= 10) {
             swal("Número de questões excedido!", 'Você só pode adicionar 10 questões por classe');
             cleanFields();
             return;
@@ -74,7 +74,7 @@ const AddQuestion = () => {
         }
 
         const question = {
-            user_id: token.userId,
+            userId: token.userId,
             title: event.target[0].value,
             question: event.target[1].value,
             teacherAnswer: event.target[2].value,

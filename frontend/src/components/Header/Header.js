@@ -72,9 +72,10 @@ function Header() {
 
             <p id="name">{token.email}</p>
 
-          <div id="logo">
+          {/* <div id="logo">
               <img style={{width: "180px", marginTop: "-115px"}} src={logo}></img>
-          </div>
+          </div> */}
+          <p id="welcome" style={{marginTop: "-43px", fontSize: "25px"}}>iLearn</p>
           </div>
 
         </div>

@@ -17,7 +17,6 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
-            console.log("##### RESULTADO: ", JSON.stringify(result))
             res.status(200).send({ status: 200, result });
         })
     },
@@ -72,7 +71,6 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
-            console.log("### RESULTADO: ###: ", JSON.stringify(result))
             res.status(200).send({ status: 200, result,
                  message: "Numero total de questões retornado com sucesso!" });
         })

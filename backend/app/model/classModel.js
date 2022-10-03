@@ -15,6 +15,8 @@ module.exports = {
 
     sql = `CALL get_all_classes(${req.params.id});`;
 
+    console.log("################: " + sql);
+
     connection.query(sql, callback);
   },
 

@@ -9,7 +9,7 @@ const {
 
 module.exports = {
     getQuestionsByClassCode: function (app) {
-        app.get("/questions/:id", (req, res) => {
+        app.get("/questions/:code/user/:userId", (req, res) => {
             try {
                 getQuestionsByClassCodeController(app, req, res);
             } catch (error) {

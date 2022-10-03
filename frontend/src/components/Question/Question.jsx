@@ -32,25 +32,30 @@ const Question = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
-            .then((response) => {
-                if (response.data.status === 200) {
-                    let result = response.data.result[0];
-                    setQuestion(result);
-                    setError("");
+        if (count === 0) {
+            count++;
 
-                    if (result.question.length >= 100) {
-                        fontTextError("font_size_class");
+            axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        let result = response.data.result[0];
+                        setQuestion(result);
+                        setError("");
+
+                        if (result.question.length >= 100) {
+                            fontTextError("font_size_class");
+                        }
+
+                        setNewAnswer(result.student_answer);
+                        verifyPercentege(parseInt(result.percentage.split("%")));
+
                     }
-
-                    verifyPercentege(parseInt(result.percentage.split("%")));
-                    
-                }
-            })
-            .catch((err) => {
-                setError("Erro ao buscar questão: " + err);
-                console.log(`Erro Ocorrido: ${error}`)
-            });
+                })
+                .catch((err) => {
+                    setError("Erro ao buscar questão: " + err);
+                    console.log(`Erro Ocorrido: ${error}`)
+                });
+        }
     })
 
     function sendAnswer() {
@@ -63,8 +68,7 @@ const Question = () => {
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        createMessage("success", "Resposta enviada!", `Seu algoritimo tem 
-                        ${parseFloat(result.toFixed(2))}% de similaridade!`);
+                        createMessage("success", "Resposta enviada!", `Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
                         setError("");
                     }
                     else {
@@ -151,14 +155,14 @@ const Question = () => {
         const teacherAnswer = removeString(question.teacher_answer
             .replace(/[\r\n]/gm, '').split(";"));
 
-        let count = 0;
+        let similarityCounter = 0;
         for (let d = 0; d < studentAnswer.length; d++) {
             if (studentAnswer[d] === teacherAnswer[d]) {
-                count++;
+                similarityCounter++;
             }
         }
 
-        let result = ((count * 1) / teacherAnswer.length) * 100;
+        let result = ((similarityCounter * 1) / teacherAnswer.length) * 100;
 
         verifyPercentege(result);
 
@@ -186,12 +190,12 @@ const Question = () => {
                     <div style={{ textAlign: "center" }}>
                         <p className="p_header">Editar questão!</p>
                     </div>
-                    
+
                     {/* TODO - Não esta sendo possivel editar a questão */}
-                    <textarea onChange={(e) => changeAnswer(e)} 
-                    value={newAnswer} className="edit_txt" placeholder="Escreva seu algoritimo aqui">
+                    <textarea onChange={(e) => changeAnswer(e)}
+                        value={newAnswer} className="edit_txt" placeholder="Escreva seu algoritimo aqui">
                     </textarea>
-                    
+
                     <div className="new_buttons">
                         <button className="btn" onClick={closeModal}>
                             Enviar
@@ -235,9 +239,9 @@ const Question = () => {
 
                     ) : (
 
-                        <textarea id="txt_id" onChange={(e) => setAnswer(e)} 
-                        // onKeyUp={(e) => setAnswer(e)}
-                        //     onMouseOut={(e) => setAnswer(e)}
+                        <textarea id="txt_id" onChange={(e) => setAnswer(e)}
+                            // onKeyUp={(e) => setAnswer(e)}
+                            //     onMouseOut={(e) => setAnswer(e)}
                             placeholder="Escreva seu algoritimo aqui">
                         </textarea>
                     )}

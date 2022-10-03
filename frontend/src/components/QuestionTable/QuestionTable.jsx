@@ -9,11 +9,14 @@ const Question = () => {
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
     const token = JSON.parse(sessionStorage.getItem("token"));
-    let count = 1;
+    let count = 0;
 
     useEffect(() => {
+        if(count === 0){
+            count++;
+            debugger
         axios
-            .get(`http://localhost:3003/questions/${code}`)
+            .get(`http://localhost:3003/questions/${code}/user/${token.userId}`)
             .then((response) => {
                 if (response.data.status === 200) {
                     setQuestions(response.data.result);
@@ -22,6 +25,7 @@ const Question = () => {
             .catch((err) => {
                 console.log(`Erro ao buscar questões ${err}`)
             });
+        }
     });
 
     return (
