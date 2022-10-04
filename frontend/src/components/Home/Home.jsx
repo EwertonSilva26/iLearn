@@ -119,7 +119,9 @@ const Home = () => {
                                 onMouseOut={(e) => setClassCode(e)}
                                 onKeyUp={(e) => setClassCode(e)}>
                             </input>
-                            <button id="btn_enter" className="btn_myClasses" onClick={inserStudentInClass}>Entrar na turma</button>
+                            <button id="btn_enter" className="btn_myClasses" 
+                            onClick={inserStudentInClass}>Entrar na turma
+                            </button>
                         </div>
                     </div>
                 </>
@@ -136,9 +138,15 @@ const Home = () => {
                     <div className="container">
                         <div className="new_classes" style={{ height: "200px" }}>
                             <h1 className="my_classes">Criar nova turma</h1>
-                            <h2 className="h2_home" style={{ fontSize: "20px" }}>insira um nome para a turma</h2>
-                            <input id="ipt_new_class" placeholder="Digite o nome da turma" onKeyUp={(e) => setClassName(e)}></input>
-                            <button className="btn_myClasses" id="btn_create_class" onClick={createClass}>Criar turma</button>
+                            <h2 className="h2_home" style={{ fontSize: "20px" }}>
+                                insira um nome para a turma
+                            </h2>
+                            <input id="ipt_new_class" placeholder="Digite o nome da turma"
+                                onKeyUp={(e) => setClassName(e)}>
+                            </input>
+                            <button className="btn_myClasses" id="btn_create_class"
+                                onClick={createClass}>Criar turma
+                            </button>
                         </div>
                     </div>
                 </>

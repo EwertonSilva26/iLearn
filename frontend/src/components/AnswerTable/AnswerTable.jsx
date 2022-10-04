@@ -33,7 +33,6 @@ const AnswerTable = () => {
     });
 
     function sendFeedback() {
-
         if (feedback === "") {
             setError("block");
             return;
@@ -54,7 +53,6 @@ const AnswerTable = () => {
             .put(`http://localhost:3003/class/${obj.classId}/question/${obj.questionId}
             /answer/${obj.answerId}/student/${obj.studentId}`, object)
             .then((response) => {
-                debugger
                 if (response.status === 204) {
                     closeModal();
                     generateMessage("Sucesso",

@@ -60,7 +60,7 @@ const Question = () => {
 
     function sendAnswer() {
         if (answer !== "") {
-            let result = checkPercentage(answer);
+            let result = removeSpace(answer);
             obj.answer = answer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
@@ -148,7 +148,7 @@ const Question = () => {
         }
     }
 
-    const checkPercentage = (answer) => {
+    const removeSpace = (answer) => {
         const studentAnswer = removeString(answer
             .replace(/[\r\n]/gm, '').split(";"));
 

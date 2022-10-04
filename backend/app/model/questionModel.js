@@ -32,13 +32,13 @@ module.exports = {
         
         if(value === 0) {
             sql = `SELECT * FROM 
-            tb_class_question_answer_student AS tcqas
+            tb_class_question_answer_student_teacher AS tcqast
             INNER JOIN tb_class AS tc
-            ON tcqas.id_class = tc.id_class
+            ON tcqast.id_class = tc.id_class
             INNER JOIN tb_question AS tq
-            ON tcqas.id_question = tq.id_question
+            ON tcqast.id_question = tq.id_question
             INNER JOIN tb_student AS ts
-            ON tcqas.id_student = ts.id_student
+            ON tcqast.id_student = ts.id_student
             WHERE tc.class_code = '${req.params.code}' 
             AND tq.id_question = ${req.params.id}
             AND ts.id_student = ${id};`
@@ -93,9 +93,9 @@ module.exports = {
         id_answer = ${params.answerId},
         id_student = ${params.studentId}`)
 
-        sql = `UPDATE tb_class_question_answer_student 
+        sql = `UPDATE tb_class_question_answer_student_teacher 
         SET feedback = '${req.body.feedback}' 
-        WHERE id_class_question_answer_student = ${req.body.id} AND
+        WHERE id_class_question_answer_student_teacher = ${req.body.id} AND
         id_class = ${params.classId} 
         AND id_question = ${params.questionId} 
         AND id_answer = ${params.answerId} 
@@ -113,11 +113,11 @@ module.exports = {
          ${JSON.stringify(req.params.code)}`)
 
         sql = `SELECT count(*) AS total FROM 
-        tb_class_question_answer_student AS tcqas
+        tb_class_question_answer_student_teacher AS tcqast
         INNER JOIN tb_class AS tc
-        ON tcqas.id_class = tc.id_class
+        ON tcqast.id_class = tc.id_class
         INNER JOIN tb_question AS tq
-        ON tcqas.id_question = tq.id_question
+        ON tcqast.id_question = tq.id_question
         WHERE tc.class_code = '${req.params.code}'`;
 
         connection.query(sql, callback);
@@ -145,15 +145,15 @@ async function verifyIfUserHasAnswer(req, idStudent, connection) {
     let value = new Promise((resolve, reject) => {
 
       sql = `SELECT COUNT(*) AS value FROM 
-      tb_class_question_answer_student AS tcqas
+      tb_class_question_answer_student_teacher AS tcqast
       INNER JOIN tb_class AS tc
-      ON tcqas.id_class = tc.id_class
+      ON tcqast.id_class = tc.id_class
       INNER JOIN tb_question AS tq
-      ON tcqas.id_question = tq.id_question
+      ON tcqast.id_question = tq.id_question
       INNER JOIN tb_answer AS ta
-      ON tcqas.id_answer = ta.id_answer
+      ON tcqast.id_answer = ta.id_answer
       INNER JOIN tb_student AS ts
-      ON tcqas.id_student = ts.id_student
+      ON tcqast.id_student = ts.id_student
       WHERE tc.class_code = '${req.params.code}' 
       AND tq.id_question = ${req.params.id}
       AND ts.id_student = ${idStudent};`

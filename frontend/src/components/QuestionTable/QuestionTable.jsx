@@ -10,21 +10,21 @@ const Question = () => {
     const [questions, setQuestions] = useState([]);
     const token = JSON.parse(sessionStorage.getItem("token"));
     let count = 0;
+    let counter = 1;
 
     useEffect(() => {
-        if(count === 0){
+        if (count === 0) {
             count++;
-            debugger
-        axios
-            .get(`http://localhost:3003/questions/${code}/user/${token.userId}`)
-            .then((response) => {
-                if (response.data.status === 200) {
-                    setQuestions(response.data.result);
-                }
-            })
-            .catch((err) => {
-                console.log(`Erro ao buscar questões ${err}`)
-            });
+            axios
+                .get(`http://localhost:3003/questions/${code}/user/${token.userId}`)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        setQuestions(response.data.result);
+                    }
+                })
+                .catch((err) => {
+                    console.log(`Erro ao buscar questões ${err}`)
+                });
         }
     });
 
@@ -38,14 +38,18 @@ const Question = () => {
                             <th>Descrição / Titulo</th>
                             {token.email.includes("@aluno") ? (
                                 <th className="tb_class">Feedback</th>
-                            ) : (
-                                <th className="tb_class" style={{ display: "none" }}>Feedback</th>
+                            ) : (<th className="tb_class" style={{ display: "none" }}>
+                                Feedback
+                            </th>
                             )}
                             {token.email.includes("@aluno") ? (
-                                <th className="tb_class">Click para responder</th>
+                                <th className="tb_class">
+                                    Click para responder
+                                </th>
                             ) : (
-                                <th className="tb_class">Click para ver respostas</th>
-
+                                <th className="tb_class">
+                                    Click para ver respostas
+                                </th>
                             )}
 
                         </tr>
@@ -53,7 +57,7 @@ const Question = () => {
                             questions.map((question, key) => {
                                 return (
                                     <tr key={key}>
-                                        <td>{count++}</td>
+                                        <td>{counter++}</td>
                                         <td>{question.title}</td>
                                         <td>{question.hasFeedBack ? 'Sim' : 'Não'}</td>
                                         <td>
@@ -63,7 +67,6 @@ const Question = () => {
                                                 </button>
                                             </Link>
                                         </td>
-
                                     </tr>
                                 )
                             })
@@ -72,7 +75,7 @@ const Question = () => {
                             questions.map((question, key) => {
                                 return (
                                     <tr key={key}>
-                                        <td>{count++}</td>
+                                        <td>{counter++}</td>
                                         <td>{question.title}</td>
                                         {/* <td>{question.hasFeedBack ? 'Sim' : 'Não'}</td> */}
                                         <td>

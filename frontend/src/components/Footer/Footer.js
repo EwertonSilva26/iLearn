@@ -5,9 +5,6 @@ import facebook from "./img/facebook.png";
 import instagram from "./img/instagram.png";
 import twitter from "./img/twitter.png";
 
-
-const style = { marginRight: "10px" };
-
 function Footer() {
   return (
     <div>

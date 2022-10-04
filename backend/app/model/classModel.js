@@ -33,15 +33,15 @@ module.exports = {
     console.log(`[MODEL] - Buscando todas informações sobre a questão com  
               id da questão: ${req.params.id}, codigo da classe: ${req.params.code}`)
 
-    sql = `SELECT * FROM tb_class_question_answer_student AS tcqas
+    sql = `SELECT * FROM tb_class_question_answer_student_teacher AS tcqast
               INNER JOIN tb_class AS tc
-              ON tcqas.id_class = tc.id_class
+              ON tcqast.id_class = tc.id_class
               INNER JOIN tb_question AS tq
-              ON tcqas.id_question = tq.id_question
+              ON tcqast.id_question = tq.id_question
               INNER JOIN tb_answer AS ta
-              ON tcqas.id_answer = ta.id_answer
+              ON tcqast.id_answer = ta.id_answer
               INNER JOIN tb_student AS ts
-              ON tcqas.id_student = ts.id_student
+              ON tcqast.id_student = ts.id_student
               WHERE tc.class_code = '${req.params.code}' 
               AND tq.id_question = ${req.params.id} ;`
 

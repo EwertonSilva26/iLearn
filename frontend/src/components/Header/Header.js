@@ -4,7 +4,6 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import "./Header.css";
 import home from "./img/home.png";
 import back from "./img/back.png";
-import logo from "./img/logo.png";
 
 function Header() {
   const token = JSON.parse(sessionStorage.getItem("token"));
@@ -43,14 +42,13 @@ function Header() {
 
   }
 
-  function backHome() {
+  function studentBackHome() {
     if (token.email.includes("@aluno")) {
       navigate(`/student/${token.userId}`);
     } else {
       navigate(`/teacher/${token.userId}`);
     }
   }
-
 
   return (
     <div>
@@ -64,17 +62,14 @@ function Header() {
                 <img id="back" src={back}></img>
               </button>
 
-              <button onClick={backHome}>
+              <button onClick={studentBackHome}>
                 <img id="home" src={home}></img>
               </button>
             </div>
+
             <button id="leave" onClick={logout}>Sair</button>
+            <h1 id="name" style={{marginRight: token.email.length >= 30 ? "45px" : "5px" }}>{token.email}</h1>
 
-            <p id="name">{token.email}</p>
-
-          {/* <div id="logo">
-              <img style={{width: "180px", marginTop: "-115px"}} src={logo}></img>
-          </div> */}
           <p id="welcome" style={{marginTop: "-43px", fontSize: "25px"}}>iLearn</p>
           </div>
 
