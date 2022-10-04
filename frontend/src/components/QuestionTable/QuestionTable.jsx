@@ -95,7 +95,9 @@ const Question = () => {
                     </table>
 
                 ) : (
-                    <h1>Nenhuam questão adicionada!</h1>
+                    <h1 style={{fontSize: "30px", marginTop: "40px"}}>
+                        Nenhuam questão adicionada!
+                    </h1>
                 )}
             </div>
         </div>

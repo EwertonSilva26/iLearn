@@ -142,17 +142,22 @@ td {
   margin-top: 0;
 }
 
-h1 {font-size: 20px; }
+h1 {
+  font-size: 30px;
+  margin-top: 40px;
+}
 
 @media screen and (max-width: 700px) {
   #class_answer_list table {
     font-size: 15px;
     width: 50%;
   }
+
   #class_answer_list #queston {
-      font-size: 15px;
+    font-size: 15px;
   }
+
   #class_answer_list .class_name {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 }
