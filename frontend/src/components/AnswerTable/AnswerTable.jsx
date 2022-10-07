@@ -34,7 +34,6 @@ const AnswerTable = () => {
                         setInfos(response.data.result);
                         setClassName(response.data.result[0].class_name);
                         setQuestion(response.data.result[0].question);
-
                     }
                 })
                 .catch((err) => {
@@ -94,6 +93,24 @@ const AnswerTable = () => {
     }
 
     function setFeedback(event) { feedback = event.target.value; }
+
+    function showFeedback(info) {
+        let teacherFeedback = info.feedback ? info.feedback : '';
+
+        if(teacherFeedback === '') {
+            document.querySelector(".button").disabled = true;
+
+            return;
+        }
+
+        swal({
+            title: "Feedback",
+            text: teacherFeedback,
+            button: {
+                text: "Fechar"
+            }
+        })
+    }
 
     function closeModal() {
         setModalId("");
@@ -198,7 +215,7 @@ const AnswerTable = () => {
                                             </td>
 
                                             <td style={{ fontSize: "20px" }}>{info.percentage}</td>
-                                            <td>{info.feedback ? info.feedback : ''}</td>
+                                            <td><button id="button" className="button" onClick={() => {showFeedback(info)}}>Ver Feedback</button></td>
                                             <td>
                                                 <button id="btn_answer" onClick={() => { setObject(info) }}>
                                                     <img id="next" src={next}></img>

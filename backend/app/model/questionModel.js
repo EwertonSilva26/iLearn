@@ -31,9 +31,6 @@ module.exports = {
 
         let idStudent = await getIdStudentByIdUser(req, connection);
         let value = await verifyIfUserHasAnswer(req, idStudent ,connection);
-
-        console.log("idStudent: ", idStudent)
-        console.log("Valor: ", value);
         
         if(value === 0) {
             sql = `SELECT tq.question, tq.teacher_answer, tq.tip 
@@ -58,7 +55,6 @@ module.exports = {
             WHERE tc.id_class = ${await getIdClassByClassCode(req, connection)} 
             AND tq.id_question = ${req.params.id}
             AND ts.id_student = ${idStudent};`
-
             
           }
                 
