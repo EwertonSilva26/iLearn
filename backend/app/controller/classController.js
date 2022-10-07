@@ -53,7 +53,7 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
-            console.log("RESULTADO: " + JSON.stringify(result[0]))
+            console.log("RESULTADO: " + JSON.stringify(result))
     
             res.status(200).send({ status: 200, result });
         })

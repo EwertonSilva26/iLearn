@@ -46,8 +46,14 @@ const Question = () => {
                             fontTextError("font_size_class");
                         }
 
-                        setNewAnswer(result.student_answer);
-                        verifyPercentege(parseInt(result.percentage.split("%")));
+                        if (result.student_answer) {
+                            setNewAnswer(result.student_answer);
+                        }
+
+                        if (result.percentage) {
+                            verifyPercentege(parseInt(result.percentage.split("%")));
+                        }
+
 
                     }
                 })
@@ -63,12 +69,12 @@ const Question = () => {
             let result = removeSpace(answer);
             obj.answer = answer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
-
+        
             axios
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        createMessage("success", "Resposta enviada!", `Seu algoritimo tem ${parseFloat(result.toFixed(2))}% de similaridade!`);
+                        createMessage("success", "Resposta enviada!", `Seu algoritimo teve ${parseFloat(result.toFixed(2))}% de similaridade!`);
                         setError("");
                     }
                     else {
@@ -93,6 +99,8 @@ const Question = () => {
             button: {
                 text: "Fechar"
             }
+        }).then(() => {
+            window.location.reload();
         });
     }
 
@@ -149,22 +157,21 @@ const Question = () => {
     }
 
     const removeSpace = (answer) => {
-        const studentAnswer = removeString(answer
-            .replace(/[\r\n]/gm, '').split(";"));
+        debugger
+        const studentAnswer = removeString(answer.trim()
+            .replace(/(\r\n|\n|\r)/gm, '').split(";"));
 
-        const teacherAnswer = removeString(question.teacher_answer
-            .replace(/[\r\n]/gm, '').split(";"));
+        const teacherAnswer = removeString(question.teacher_answer.trim()
+            .replace(/(\r\n|\n|\r)/gm, '').split(";"));
 
         let similarityCounter = 0;
         for (let d = 0; d < studentAnswer.length; d++) {
-            if (studentAnswer[d] === teacherAnswer[d]) {
+            if (studentAnswer[d] == teacherAnswer[d]) {
                 similarityCounter++;
             }
         }
 
         let result = ((similarityCounter * 1) / teacherAnswer.length) * 100;
-
-        verifyPercentege(result);
 
         return result;
     }

@@ -8,28 +8,39 @@ import swal from 'sweetalert';
 import "./AnswerTable.css";
 import next from "./next.png";
 
+let number = 0;
 const AnswerTable = () => {
     const { code } = useParams();
     const { id } = useParams();
     const [infos, setInfos] = useState([]);
-    
+
     let [objectInfo, setObjectInfo] = useState({});
     let [modalId, setModalId] = useState("");
+    let [className, setClassName] = useState("");
+    let [question, setQuestion] = useState("");
     let [error, setError] = useState("");
-    
+
     let feedback = "";
 
+
     useEffect(() => {
+        if (number === 0) {
+            number++
+
             axios
                 .get(`http://localhost:3003/class/${code}/question/${id}/answers`)
                 .then((response) => {
                     if (response.data.status === 200) {
                         setInfos(response.data.result);
+                        setClassName(response.data.result[0].class_name);
+                        setQuestion(response.data.result[0].question);
+
                     }
                 })
                 .catch((err) => {
                     console.log(`Erro ao buscar informações ${err}`)
                 });
+        }
     });
 
     function sendFeedback() {
@@ -49,6 +60,7 @@ const AnswerTable = () => {
             id: objectInfo.id,
             feedback
         }
+
         axios
             .put(`http://localhost:3003/class/${obj.classId}/question/${obj.questionId}
             /answer/${obj.answerId}/student/${obj.studentId}`, object)
@@ -99,8 +111,9 @@ const AnswerTable = () => {
             questionId: infos.id_question,
             answerId: infos.id_answer,
             studentId: infos.id_student,
-            id: infos.id_class_question_answer_student
+            id: infos.id_class_question_answer_student_teacher
         })
+
     }
 
     return (
@@ -145,18 +158,18 @@ const AnswerTable = () => {
             </div>
 
             <div id="class_answer_list">
+                <h1 className="class_name" style={{ marginTop: "20px" }}>{className}</h1>
+                <p id="queston">{question}</p>
                 {infos.length > 0 ? (
-                    <>
-                        <h1 className="class_name" style={{marginTop: "30px"}}>{infos[0].class_name}</h1>
-                        <p id="queston">{infos[0].question}</p>
+                    <div className="central">
                         <table>
                             <tr id="tr_header">
-                                <th style={{width: "120px"}}>Aluno</th>
+                                <th style={{ width: "200px" }}>Aluno</th>
                                 <th>Algoritmo do Professor</th>
                                 <th>Algoritmo do Aluno</th>
-                                <th style={{padding: "10px"}}>Similaridade</th>
+                                <th style={{ padding: "10px" }}>Similaridade</th>
                                 <th className="tb_class">Feedback</th>
-                                <th className="tb_class">Deixe o feedback para os alunos</th>
+                                <th className="tb_class" style={{width: "100px"}}>Deixe o feedback para os alunos</th>
                             </tr>
                             {infos.length > 0 ? (
                                 infos.map((info, key) => {
@@ -167,24 +180,24 @@ const AnswerTable = () => {
                                             ${info.student_last_name.toUpperCase()}`}
                                             </td>
                                             <td>
-                                            <SyntaxHighlighter 
-                                            lineProps={{style: {whiteSpace: 'pre-wrap'}}} 
-                                            wrapLines={true}
-                                            language="c" style={{ docco }}>
-                                            {info.teacher_answer}
-                                            </SyntaxHighlighter>
+                                                <SyntaxHighlighter
+                                                    lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
+                                                    wrapLines={true}
+                                                    language="c" style={{ docco }}>
+                                                    {info.teacher_answer}
+                                                </SyntaxHighlighter>
                                             </td>
 
                                             <td>
-                                            <SyntaxHighlighter
-                                            lineProps={{style: {whiteSpace: 'pre-wrap'}}} 
-                                            wrapLines={true} 
-                                            language="c" style={{ docco }}>
-                                            {info.student_answer}
-                                            </SyntaxHighlighter>
+                                                <SyntaxHighlighter
+                                                    lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
+                                                    wrapLines={true}
+                                                    language="c" style={{ docco }}>
+                                                    {info.student_answer}
+                                                </SyntaxHighlighter>
                                             </td>
 
-                                            <td  style={{ fontSize: "20px" }}>{info.percentage}</td>
+                                            <td style={{ fontSize: "20px" }}>{info.percentage}</td>
                                             <td>{info.feedback ? info.feedback : ''}</td>
                                             <td>
                                                 <button id="btn_answer" onClick={() => { setObject(info) }}>
@@ -202,7 +215,7 @@ const AnswerTable = () => {
                             )}
 
                         </table>
-                    </>
+                    </div>
 
                 ) : (
                     <h1>Nenhuam resposta adicionada!</h1>

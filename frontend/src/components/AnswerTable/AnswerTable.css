@@ -54,6 +54,14 @@ td {
 
 #class_answer_list table tr td {
   padding: 8.2px;
+  padding-top: 0;
+}
+
+.answer_list #class_answer_list .central {
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  font-size: 12px;
+  margin-bottom: -100px;
 }
 
 #next {
@@ -83,6 +91,7 @@ td {
   border: 1px solid #888;
   width: 80%;
   height: 42%;
+  margin-top: 120px;
 }
 
 .fdb_modal-content #txt_modal {
@@ -143,8 +152,7 @@ td {
 }
 
 h1 {
-  font-size: 30px;
-  margin-top: 40px;
+  font-size: 25px;
 }
 
 @media screen and (max-width: 700px) {

@@ -9,17 +9,24 @@ const Question = () => {
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
     const token = JSON.parse(sessionStorage.getItem("token"));
-    let count = 0;
+    let countNumber = 0;
     let counter = 1;
 
     useEffect(() => {
-        if (count === 0) {
-            count++;
+        if (countNumber === 0) {
+            countNumber++;
+
+            debugger
             axios
-                .get(`http://localhost:3003/questions/${code}/user/${token.userId}`)
+                .get(`http://localhost:3003/questions/${code}/user/${token.userId}/email/${token.email}`)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        setQuestions(response.data.result);
+                        if(token.email.includes("@aluno")) {
+                            setQuestions(response.data.result[0]);
+                        } else{
+
+                            setQuestions(response.data.result);
+                        }
                     }
                 })
                 .catch((err) => {

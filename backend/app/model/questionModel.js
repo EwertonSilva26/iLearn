@@ -3,10 +3,9 @@ let sql;
 module.exports = {
     /** Busca questoẽs por codigo da turma e id do professor**/
     getQuestionsByClassCodeModel: async function (req, connection, callback) {
-        console.log(`[MODEL] - Buscando todas questoẽs da turma!`)
+        console.log(`[MODEL] - Buscando todas questoẽs da turma! ${JSON.stringify(req.params)}`)
 
-        let idTeacher = await getIdTeacherByIdUser(req, connection);
-
+        if(req.params.email.includes("@professor")){
         sql = `SELECT * FROM tb_class_question_answer_student_teacher AS tcqast
         INNER JOIN tb_class AS tc
         ON tcqast.id_class = tc.id_class
@@ -15,7 +14,10 @@ module.exports = {
         INNER JOIN tb_teacher AS tt
         ON tcqast.id_teacher = tt.id_teacher
         WHERE tc.class_code = '${req.params.code}'
-        AND tt.id_teacher = ${idTeacher}`;
+        AND tt.id_teacher = ${await getIdTeacherByIdUser(req, connection)}`;
+        } else {
+          sql = `call getClassesOfStudents('${req.params.code}')`;
+        }
 
         connection.query(sql, callback);
     },
@@ -25,40 +27,42 @@ module.exports = {
         console.log(`[MODEL] - Buscando questão com 
         class code: ${req.params.code}, 
         id da questão: ${req.params.id},
-        id do usuario: ${req.params.userId}`)
+        id do usuario: ${req.params.userId}`);
 
-        let id = await getIdStudentByIdUser(req, connection);
-        let value = await verifyIfUserHasAnswer(req, id, connection);
+        let idStudent = await getIdStudentByIdUser(req, connection);
+        let value = await verifyIfUserHasAnswer(req, idStudent ,connection);
+
+        console.log("idStudent: ", idStudent)
+        console.log("Valor: ", value);
         
         if(value === 0) {
-            sql = `SELECT * FROM 
-            tb_class_question_answer_student_teacher AS tcqast
+            sql = `SELECT tq.question, tq.teacher_answer, tq.tip 
+            FROM tb_class_question_answer_student_teacher AS tcqast
             INNER JOIN tb_class AS tc
             ON tcqast.id_class = tc.id_class
             INNER JOIN tb_question AS tq
             ON tcqast.id_question = tq.id_question
+            WHERE tc.id_class = ${await getIdClassByClassCode(req, connection)} 
+            AND tq.id_question = ${req.params.id};`
+
+        } else {
+            sql = `SELECT * FROM tb_class_question_answer_student_teacher AS tcqast
+            INNER JOIN tb_class AS tc
+            ON tcqast.id_class = tc.id_class
+            INNER JOIN tb_question AS tq
+            ON tcqast.id_question = tq.id_question
+            INNER JOIN tb_answer AS ta
+            ON tcqast.id_answer = ta.id_answer
             INNER JOIN tb_student AS ts
             ON tcqast.id_student = ts.id_student
-            WHERE tc.class_code = '${req.params.code}' 
-            AND tq.id_question = ${req.params.id}
-            AND ts.id_student = ${id};`
-        } else {
-            sql = `SELECT * FROM 
-            tb_class_question_answer_student AS tcqas
-            INNER JOIN tb_class AS tc
-            ON tcqas.id_class = tc.id_class
-            INNER JOIN tb_question AS tq
-            ON tcqas.id_question = tq.id_question
-            INNER JOIN tb_answer AS ta
-            ON tcqas.id_answer = ta.id_answer
-            INNER JOIN tb_student AS ts
-            ON tcqas.id_student = ts.id_student
-            WHERE tc.class_code = '${req.params.code}' 
+            WHERE tc.id_class = ${await getIdClassByClassCode(req, connection)} 
             AND tq.id_question = ${req.params.id}
             AND ts.id_student = ${idStudent};`
-        }
 
-        connection.query(sql, callback);
+            
+          }
+                
+          connection.query(sql, callback);
     },
 
 
@@ -165,11 +169,11 @@ async function verifyIfUserHasAnswer(req, idStudent, connection) {
         reject(error);
       });
     })
-
+    
     return await value;
   }
 
-  /** Retorna o idStudent pelo id do usuário, */
+  /** Retorna o id_student pelo id do usuário, */
   async function getIdStudentByIdUser(req, connection) {
     console.log("Buscando id do aluno por id do usuario!");
 
@@ -188,7 +192,7 @@ async function verifyIfUserHasAnswer(req, idStudent, connection) {
   }
 
 
-    /** Retorna o idTeacher pelo id do usuário, */
+    /** Retorna o id_teacher pelo id do usuário, */
     async function getIdTeacherByIdUser(req, connection) {
         console.log("Buscando id do professor por id do usuario!");
     
@@ -204,4 +208,24 @@ async function verifyIfUserHasAnswer(req, idStudent, connection) {
         })
     
         return await idTeacher;
+
       }
+
+    /** Retorna o id_clasass pelo código da class, */
+    async function getIdClassByClassCode(req, connection) {
+      console.log("Buscando id da turma pelo código da classe!");
+  
+      let idClass = new Promise((resolve, reject) => {
+        sql = `SELECT id_class AS idClass FROM tb_class WHERE class_code = '${req.params.code}'`
+      
+          connection.query(sql, function (error, result) {
+          if (!error) {
+            resolve(result[0].idClass);
+          }
+          reject(error);
+        });
+      })
+  
+      return await idClass;
+
+    }

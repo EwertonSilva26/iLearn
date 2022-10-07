@@ -156,8 +156,6 @@
     font-size: 15px; 
     overflow-y: scroll;
     scroll-behavior: smooth;
-    height: 300px;
-
 }
 
 .main_question_class #div_question .font_size_class {
