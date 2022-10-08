@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Class from "../Class/Class";
 import axios from "axios";
 
+let classCount = 0;
 const ClassList = () => {
     const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
@@ -9,6 +10,11 @@ const ClassList = () => {
     let count = 0;
 
     useEffect(() => {
+        if (classCount > 0) {
+            return;
+        }
+        classCount++;
+
         axios
             .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
             .then((response) => {
@@ -27,13 +33,13 @@ const ClassList = () => {
                 classes.map((item) => {
                     item.itemTotal = 0;
                     count++;
-                    if(count === (classes.length)){
+                    if (count === (classes.length)) {
                         item.itemTotal = count;
                     }
                     return <Class key={item.id_class} props={item}></Class>;
                 })
             ) : (
-                <h1 style={{margin: "15px"}}>Nenhuam turma adicionada!</h1>
+                <h1 style={{ margin: "15px" }}>Nenhuam turma adicionada!</h1>
             )}
         </div>
     );

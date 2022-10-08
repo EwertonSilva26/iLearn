@@ -1,17 +1,31 @@
 let sql;
 
+function GeneralException(message) {
+  this.message = message;
+  this.name = "ClasseJaExisteExeception";
+}
+
 module.exports = {
 
   /** Cria nova turma **/
-  createClass: function (body, connection, callback) {
-    sql = `call insert_class ('${body.className}', '${body.classCode}', 
+  createClass: async function (body, connection, callback) {
+
+    let number = await verifyIfHasClassName(body.className, connection);
+
+    if (number === 0) {
+      sql = `call insert_class ('${body.className}', '${body.classCode}', 
     ${body.userId})`;
-    connection.query(sql, callback);
+    
+  } else {
+    sql = `SELECT COUNT(*) AS number FROM tb_class WHERE class_name = '${body.className}'`;
+  }
+
+  connection.query(sql, callback);
   },
 
   /** Busca todas as turmas **/
   getAllClasses: function (req, connection, callback) {
-    console.log("[MODEL] - Buscando todas as turmas")
+    console.log(`[MODEL] - Buscando todas as turmas com userId: ${req.params.id}`)
 
     sql = `CALL get_all_classes(${req.params.id});`;
 
@@ -45,4 +59,24 @@ module.exports = {
 
     connection.query(sql, callback);
   }
+
+}
+
+/** Retorna se já existe o nome da classe */
+async function verifyIfHasClassName(className, connection) {
+  console.log(`Contando numero de classes para verificar 
+  se classe a ser criada ja existe! - ${className}`);
+
+  let number = new Promise((resolve, reject) => {
+    sql = `SELECT COUNT(class_name) AS number FROM tb_class where class_name = '${className}'`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result[0].number);
+      }
+      reject(error);
+    });
+  })
+
+  return await number;
 }

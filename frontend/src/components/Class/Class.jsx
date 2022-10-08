@@ -30,9 +30,9 @@ const Class = ({ props }) => {
                         <div className="buttons">
                             <button><img src={trashCan}></img></button>
                             <button><img src={pencil}></img></button>
-                            
+
                             <Link to={`/teacher/class/${props.class_code}/add/question`}>
-                            <button><img src={plus}></img></button>
+                                <button><img src={plus}></img></button>
                             </Link>
                         </div>
                     </div>

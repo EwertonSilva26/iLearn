@@ -15,18 +15,12 @@ const Question = () => {
     useEffect(() => {
         if (countNumber === 0) {
             countNumber++;
-
-            debugger
+            
             axios
                 .get(`http://localhost:3003/questions/${code}/user/${token.userId}/email/${token.email}`)
                 .then((response) => {
                     if (response.data.status === 200) {
-                        if(token.email.includes("@aluno")) {
-                            setQuestions(response.data.result[0]);
-                        } else{
-
-                            setQuestions(response.data.result);
-                        }
+                        setQuestions(response.data.result[0]);
                     }
                 })
                 .catch((err) => {
@@ -102,7 +96,7 @@ const Question = () => {
                     </table>
 
                 ) : (
-                    <h1 style={{fontSize: "30px", marginTop: "40px"}}>
+                    <h1 style={{ fontSize: "30px", marginTop: "40px" }}>
                         Nenhuam questão adicionada!
                     </h1>
                 )}

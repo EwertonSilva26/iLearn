@@ -3,22 +3,16 @@ CREATE PROCEDURE insert_class (className varchar(100),
 classCode varchar(100), userId INT)
 BEGIN
 
-	DECLARE qtdClass INT;
 	DECLARE classId INT;
     DECLARE teacherId INT;
     
-	SELECT COUNT(class_name) from tb_class where class_name = className INTO qtdClass;
-    
-    IF qtdClass = 0 THEN
-
 	INSERT INTO tb_class (class_name, class_code) VALUES (className, classCode);
 	
     SELECT id_class FROM tb_class WHERE class_name = className INTO classId;
     SELECT id_teacher FROM tb_teacher WHERE id_user = userId INTO teacherId;
 
 	SET FOREIGN_KEY_CHECKS=0;
-	INSERT INTO tb_teacher_class (id_teacher, id_class) VALUES (teacherId, classId);
-    END IF;
+	INSERT INTO tb_class_question_answer_student_teacher (id_teacher, id_class) VALUES (teacherId, classId);
 END $$
 DELIMITER ;
 

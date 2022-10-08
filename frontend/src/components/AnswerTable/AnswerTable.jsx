@@ -26,7 +26,7 @@ const AnswerTable = () => {
     useEffect(() => {
         if (number === 0) {
             number++
-
+            
             axios
                 .get(`http://localhost:3003/class/${code}/question/${id}/answers`)
                 .then((response) => {
@@ -175,7 +175,7 @@ const AnswerTable = () => {
             </div>
 
             <div id="class_answer_list">
-                <h1 className="class_name" style={{ marginTop: "20px" }}>{className}</h1>
+                <h1 className="class_name" style={{ marginTop: "20px", fontSize: "25px"}}>{className}</h1>
                 <p id="queston">{question}</p>
                 {infos.length > 0 ? (
                     <div className="central">
@@ -215,7 +215,10 @@ const AnswerTable = () => {
                                             </td>
 
                                             <td style={{ fontSize: "20px" }}>{info.percentage}</td>
-                                            <td><button id="button" className="button" onClick={() => {showFeedback(info)}}>Ver Feedback</button></td>
+                                            <td><button style={
+                                                {backgroundColor: info.feedback ? "cornflowerblue" : 'white',
+                                                 color: info.feedback ? "white" : 'black'}}
+                                             id="button" className="button" onClick={() => {showFeedback(info)}}>Ver Feedback</button></td>
                                             <td>
                                                 <button id="btn_answer" onClick={() => { setObject(info) }}>
                                                     <img id="next" src={next}></img>

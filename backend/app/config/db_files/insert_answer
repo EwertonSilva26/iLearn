@@ -5,16 +5,21 @@ BEGIN
 	DECLARE classId INT;
   	DECLARE answerId INT;
     DECLARE studentId INT;
+    DECLARE idTeacher INT;
 
 	INSERT INTO tb_answer (student_answer) VALUES (studentAnswer);
     
 	SELECT id_student FROM tb_student WHERE id_user = idUser INTO studentId;
     SELECT id_class FROM tb_class WHERE class_code = classCode INTO classId;  
     SELECT id_answer FROM tb_answer WHERE student_answer = studentAnswer INTO answerId;
+    SELECT DISTINCT id_teacher FROM tb_class_question_answer_student_teacher where id_question = questionId INTO idTeacher;
 
 	SET FOREIGN_KEY_CHECKS=0;
-	INSERT INTO tb_class_question_answer_student(id_question, id_answer, id_class, id_student, percentage) 
-    VALUES (questionId, answerId, classId, studentId, questionPercentage);
+    
+    INSERT INTO tb_class_question_answer_student_teacher(id_question, id_answer, id_student, id_class, id_teacher, percentage) 
+    VALUES(questionId, answerId, studentId, classId, idTeacher, questionPercentage);
+    
+    SET FOREIGN_KEY_CHECKS=1;
     
 END $$
 DELIMITER ;

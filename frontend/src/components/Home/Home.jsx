@@ -20,20 +20,40 @@ const Home = () => {
         axios
             .post("http://localhost:3003/class/create", info)
             .then((response) => {
-                if (response.data.status === 201) {
-                    createMessage("success", "Turma criada", "Uma nova turma foi criada com sucesso")
-                    navigate(`/classes/teacher/${id}`);
+
+                if ((response.data.result[0] !== undefined) && (response.data.result[0].number !== 0)) {
+                    throw Error
                 }
-                else {
-                    setError("Erro ao criar a turma");
-                    console.log(`Não foi possivel criar a turma - ${JSON.stringify(response.data)}`)
-                    createMessage("error", "Não foi possivel criar a turma", "Por favor tente novamente!")
+
+                if (response.data.status === 201) {
+                    swal({
+                        icon: "success",
+                        title: "Turma criada",
+                        text: "Uma nova turma foi criada com sucesso",
+                        button: {
+                            text: "Fechar"
+                        }
+                    }).then(() => {
+                        navigate(`/classes/teacher/${id}`);
+                    });
 
                 }
+
             })
             .catch((err) => {
                 console.log("Erro ao criar a turma: " + err);
                 setError("Turma não criada - ERRO: " + error);
+
+                swal({
+                    icon: "error",
+                    title: "Não foi possivel criar a turma",
+                    text: "É Provavel que o nome escolhido para a turma já exista!",
+                    button: {
+                        text: "Fechar"
+                    }
+                }).then(() => {
+                    window.location.reload();
+                });
             });
     }
 
@@ -96,6 +116,8 @@ const Home = () => {
             button: {
                 text: "Fechar"
             }
+        }).then(() => {
+            window.location.reload();
         });
     }
 
@@ -119,8 +141,8 @@ const Home = () => {
                                 onMouseOut={(e) => setClassCode(e)}
                                 onKeyUp={(e) => setClassCode(e)}>
                             </input>
-                            <button id="btn_enter" className="btn_myClasses" 
-                            onClick={inserStudentInClass}>Entrar na turma
+                            <button id="btn_enter" className="btn_myClasses"
+                                onClick={inserStudentInClass}>Entrar na turma
                             </button>
                         </div>
                     </div>

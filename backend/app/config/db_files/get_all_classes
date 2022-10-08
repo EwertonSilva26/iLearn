@@ -1,5 +1,4 @@
-DELIMITER $$
-CREATE PROCEDURE get_all_classes (userId INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_all_classes`(userId INT)
 BEGIN
 	DECLARE userNumber INT;
 	DECLARE teacherId INT;
@@ -16,7 +15,8 @@ BEGIN
 		ON tt.id_teacher = ttc.id_teacher
 		INNER JOIN tb_class AS tc
 		ON tc.id_class = ttc.id_class
-		WHERE tt.id_teacher = teacherId;
+		WHERE tt.id_teacher = teacherId
+        ORDER BY tc.id_class DESC;
 	ELSE 
     	SELECT id_student FROM tb_student WHERE id_user = userId INTO studentId;
 
@@ -26,10 +26,10 @@ BEGIN
 		ON sc.id_student = s.id_student
 		INNER JOIN tb_class AS c
 		ON sc.id_class = c.id_class
-		WHERE s.id_student = studentId;
+		WHERE s.id_student = studentId
+        ORDER BY c.id_class DESC;
+
 	END IF;  
-	
-END $$
-DELIMITER ;
+END
 
 call get_all_classes(2);

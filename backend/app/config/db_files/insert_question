@@ -1,18 +1,21 @@
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_question`(questionTitle varchar(200), TextQuestion TEXT,
-teacherAnswer TEXT, tipQuestion varchar(500), classCode varchar(100))
+teacherAnswer TEXT, tipQuestion varchar(500), classCode varchar(100), userId INT)
 BEGIN
 	DECLARE questionId INT;
     DECLARE idClass INT;
+    DECLARE idTeacher INT;
+
+	SELECT id_teacher FROM tb_teacher WHERE id_user = userId INTO idTeacher;
 
 	INSERT INTO tb_question (title, question, teacher_answer, tip) 
     VALUES (questionTitle, TextQuestion, teacherAnswer, tipQuestion);
 	
-    SELECT id_question FROM tb_question WHERE question = TextQuestion INTO questionId;
 	SELECT id_class FROM tb_class WHERE class_code = classCode INTO idClass;
 
 	SET FOREIGN_KEY_CHECKS=0;
-	INSERT INTO tb_classe_question (id_class, id_question) VALUES (idClass, questionId);
+	INSERT INTO tb_class_question_answer_student_teacher (id_class,  id_teacher) VALUES (idClass, idTeacher);
+    SET FOREIGN_KEY_CHECKS=1;
 END
 DELIMITER ;
 
