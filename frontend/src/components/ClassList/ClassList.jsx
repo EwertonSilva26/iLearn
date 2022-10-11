@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Class from "../Class/Class";
 import axios from "axios";
+import swal from 'sweetalert';
 
 let classCount = 0;
 const ClassList = () => {
-    const [error, setError] = useState("");
     const [classes, setClasses] = useState([]);
 
     let count = 0;
@@ -22,7 +22,17 @@ const ClassList = () => {
             })
             .catch((err) => {
                 console.log(`Erro ao buscar turmas ${err}`)
-                setError("Erro ao buscar turmas");
+
+                swal({
+                    icon: "error",
+                    title: "Não foi possivel buscar as suas turmas",
+                    text: "Por favor clique para recarregar a pagina!",
+                    button: {
+                        text: "Recarregar"
+                    }
+                }).then(() => {
+                    window.location.reload();
+                });
             });
     });
 

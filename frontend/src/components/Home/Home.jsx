@@ -4,7 +4,6 @@ import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import swal from 'sweetalert';
 
-
 import "./Home.css";
 
 const Home = () => {
@@ -35,6 +34,7 @@ const Home = () => {
                         }
                     }).then(() => {
                         navigate(`/classes/teacher/${id}`);
+                        window.location.reload();
                     });
 
                 }

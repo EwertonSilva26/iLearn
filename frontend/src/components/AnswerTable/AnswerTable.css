@@ -53,14 +53,13 @@ td {
 }
 
 #class_answer_list table tr td {
-  padding: 8.2px;
-  padding-top: 0;
+  padding: 0;
 }
 
 .answer_list #class_answer_list .central {
   overflow-y: scroll;
   scroll-behavior: smooth;
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: -100px;
 }
 
@@ -99,6 +98,7 @@ td {
   height: 150px;
   margin-bottom: 0px;
   width: 100%;
+  font-family: sans-serif;
 }
 
 /* The Close Button */

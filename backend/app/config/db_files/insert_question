@@ -12,9 +12,11 @@ BEGIN
     VALUES (questionTitle, TextQuestion, teacherAnswer, tipQuestion);
 	
 	SELECT id_class FROM tb_class WHERE class_code = classCode INTO idClass;
+    SELECT id_question FROM tb_question WHERE title = questionTitle INTO questionId;
 
 	SET FOREIGN_KEY_CHECKS=0;
-	INSERT INTO tb_class_question_answer_student_teacher (id_class,  id_teacher) VALUES (idClass, idTeacher);
+	INSERT INTO tb_class_question_answer_student_teacher (id_class, id_teacher, id_question) 
+    VALUES (idClass, idTeacher, questionId);
     SET FOREIGN_KEY_CHECKS=1;
 END
 DELIMITER ;

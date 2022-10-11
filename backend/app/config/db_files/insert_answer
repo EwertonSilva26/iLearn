@@ -1,4 +1,3 @@
-DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_answer`(studentAnswer TEXT, idUser int, questionId int,
 classCode varchar(100), questionPercentage varchar(10))
 BEGIN
@@ -21,7 +20,6 @@ BEGIN
     
     SET FOREIGN_KEY_CHECKS=1;
     
-END $$
-DELIMITER ;
+END
 
 CALL insert_answer('Resposta teste', 1, 1,'p78ar6lt3','78%')

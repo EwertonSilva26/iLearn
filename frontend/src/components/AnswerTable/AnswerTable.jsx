@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+
 import axios from "axios";
 import swal from 'sweetalert';
 
@@ -95,13 +96,7 @@ const AnswerTable = () => {
     function setFeedback(event) { feedback = event.target.value; }
 
     function showFeedback(info) {
-        let teacherFeedback = info.feedback ? info.feedback : '';
-
-        if(teacherFeedback === '') {
-            document.querySelector(".button").disabled = true;
-
-            return;
-        }
+        let teacherFeedback = info.feedback ? info.feedback : 'Você ainda não adicionou feedback para essa resposta!';
 
         swal({
             title: "Feedback",
@@ -200,7 +195,7 @@ const AnswerTable = () => {
                                                 <SyntaxHighlighter
                                                     lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
                                                     wrapLines={true}
-                                                    language="c" style={{ docco }}>
+                                                    language="c" style={ prism }>
                                                     {info.teacher_answer}
                                                 </SyntaxHighlighter>
                                             </td>
@@ -209,7 +204,7 @@ const AnswerTable = () => {
                                                 <SyntaxHighlighter
                                                     lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
                                                     wrapLines={true}
-                                                    language="c" style={{ docco }}>
+                                                    language="c" style={prism}>
                                                     {info.student_answer}
                                                 </SyntaxHighlighter>
                                             </td>

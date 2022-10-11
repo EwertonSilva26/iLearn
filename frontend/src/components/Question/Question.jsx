@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import swal from 'sweetalert';
@@ -69,7 +70,7 @@ const Question = () => {
             let result = removeSpace(answer);
             obj.answer = answer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
-        
+
             axios
                 .post('http://localhost:3003/answer', obj)
                 .then((response) => {
@@ -157,7 +158,6 @@ const Question = () => {
     }
 
     const removeSpace = (answer) => {
-        debugger
         const studentAnswer = removeString(answer.trim()
             .replace(/(\r\n|\n|\r)/gm, '').split(";"));
 
@@ -183,8 +183,7 @@ const Question = () => {
     }
 
     function changeAnswer(e) {
-        e.preventDefault();
-        // answer = newAnswer;
+        setNewAnswer(e.target.value);
     }
 
 
@@ -218,7 +217,6 @@ const Question = () => {
             </div>
 
 
-
             <div id="div_question">
                 <p className={fontText} id="question">{question.question}</p>
             </div>
@@ -237,7 +235,7 @@ const Question = () => {
                     {question.student_answer ? (
                         <div className="answer">
                             <p id="answer">
-                                <SyntaxHighlighter language="c" style={{ docco }}>
+                                <SyntaxHighlighter language="c" style={prism}>
                                     {question.student_answer}
                                 </SyntaxHighlighter>
                             </p>
@@ -247,8 +245,7 @@ const Question = () => {
                     ) : (
 
                         <textarea id="txt_id" onChange={(e) => setAnswer(e)}
-                            // onKeyUp={(e) => setAnswer(e)}
-                            //     onMouseOut={(e) => setAnswer(e)}
+                            onKeyUp={(e) => setAnswer(e)}
                             placeholder="Escreva seu algoritimo aqui">
                         </textarea>
                     )}
@@ -286,7 +283,6 @@ const Question = () => {
 
                             <img id="emotion_img" src={emotion.image} style={{ display: "none" }}></img>
                         )}
-
 
                     </div>
 

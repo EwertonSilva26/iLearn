@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE PROCEDURE insert_class (className varchar(100), 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_class`(className varchar(100), 
 classCode varchar(100), userId INT)
 BEGIN
 
