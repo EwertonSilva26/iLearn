@@ -55,7 +55,6 @@ const Question = () => {
                             verifyPercentege(parseInt(result.percentage.split("%")));
                         }
 
-
                     }
                 })
                 .catch((err) => {
@@ -88,21 +87,35 @@ const Question = () => {
                     setError("Erro ao enviar resposta");
                 });
         } else {
-            createMessage("warning", "Campo vazio", 'Campo resposta não pode estar vazio');
+            createMessage("warning", "Campo vazio", 'Campo resposta não pode estar vazio!');
         }
     }
 
-    function createMessage(icon, title, text) {
-        swal({
-            icon: icon,
-            title: title,
-            text: text,
-            button: {
-                text: "Fechar"
-            }
-        }).then(() => {
-            window.location.reload();
-        });
+    function editAnswer() {
+        if (newAnswer !== "") {
+            let result = removeSpace(newAnswer);
+            obj.answer = newAnswer;
+            obj.percentage = `${parseFloat(result.toFixed(2))}%`;
+            
+            axios
+                .put(`http://localhost:3003/answer/${question.id_answer}`, obj)
+                .then((response) => {
+                    if (response.data.status === 200) {
+                        createMessage("success", "Resposta editada!", `Seu algoritimo teve ${parseFloat(result.toFixed(2))}% de similaridade!`);
+                        setError("");
+                    }
+                    else {
+                        throw Error();
+                    }
+                })
+                .catch((err) => {
+                    createMessage("error", "Erro ao editar resposta", "Por favor tente novamente;");
+                    console.log(`Erro ao editar resposta ${err}`)
+                    setError("Erro ao editar resposta");
+                });
+        } else {
+            createMessage("warning", "Campo vazio", 'Campo de edição não pode estar vazio!');
+        }
     }
 
     function setAnswer(event) {
@@ -176,16 +189,36 @@ const Question = () => {
         return result;
     }
 
+    function createMessage(icon, title, text) {
+        swal({
+            icon: icon,
+            title: title,
+            text: text,
+            button: {
+                text: "Fechar"
+            }
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+
     function closeModal() {
         if (modalId !== "") {
             setModalId("");
+            // setTimeout
+            // window.location.reload();
+        }
+    }
+
+    function openModal() {
+        if(modalId === "") {
+            setModalId("modal_id");
         }
     }
 
     function changeAnswer(e) {
         setNewAnswer(e.target.value);
     }
-
 
     return (
         <div className="main_question_class">
@@ -203,7 +236,7 @@ const Question = () => {
                     </textarea>
 
                     <div className="new_buttons">
-                        <button className="btn" onClick={closeModal}>
+                        <button className="btn" onClick={editAnswer}>
                             Enviar
                         </button>
 
@@ -239,7 +272,7 @@ const Question = () => {
                                     {question.student_answer}
                                 </SyntaxHighlighter>
                             </p>
-                            <button id="btn_edit" onClick={() => { setModalId("modal_id") }}>Editar</button>
+                            <button id="btn_edit" onClick={() => openModal()}>Editar</button>
                         </div>
 
                     ) : (

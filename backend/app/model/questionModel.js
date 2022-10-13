@@ -5,8 +5,8 @@ module.exports = {
   getQuestionsByClassCodeModel: async function (req, connection, callback) {
     console.log(`[MODEL] - Buscando todas questoẽs da turma! ${JSON.stringify(req.params)}`)
 
-      sql = `CALL getAllQuestionsByClassCode('${req.params.code}')`;
-  
+    sql = `CALL getAllQuestionsByClassCode('${req.params.code}')`;
+
     connection.query(sql, callback);
   },
 
@@ -58,6 +58,20 @@ module.exports = {
     sql = `CALL insert_answer('${body.answer}', ${body.userId}, 
             ${body.questionId},'${body.classCode}', '${body.percentage}')`;
 
+    connection.query(sql, callback);
+  },
+
+  /** Edita resposta do aluno**/
+  putAnswerModel: async function (req, connection, callback) {
+    const body = req.body;
+    console.log(`[PutAnswerModel: - Editando resposta com id da resposta: ${req.params.id}`)
+
+    let updated = await UpdateRelationship(req, connection);
+
+    if (updated) {
+      sql = `UPDATE tb_answer SET student_answer = '${body.answer}' 
+      WHERE id_answer = ${req.params.id}`;
+    }
     connection.query(sql, callback);
   },
 
@@ -159,10 +173,12 @@ async function verifyIfUserHasAnswer(req, idStudent, connection) {
 
 /** Retorna o id_student pelo id do usuário, */
 async function getIdStudentByIdUser(req, connection) {
-  console.log("Buscando id do aluno por id do usuario!");
+  let userId = req.body.userId !== undefined ? req.body.userId : req.params.userId;
+
+  console.log("Buscando id do aluno por id do usuario: ", userId);
 
   let idStudent = new Promise((resolve, reject) => {
-    sql = `SELECT id_student AS idStudent FROM tb_student WHERE id_user = ${req.params.userId}`
+    sql = `SELECT id_student AS idStudent FROM tb_student WHERE id_user = ${userId}`
 
     connection.query(sql, function (error, result) {
       if (!error) {
@@ -197,10 +213,12 @@ async function getIdTeacherByIdUser(req, connection) {
 
 /** Retorna o id_clasass pelo código da class, */
 async function getIdClassByClassCode(req, connection) {
-  console.log("Buscando id da turma pelo código da classe!");
+  let code = req.body.classCode !== undefined ? req.body.classCode : req.params.code;
+
+  console.log("Buscando id da turma pelo código da classe: ", code);
 
   let idClass = new Promise((resolve, reject) => {
-    sql = `SELECT id_class AS idClass FROM tb_class WHERE class_code = '${req.params.code}'`
+    sql = `SELECT id_class AS idClass FROM tb_class WHERE class_code = '${code}'`
 
     connection.query(sql, function (error, result) {
       if (!error) {
@@ -211,5 +229,39 @@ async function getIdClassByClassCode(req, connection) {
   })
 
   return await idClass;
+
+}
+
+/** Atualiza o id da questao na tabela de relacionamento, */
+async function UpdateRelationship(req, connection) {
+  const body = req.body;
+  console.log("Atualizando tabela de relacionamento!");
+
+  let studentId = await getIdStudentByIdUser(req, connection);
+  let classId = await getIdClassByClassCode(req, connection);
+
+  let success = new Promise((resolve, reject) => {
+    sql = `UPDATE tb_class_question_answer_student_teacher 
+    SET percentage = '${body.percentage}' 
+    WHERE id_question = ${body.questionId} 
+    AND id_answer = ${req.params.id} 
+    AND id_student = ${studentId} 
+    AND id_class = ${classId};`;
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result);
+      }
+      reject(error);
+    });
+  })
+
+  let isUpdated = await success;
+
+  if (isUpdated === undefined || isUpdated === null || isUpdated === "") {
+    return false
+  }
+
+  return true;
 
 }

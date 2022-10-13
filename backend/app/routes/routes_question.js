@@ -2,6 +2,7 @@ const {
     getQuestionsByClassCodeController,
     getQuestionController,
     postAnswerController,
+    putAnswerController,
     sendQuestionController,
     sendFeedbackController,
     getQuestionsNumberByClassCodeCodeController
@@ -32,6 +33,16 @@ module.exports = {
         app.post("/answer", (req, res) => {
             try {
                 postAnswerController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
+
+    putAnswer: function (app) {
+        app.put("/answer/:id", (req, res) => {
+            try {
+                putAnswerController(app, req, res);
             } catch (error) {
                 throw error;
             }

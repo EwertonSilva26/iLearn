@@ -5,6 +5,7 @@ const {
     getQuestionsByClassCodeModel,
     getQuestionModel,
     postAnswerModel,
+    putAnswerModel,
     sendQuestionModel,
     sendFeedbackModel,
     getQuestionsNumberByClassCodeCodeModel
@@ -42,6 +43,15 @@ module.exports = {
         })
     },
 
+    putAnswerController: async function (app, req, res) {
+        putAnswerModel(req, connection, function (error, result) {
+            if(error){
+                res.status(400).send({ status: 400, error });
+            }
+
+            res.status(200).send({ status: 200, result });
+        })
+    },
 
     sendQuestionController: async function (app, req, res) {
         sendQuestionModel(req, connection, function (error, result) {
@@ -49,7 +59,7 @@ module.exports = {
                 res.status(400).send({ status: 400, error });
             }
 
-            res.status(204).send({ status: 204, result,
+            res.status(201).send({ status: 201, result,
                  message: "Questão cadastrada com sucesso!" });
         })
     },
@@ -61,7 +71,7 @@ module.exports = {
             }
 
             res.status(204).send({ status: 204, result,
-                 message: "Questão cadastrada com sucesso!" });
+                 message: "Feedback cadastrada com sucesso!" });
         })
     },
 

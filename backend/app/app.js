@@ -19,3 +19,4 @@ questionRoutes.postAnswer(app);
 questionRoutes.sendQuestion(app);
 questionRoutes.sendFeedback(app);
 questionRoutes.getQuestionsNumberByClassCode(app);
+questionRoutes.putAnswer(app);
