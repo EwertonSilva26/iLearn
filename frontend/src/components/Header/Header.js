@@ -45,6 +45,28 @@ function Header() {
         window.location.reload();
       }
 
+    } else {
+      if (actualLocation === `${localHost}/teacher/${token.userId}`) {
+        navigate(`/teacher/${token.userId}`);
+        window.location.reload();
+      }
+
+      if (actualLocation === `${localHost}/classes/teacher/${token.userId}`) {
+        navigate(`/teacher/${token.userId}`);
+        window.location.reload();
+      }
+
+      if (actualLocation === `${localHost}/questions/class/${window.location.href.split('/class/')[1]}`) {
+        navigate(`/classes/teacher/${token.userId}`);
+        window.location.reload();
+      }
+
+      let classCode = window.location.href.split("/class/")[1].split('/')[0];
+      let questionCode = window.location.href.split("/class/")[1].split('/')[2];
+      if (actualLocation === `${localHost}/class/${classCode}/question/${questionCode}/answers`) {
+        navigate(`/questions/class/${classCode}`);
+        window.location.reload();
+      }
     }
   }
 
