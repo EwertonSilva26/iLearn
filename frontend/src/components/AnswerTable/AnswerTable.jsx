@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import axios from "axios";
 import swal from 'sweetalert';
@@ -192,8 +193,8 @@ const AnswerTable = () => {
                                             ${info.student_last_name.toUpperCase()}`}
                                             </td>
                                             <td>
-                                                <SyntaxHighlighter
-                                                    lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
+                                                <SyntaxHighlighter className="syntaxHighlighter"
+                                                    lineProps={{ style: { whiteSpace: 'pre-wrap'} }}
                                                     wrapLines={true}
                                                     language="c" style={ prism }>
                                                     {info.teacher_answer}
@@ -201,7 +202,7 @@ const AnswerTable = () => {
                                             </td>
 
                                             <td>
-                                                <SyntaxHighlighter
+                                                <SyntaxHighlighter className="syntaxHighlighter"
                                                     lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
                                                     wrapLines={true}
                                                     language="c" style={prism}>

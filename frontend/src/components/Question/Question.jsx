@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -205,8 +204,6 @@ const Question = () => {
     function closeModal() {
         if (modalId !== "") {
             setModalId("");
-            // setTimeout
-            // window.location.reload();
         }
     }
 
@@ -230,7 +227,6 @@ const Question = () => {
                         <p className="p_header">Editar questão!</p>
                     </div>
 
-                    {/* TODO - Não esta sendo possivel editar a questão */}
                     <textarea onChange={(e) => changeAnswer(e)}
                         value={newAnswer} className="edit_txt" placeholder="Escreva seu algoritimo aqui">
                     </textarea>
@@ -268,7 +264,7 @@ const Question = () => {
                     {question.student_answer ? (
                         <div className="answer">
                             <p id="answer">
-                                <SyntaxHighlighter language="c" style={prism}>
+                                <SyntaxHighlighter className="Highlighter" language="c" style={prism}>
                                     {question.student_answer}
                                 </SyntaxHighlighter>
                             </p>

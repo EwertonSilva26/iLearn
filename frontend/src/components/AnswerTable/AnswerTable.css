@@ -11,7 +11,7 @@ button {
   align-items: center;
   margin-top: 40px;
   margin-bottom: 100px;
-  max-height: 400px;
+  /* max-height: 400px; */
 }
 
 #class_answer_list table,
@@ -57,11 +57,15 @@ td {
 }
 
 .answer_list #class_answer_list .central {
-  overflow-y: scroll;
-  scroll-behavior: smooth;
   font-size: 16px;
-  margin-bottom: -100px;
 }
+
+.answer_list #class_answer_list .central .syntaxHighlighter {
+  height: 270px;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
 
 #next {
   width: 20px;
