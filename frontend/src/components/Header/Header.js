@@ -6,53 +6,60 @@ import home from "./img/home.png";
 import back from "./img/back.png";
 
 function Header() {
+  let actualLocation = window.location.href;
   const token = JSON.parse(sessionStorage.getItem("token"));
   const navigate = useNavigate();
   const location = useLocation();
-  const code = window.location.href.split('/class/')[1];
   const localHost = "http://localhost:3000";
 
   function logout() {
     if (token) {
       sessionStorage.removeItem("token");
     }
-
     navigate("/login");
   }
 
   function backPreviewPage() {
-    if (window.location.href ===
-      `${localHost}/classes/student/${token.userId}`) {
-      navigate(`/student/${token.userId}`);
+    if (token.email.includes("@aluno")) {
+      if (actualLocation === `${localHost}/student/${token.userId}`) {
+        navigate(`/student/${token.userId}`);
+        window.location.reload();
+      }
+      if (actualLocation === `${localHost}/classes/student/${token.userId}`) {
+        navigate(`/student/${token.userId}`);
+        window.location.reload();
+      }
+
+      if (actualLocation === `${localHost}/student/${token.userId}`) {
+        window.location.reload(false);
+      }
+
+      if (actualLocation === `${localHost}/questions/class/${window.location.href.split('/class/')[1]}`) {
+        navigate(`/classes/student/${token.userId}`);
+        window.location.reload();
+      }
+
+      const urlSplit = window.location.href.split('/question/')[1].split('/');
+      if (actualLocation === `${localHost}/question/${urlSplit[0]}/class/${urlSplit[2]}`) {
+        navigate(`/questions/class/${urlSplit[2]}`);
+        window.location.reload();
+      }
+
     }
-
-    if (window.location.href === `${localHost}/student/${token.userId}`) {
-      window.location.reload(false);
-    }
-
-    if (window.location.href ===
-      `${localHost}/questions/class/${token.userId}`) {
-      navigate(`/student/${token.userId}`);
-    }
-
-    if (window.location.href === `${localHost}/questions/class/${code}`) {
-      navigate(`/student/${token.userId}`);
-    }
-
-
   }
 
-  function studentBackHome() {
+  function backHome() {
     if (token.email.includes("@aluno")) {
-      navigate(`/student/${token.userId}`);
+      window.location.href = `${localHost}/student/${token.userId}`
     } else {
-      navigate(`/teacher/${token.userId}`);
+      window.location.href = `${localHost}/teacher/${token.userId}`
     }
   }
 
   return (
     <div>
-      {token && (!location.pathname.match("/login")) || (!location.pathname.match("/")) ? (
+      {token && (!location.pathname.match("/login")) ||
+        (!location.pathname.match("/")) ? (
 
         <div className="header">
 
@@ -62,15 +69,15 @@ function Header() {
                 <img id="back" src={back}></img>
               </button>
 
-              <button onClick={studentBackHome}>
+              <button onClick={backHome}>
                 <img id="home" src={home}></img>
               </button>
             </div>
 
             <button id="leave" onClick={logout}>Sair</button>
-            <h1 id="name" style={{marginRight: token.email.length >= 30 ? "45px" : "25px" }}>{token.email}</h1>
+            <h1 id="name" style={{ marginRight: token.email.length >= 30 ? "45px" : "15px" }}>{token.email}</h1>
 
-          <p id="welcome" style={{marginTop: "-43px", fontSize: "25px"}}>iLearn</p>
+            <p id="welcome" style={{ marginTop: "-43px", fontSize: "25px" }}>iLearn</p>
           </div>
 
         </div>
