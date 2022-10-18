@@ -5,6 +5,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import swal from 'sweetalert';
 
+import authentication from '../../authentication.js';
+
 import lamp from "./img/lamp.png";
 import happy from "./img/happy.png";
 import tooHappy from "./img/too_happy.png";
@@ -16,6 +18,11 @@ let answer = "";
 let emotion = {};
 let count = 0;
 const Question = () => {
+
+    if (authentication().isAuthenticated === false) {
+        window.location.href = "http://localhost:3000/login";
+    }
+
     const [question, setQuestion] = useState({});
     const [error, setError] = useState("");
     const [fontText, fontTextError] = useState("");
@@ -95,7 +102,7 @@ const Question = () => {
             let result = removeSpace(newAnswer);
             obj.answer = newAnswer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
-            
+
             axios
                 .put(`http://localhost:3003/answer/${question.id_answer}`, obj)
                 .then((response) => {
@@ -208,7 +215,7 @@ const Question = () => {
     }
 
     function openModal() {
-        if(modalId === "") {
+        if (modalId === "") {
             setModalId("modal_id");
         }
     }

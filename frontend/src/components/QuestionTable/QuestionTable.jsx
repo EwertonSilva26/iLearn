@@ -3,9 +3,16 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import "./QuestionTable.css";
+
 import next from "./next.png";
+import authentication from '../../authentication.js';
 
 const Question = () => {
+
+    if (authentication().isAuthenticated === false) {
+        window.location.href = "http://localhost:3000/login";
+    }
+
     const { code } = useParams();
     const [questions, setQuestions] = useState([]);
     const token = JSON.parse(sessionStorage.getItem("token"));
@@ -15,7 +22,7 @@ const Question = () => {
     useEffect(() => {
         if (countNumber === 0) {
             countNumber++;
-            
+
             axios
                 .get(`http://localhost:3003/questions/${code}/user/${token.userId}/email/${token.email}`)
                 .then((response) => {

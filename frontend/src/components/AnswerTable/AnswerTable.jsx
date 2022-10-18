@@ -2,16 +2,21 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import axios from "axios";
 import swal from 'sweetalert';
 
 import "./AnswerTable.css";
 import next from "./next.png";
+import authentication from '../../authentication.js';
 
 let number = 0;
 const AnswerTable = () => {
+
+    if (authentication().isAuthenticated === false) {
+        window.location.href = "http://localhost:3000/login";
+    }
+
     const { code } = useParams();
     const { id } = useParams();
     const [infos, setInfos] = useState([]);
@@ -28,7 +33,7 @@ const AnswerTable = () => {
     useEffect(() => {
         if (number === 0) {
             number++
-            
+
             axios
                 .get(`http://localhost:3003/class/${code}/question/${id}/answers`)
                 .then((response) => {
@@ -171,7 +176,7 @@ const AnswerTable = () => {
             </div>
 
             <div id="class_answer_list">
-                <h1 className="class_name" style={{ marginTop: "20px", fontSize: "25px"}}>{className}</h1>
+                <h1 className="class_name" style={{ marginTop: "20px", fontSize: "25px" }}>{className}</h1>
                 <p id="queston">{question}</p>
                 {infos.length > 0 ? (
                     <div className="central">
@@ -182,7 +187,7 @@ const AnswerTable = () => {
                                 <th>Algoritmo do Aluno</th>
                                 <th style={{ padding: "10px" }}>Similaridade</th>
                                 <th className="tb_class">Feedback</th>
-                                <th className="tb_class" style={{width: "100px"}}>Deixe o feedback para os alunos</th>
+                                <th className="tb_class" style={{ width: "100px" }}>Deixe o feedback para os alunos</th>
                             </tr>
                             {infos.length > 0 ? (
                                 infos.map((info, key) => {
@@ -194,9 +199,9 @@ const AnswerTable = () => {
                                             </td>
                                             <td>
                                                 <SyntaxHighlighter className="syntaxHighlighter"
-                                                    lineProps={{ style: { whiteSpace: 'pre-wrap'} }}
+                                                    lineProps={{ style: { whiteSpace: 'pre-wrap' } }}
                                                     wrapLines={true}
-                                                    language="c" style={ prism }>
+                                                    language="c" style={prism}>
                                                     {info.teacher_answer}
                                                 </SyntaxHighlighter>
                                             </td>
@@ -212,9 +217,11 @@ const AnswerTable = () => {
 
                                             <td style={{ fontSize: "20px" }}>{info.percentage}</td>
                                             <td><button style={
-                                                {backgroundColor: info.feedback ? "cornflowerblue" : 'white',
-                                                 color: info.feedback ? "white" : 'black'}}
-                                             id="button" className="button" onClick={() => {showFeedback(info)}}>Ver Feedback</button></td>
+                                                {
+                                                    backgroundColor: info.feedback ? "cornflowerblue" : 'white',
+                                                    color: info.feedback ? "white" : 'black'
+                                                }}
+                                                id="button" className="button" onClick={() => { showFeedback(info) }}>Ver Feedback</button></td>
                                             <td>
                                                 <button id="btn_answer" onClick={() => { setObject(info) }}>
                                                     <img id="next" src={next}></img>

@@ -6,11 +6,19 @@ import swal from 'sweetalert';
 
 import "./Home.css";
 
+import authentication from '../../authentication.js';
+
 const Home = () => {
+
+    if (authentication().isAuthenticated === false) {
+        window.location.href = "http://localhost:3000/login";
+    }
+
+    const token = JSON.parse(sessionStorage.getItem('token'));
+
     let [error, setError] = useState("");
-    const { id } = useParams();
-    const token = sessionStorage.getItem("token");
     const navigate = useNavigate();
+    const { id } = useParams();
     const location = useLocation();
 
     let className = "";
@@ -68,7 +76,7 @@ const Home = () => {
             const objClass = {
                 classCode,
                 className: className.toUpperCase(),
-                userId: JSON.parse(sessionStorage.getItem('token')).userId
+                userId: token.userId
             }
 
             createNewClass(objClass);
@@ -123,7 +131,7 @@ const Home = () => {
 
     return (
         <div className="main_home">
-            {token && location.pathname.match(`/student/${id}`) ? (
+            {token.token && location.pathname.match(`/student/${id}`) ? (
 
                 <>
                     <div className="classes">
@@ -175,6 +183,6 @@ const Home = () => {
             )}
         </div>
     );
-};
+}
 
 export default Home;

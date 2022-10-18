@@ -5,9 +5,16 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import swal from 'sweetalert';
 
+import authentication from '../../authentication.js';
+
 import "./AddQuestion.css";
 
 const AddQuestion = () => {
+
+    if (authentication().isAuthenticated === false) {
+        window.location.href = "http://localhost:3000/login";
+    }
+
     const token = JSON.parse(sessionStorage.getItem("token"));
     let [errorTitle, setErrorTitle] = useState("");
     let [errorQuestion, setErrorQuestion] = useState("");
@@ -81,7 +88,7 @@ const AddQuestion = () => {
         //     cleanFields();
         //     return;
         // }
-        
+
         if (validateForm(event)) {
             return;
         }

@@ -5,7 +5,6 @@ const classRoutes = require("../app/routes/routes_class");
 const questionRoutes = require("../app/routes/routes_question");
 const answerRoutes = require("../app/routes/routes_answer");
 
-
 userRoutes.loginUser(app);
 userRoutes.createUser(app);
 
