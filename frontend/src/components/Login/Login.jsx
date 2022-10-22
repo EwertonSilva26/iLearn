@@ -1,17 +1,31 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import swal from 'sweetalert';
+
+import graduation from "./img/graduation.png";
 
 import "./Login.css";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [token, setToken] = useState(getAuthUser());
   const [error, setError] = useState("");
+  const [modalIdResgister, setModalIdRegister] = useState("");
+  let request = {};
+
+  let containErrors = 0;
+
   const navigate = useNavigate();
 
+  // Função para fazer login do usuario 
   const loggin = (info) => {
     axios
       .post("http://localhost:3003/login", info)
@@ -40,16 +54,78 @@ function Login() {
       });
   }
 
-  const registerUser = (request) => {
+  // Função para fazer cadastro do usuario 
+  const createUser = (event) => {
+    event.preventDefault();
+
+    if (verifyPassword(password)) {
+      return;
+    }
+
+    request = {
+      email: name.replace(" ", '').toLowerCase()
+        .concat(lastName.replace(" ", '').toLowerCase())
+        .concat(uuidv4().replaceAll('-', '').substring(0, 5))
+        .concat('@aluno.com'),
+      password: password,
+      name: name,
+      middleName: middleName,
+      lastName: lastName
+    };
+
     axios
       .post("http://localhost:3003/create/user", request)
       .then((response) => {
-        console.log(JSON.stringify(response.data))
-        navigate("/home");
+
+        if (response.data.status === 201) {
+
+          swal({
+            icon: "success",
+            title: "Usuário cadastrado!",
+            text: `Seu e-mail ${request.email}`,
+            button: {
+              text: "Fechar"
+            }
+          }).then(() => {
+            let info = {
+              email: request.email,
+              password: request.password
+            }
+  
+            loggin(info);
+        });
+        }
       })
       .catch((err) => {
-        console.log("[ERROR]: - " + JSON.stringify(err))
+        console.log(err);
+        message("error", "Usuário não cadastrado!", `Tente novamente!`);
       });
+  }
+
+  const verifyPassword = (password) => {
+    if (password !== confirmPassword) {
+      setError("*As senhas são incompatíveis!");
+      containErrors++;
+
+      setPassword("");
+      setConfirmPassword("");
+      
+      message("error", "senhas são incompatíveis!", `Tente novamente!`);
+
+    }
+
+    return containErrors > 0;
+  }
+
+  function message(icon, title, text) {
+    swal({
+      icon: icon,
+      title: title,
+      text: text,
+      button: {
+        text: "Fechar"
+      }
+    })
   }
 
   const authUser = (response) => {
@@ -83,15 +159,89 @@ function Login() {
     loggin(userInfo);
   }
 
+  function closeResgisterModal() {
+    if (modalIdResgister !== "") {
+      setModalIdRegister("");
+      setError("");
+      cleanAllFields()
+    }
 
-  function createUser() {
-    // event.preventDefault();
-    console.log("Botão funcionando")
+  }
 
+  function cleanAllFields() {
+    setName("");
+    setMiddleName("");
+    setLastName("");
+    setPassword("");
+    setConfirmPassword("");
+  }
+
+  function openModal() {
+    setModalIdRegister("modal_id_register");
   }
 
   return (
     <div className="containerLogin">
+
+      {/* Modal */}
+      <div id={modalIdResgister} className="modalRegister">
+        <div className="modal-content_register">
+          <span className="registerClose" onClick={closeResgisterModal}>&times;</span>
+          <p className="pMessage">Faça seu cadastro!</p>
+
+          {error ? (
+            <span className="errorMessage" style={{ display: "block" }}>
+              {error}
+            </span>
+          ) : (
+            <span className="errorMessage" style={{ display: "none" }}>
+              {error}
+            </span>
+          )}
+
+          <Form onSubmit={createUser} style={{ marginLeft: "-10px" }}>
+            <Form.Group size="lg">
+              <Form.Control required id="register_name" className="register_ipt"
+                autoFocus type="text" value={name}
+                placeholder="Digite seu nome"
+                onChange={(e) => setName(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group id="middleName" size="lg" >
+              <Form.Control required id="middle_name" className="register_ipt"
+                type="text" value={middleName}
+                placeholder="Digite o segundo nome"
+                onChange={(e) => setMiddleName(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group id="lastName" size="lg">
+              <Form.Control required id="last_name" className="register_ipt"
+                type="text" value={lastName}
+                placeholder="Digite o ultimo nome"
+                onChange={(e) => setLastName(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group id="userPassword" size="lg">
+              <Form.Control required id="user_password" className="register_ipt"
+                type="password" value={password}
+                placeholder="Digite uma senha"
+                onChange={(e) => setPassword(e.target.value)} />
+            </Form.Group>
+
+            <Form.Group id="confirmPassword" size="lg" >
+              <Form.Control required id="confirm_password" className="register_ipt"
+                type="password" value={confirmPassword}
+                placeholder="Confirmar senha"
+                onChange={(e) => setConfirmPassword(e.target.value)} />
+            </Form.Group>
+
+            <button className="btn_register" block size="lg" type="submit">
+              Cadastrar
+            </button>
+
+          </Form>
+        </div>
+      </div>
 
       <div className="left">
         <h1 id="title_h1">iLearn</h1>
@@ -100,7 +250,7 @@ function Login() {
         </p>
 
         <div className="study">
-          <img src="https://cdn.pixabay.com/photo/2017/10/08/19/52/i-am-a-student-2831334_960_720.png" alt="img_livro_formatura" />
+          <img src={graduation} alt="img_livro_formatura" />
         </div>
       </div>
 
@@ -110,17 +260,25 @@ function Login() {
             <h1 className="title_h1">Entrar</h1>
           </div>
 
-          <Form.Group size="lg" controlId="email">
-            <Form.Control className="ipt_label" autoFocus type="email" value={email} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
+          <Form.Group size="lg">
+            <Form.Control className="ipt_label" autoFocus type="email"
+              value={email} placeholder="E-mail"
+              onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
 
-          <Form.Group id="pwd_group" size="lg" controlId="password">
-            <Form.Control id="password" className="ipt_label" type="password" value={password} placeholder="Senha" onChange={(e) => setPassword(e.target.value)} />
+          <Form.Group id="pwd_group" size="lg">
+            <Form.Control id="password" className="ipt_label" type="password"
+              value={password} placeholder="Senha"
+              onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
           {error ? (
-            <span className="error-message" style={{ display: "block" }}>{error}</span>
+            <span className="error-message" style={{ display: "block" }}>
+              {error}
+            </span>
           ) : (
-            <span className="error-message" style={{ display: "none" }}>{error}</span>
+            <span className="error-message" style={{ display: "none" }}>
+              {error}
+            </span>
           )}
 
           <button className="btn_login" block size="lg" type="submit">
@@ -129,7 +287,7 @@ function Login() {
         </Form>
 
         <div className="register">
-          <button id="btn_register" onClick={createUser}>FAÇA SEU CADASTRO</button>
+          <button id="btn_register" onClick={openModal}>FAÇA SEU CADASTRO</button>
         </div>
       </div>
     </div>
