@@ -66,12 +66,20 @@ function Login() {
       email: name.replace(" ", '').toLowerCase()
         .concat(lastName.replace(" ", '').toLowerCase())
         .concat(uuidv4().replaceAll('-', '').substring(0, 5))
-        .concat('@aluno.com'),
+        .concat('@aluno.com.br'),
       password: password,
       name: name,
       middleName: middleName,
       lastName: lastName
     };
+
+    if (request.email.length > 26) {
+      let actualEmail = name.replace(" ", '').toLowerCase()
+      .concat(uuidv4().replaceAll('-', '').substring(0, 5))
+      .concat('@aluno.com.br');
+
+      request.email = actualEmail;
+    }
 
     axios
       .post("http://localhost:3003/create/user", request)
@@ -91,9 +99,9 @@ function Login() {
               email: request.email,
               password: request.password
             }
-  
+
             loggin(info);
-        });
+          });
         }
       })
       .catch((err) => {
@@ -109,7 +117,7 @@ function Login() {
 
       setPassword("");
       setConfirmPassword("");
-      
+
       message("error", "senhas são incompatíveis!", `Tente novamente!`);
 
     }
