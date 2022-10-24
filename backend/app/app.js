@@ -13,6 +13,7 @@ classRoutes.getClasses(app);
 classRoutes.insertStudentsInClasses(app);
 classRoutes.getStudentClasses(app);
 classRoutes.getClassInformation(app);
+classRoutes.deleteClass(app);
 
 questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);

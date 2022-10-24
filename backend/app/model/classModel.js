@@ -1,9 +1,5 @@
 let sql;
-
-function GeneralException(message) {
-  this.message = message;
-  this.name = "ClasseJaExisteExeception";
-}
+let results;
 
 module.exports = {
 
@@ -15,12 +11,12 @@ module.exports = {
     if (number === 0) {
       sql = `call insert_class ('${body.className}', '${body.classCode}', 
     ${body.userId})`;
-    
-  } else {
-    sql = `SELECT COUNT(*) AS number FROM tb_class WHERE class_name = '${body.className}'`;
-  }
 
-  connection.query(sql, callback);
+    } else {
+      sql = `SELECT COUNT(*) AS number FROM tb_class WHERE class_name = '${body.className}'`;
+    }
+
+    connection.query(sql, callback);
   },
 
   /** Busca todas as turmas **/
@@ -29,6 +25,29 @@ module.exports = {
 
     sql = `CALL get_all_classes(${req.params.id});`;
 
+    connection.query(sql, callback);
+  },
+
+  /** Deleta uma turma **/
+  deleteClassModel: async function (req, connection, callback) {
+    console.log(`[MODEL] - Deletando turma com código: ${req.params.code}`)
+
+    results = await SelectAllClasses(req, connection);
+
+    await deleteRelationship(req, connection);
+
+    results.forEach(async item => {
+      if (item.id_question !== null) {
+        await deleteQuestion(item.id_question, connection);
+      }
+
+      if (item.id_answer !== null) {
+        await deleteAnswer(item.id_answer, connection);
+      }
+
+    });
+
+    sql = `DELETE FROM tb_class WHERE id_class = ${await getIdClass(req, connection)}`;
     connection.query(sql, callback);
   },
 
@@ -79,4 +98,97 @@ async function verifyIfHasClassName(className, connection) {
   })
 
   return await number;
+}
+
+async function SelectAllClasses(req, connection) {
+  console.log(`Buscando relacionamento com turmas com código: ${req.params.code}`);
+
+  let results = new Promise(async (resolve, reject) => {
+    sql = `SELECT * FROM tb_class_question_answer_student_teacher where id_class = ${await getIdClass(req, connection)}`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result);
+      }
+      reject(error);
+    });
+  })
+
+  return await results;
+}
+
+/** Retorna o id_clasass pelo código da class, */
+async function getIdClass(req, connection) {
+  console.log("Buscando id da turma pelo código da classe: ", req.params.code);
+
+  let idClass = new Promise((resolve, reject) => {
+    sql = `SELECT id_class AS idClass FROM tb_class WHERE class_code = '${req.params.code}'`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result[0].idClass);
+      }
+      reject(error);
+    });
+  })
+
+  return await idClass;
+
+}
+
+/** Deletar questão. */
+async function deleteQuestion(idQuestion, connection) {
+  console.log("Deletando questão com id da questao: ", idQuestion);
+
+  let success = new Promise((resolve, reject) => {
+    sql = `DELETE FROM tb_question WHERE id_question = ${idQuestion}`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result);
+      }
+      reject(error);
+    });
+  })
+
+  console.log("Deletando questão: ", JSON.stringify(await success));
+
+}
+
+/** Deletar resposta. */
+async function deleteAnswer(idAnswer, connection) {
+  console.log("Deletando resposta com id da resposta: ", idAnswer);
+
+  let success = new Promise((resolve, reject) => {
+    sql = `DELETE FROM tb_answer WHERE id_answer = ${idAnswer}`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result);
+      }
+      reject(error);
+    });
+  })
+
+  console.log("Deletando respostas: ", JSON.stringify(await success));
+
+}
+
+/** Deletar relacionamento das tabelas. */
+async function deleteRelationship(req, connection) {
+  console.log("Deletando relacionamento entre tabelas com id_class ", req.params.code);
+
+  let success = new Promise(async (resolve, reject) => {
+    sql = `DELETE FROM tb_class_question_answer_student_teacher WHERE id_class = ${await getIdClass(req, connection)}`
+
+    connection.query(sql, function (error, result) {
+      if (!error) {
+        resolve(result);
+      }
+      reject(error);
+    });
+  })
+
+  console.log("Deletando relacionamento entre as tabelas: ", JSON.stringify(await success));
+
 }

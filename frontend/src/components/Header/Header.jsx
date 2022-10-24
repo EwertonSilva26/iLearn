@@ -97,7 +97,7 @@ function Header() {
             </div>
 
             <button id="leave" onClick={logout}>Sair</button>
-            <h1 id="name" style={{ marginRight: token.email.length >= 26 ? "30px" : "15px" }}>{token.email}</h1>
+            <h1 id="name" style={{ marginRight: token.email.length >= 26 ? "40px" : "15px" }}>{token.email}</h1>
 
             <p id="welcome" style={{ marginTop: "-43px", fontSize: "25px" }}>iLearn</p>
           </div>

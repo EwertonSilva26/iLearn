@@ -2,12 +2,10 @@ const {check, validationResult } = require("express-validator");
 const { 
   createClassController, 
   getAllClassesController,
+  deleteClassController,
   insertStudentInClassesController,
-  // getStudentClassesController,
   getClassInformationController
 } = require("../controller/classController");
-
-// const { verifyJWT } = require("../../utils");
 
 module.exports = {
   createClass: function (app) {
@@ -23,6 +21,17 @@ module.exports = {
   getClasses: function (app) {
     app.get("/classes/:id", (req, res) => {
       getAllClassesController(app, req, res);
+    });
+  },
+
+  deleteClass: function (app) {
+    app.delete("/class/:code", (req, res) => {
+      try{
+        console.log("$$$$$$$$$$$$: ", req.params.code)
+        deleteClassController(app, req, res);
+      } catch(error) {
+        throw error;
+      }
     });
   },
 

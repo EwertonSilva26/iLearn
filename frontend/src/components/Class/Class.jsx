@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import swal from 'sweetalert';
 
 import "./Class.css";
 import pencil from "./img/pencil.png"
@@ -12,6 +14,41 @@ const Class = ({ props }) => {
 
     let id = "";
     if (props.itemTotal > 0) { id = 'id_margin_botton'; }
+
+    function deleteClass() {
+        axios
+            .delete(`http://localhost:3003/class/${props.class_code}`)
+            .then((response) => {
+                if (response.status === 204) {
+                    swal({
+                        icon: "success",
+                        title: "Turma excluida!",
+                        text: `A turma "${props.class_name}"
+                        foi excluida com sucesso!`,
+                        button: {
+                            text: "fechar"
+                        }
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log(`Erro ao deletar turma ${JSON.stringify(err)}`)
+
+                swal({
+                    icon: "error",
+                    title: "Turma não foi excluida!",
+                    text: "Tente novamente!",
+                    button: {
+                        text: "fechar"
+                    }
+                }).then(() => {
+                    window.location.reload();
+                });
+            });
+
+    }
 
     return (
         <div className="main_class">
@@ -28,7 +65,7 @@ const Class = ({ props }) => {
                         </div>
 
                         <div className="buttons">
-                            <button><img src={trashCan}></img></button>
+                            <button onClick={deleteClass}><img src={trashCan}></img></button>
                             <button><img src={pencil}></img></button>
 
                             <Link to={`/teacher/class/${props.class_code}/add/question`}>
