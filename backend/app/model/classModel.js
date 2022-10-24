@@ -32,7 +32,7 @@ module.exports = {
   deleteClassModel: async function (req, connection, callback) {
     console.log(`[MODEL] - Deletando turma com código: ${req.params.code}`)
 
-    results = await deleteAllRelationshipByClassCode(req, connection);
+    results = await selectAllRelationshipByIdCode(req, connection);
 
     await deleteRelationship(req, connection);
 
@@ -100,7 +100,7 @@ async function verifyIfHasClassName(className, connection) {
   return await number;
 }
 
-async function deleteAllRelationshipByClassCode(req, connection) {
+async function selectAllRelationshipByIdCode(req, connection) {
   console.log(`Buscando relacionamento com turmas com código: ${req.params.code}`);
 
   let results = new Promise(async (resolve, reject) => {
