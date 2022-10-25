@@ -4,7 +4,7 @@ import axios from "axios";
 
 import "./QuestionTable.css";
 
-import next from "./next.png";
+import next from "./img/next.png";
 import authentication from '../../authentication.js';
 
 const Question = () => {
@@ -71,7 +71,7 @@ const Question = () => {
                                         <td>
                                             <Link to={`/question/${question.id_question}/class/${code}`} >
                                                 <button id="btn_answer">
-                                                    <img id="next" src={next}></img>
+                                                    <img id="next" src={next} alt="Proximo"></img>
                                                 </button>
                                             </Link>
                                         </td>
@@ -89,7 +89,7 @@ const Question = () => {
                                         <td>
                                             <Link to={`/class/${code}/question/${question.id_question}/answers`} >
                                                 <button id="btn_answer">
-                                                    <img id="next" src={next}></img>
+                                                    <img id="next" src={next} alt="Proximo"></img>
                                                 </button>
                                             </Link>
                                         </td>

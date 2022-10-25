@@ -24,41 +24,41 @@ const Class = ({ props }) => {
             .delete(`http://localhost:3003/class/${props.class_code}`)
             .then((response) => {
                 if (response.status === 204) {
-                    createNewMessage("success", "Turma excluida!", 
-                    `A turma "${props.class_name}" 
+                    createNewMessage("success", "Turma excluida!",
+                        `A turma "${props.class_name}" 
                     foi excluida com sucesso!`);
                 }
             })
             .catch((err) => {
                 console.log(`Erro ao deletar turma ${JSON.stringify(err)}`)
                 createNewMessage("error", "Turma não foi excluida!",
-                 "Tente novamente!");
-    
+                    "Tente novamente!");
+
             });
 
     }
 
     function UpdateClassName() {
 
-        if(newClassName === "") {
+        if (newClassName === "") {
             setErrorClass("Campo não pode estar vazio!");
             return
         }
 
         axios
-            .put(`http://localhost:3003/class/${props.class_code}`, 
-            {className: newClassName})
+            .put(`http://localhost:3003/class/${props.class_code}`,
+                { className: newClassName })
             .then((response) => {
                 if (response.status === 204) {
                     createNewMessage("success", "Turma foi atualizada!",
-                    `Novo nome da turma: ${newClassName}`);
+                        `Novo nome da turma: ${newClassName}`);
                 }
             })
             .catch((err) => {
                 console.log(`Erro ao deletar turma ${JSON.stringify(err)}`)
 
                 createNewMessage("error", "Nome da turma não foi atualizada!",
-                "Tente novamente!");
+                    "Tente novamente!");
             });
 
     }
@@ -100,7 +100,7 @@ const Class = ({ props }) => {
                     <span className="classClose" onClick={closeModalClass}>&times;</span>
                     <p className="pMessageClass" style={{ fontSize: "30px" }}>Editar nome da turma</p>
 
-                    <input onChange={(e) => {setNewClassName(e)}} style={
+                    <input onChange={(e) => { setNewClassName(e) }} style={
                         {
                             width: "98%", marginTop: "-10px",
                             height: "30px", borderRadius: "10px"

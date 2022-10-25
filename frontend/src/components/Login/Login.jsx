@@ -75,8 +75,8 @@ function Login() {
 
     if (request.email.length > 26) {
       let actualEmail = name.replace(" ", '').toLowerCase()
-      .concat(uuidv4().replaceAll('-', '').substring(0, 5))
-      .concat('@aluno.com.br');
+        .concat(uuidv4().replaceAll('-', '').substring(0, 5))
+        .concat('@aluno.com.br');
 
       request.email = actualEmail;
     }

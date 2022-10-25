@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import swal from 'sweetalert';
 
 import authentication from '../../authentication.js';
 
@@ -22,21 +21,9 @@ const AddQuestion = () => {
     let [errorTip, setErrorTip] = useState("");
     let [modalId, setModalId] = useState("");
     let [errorModalId, setErrorModalId] = useState("");
-    // let [total, setTotal] = useState(0);
 
     const { code } = useParams();
     let hasError = 0;
-
-    // useEffect(() => {
-    //     axios
-    //     .get(`http://localhost:3003/questions/class/${code}`)
-    //     .then((response) => {
-    //         setTotal(response.data.result[0].total);
-    //     })
-    //     .catch((err) => {
-    //         console.log(`Erro ao buscar turmas ${JSON.stringify(err)}`)
-    //     });
-    // })
 
     function validateForm(event) {
         if (event.target[0].value.length === 0) {
@@ -65,19 +52,6 @@ const AddQuestion = () => {
         }
 
         return hasError > 0;
-    }
-
-    function createMessage(icon, title, text) {
-        swal({
-            icon: icon,
-            title: title,
-            text: text,
-            button: {
-                text: "Fechar"
-            }
-        }).then(() => {
-            window.location.reload();
-        });
     }
 
     async function handleSubmit(event) {

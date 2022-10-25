@@ -9,9 +9,9 @@ function Footer() {
   return (
     <div>
       <div className="footer">
-        <img src={facebook}></img>
-        <img src={instagram}></img>
-        <img src={twitter}></img>
+        <img src={facebook} alt="Icone Facebook"></img>
+        <img src={instagram} alt="Icone Instagram"></img>
+        <img src={twitter} alt="Icone Twitter"></img>
         <p>Copyryght © - 2022 Ewerton Soares da Silva</p>
       </div>
     </div>

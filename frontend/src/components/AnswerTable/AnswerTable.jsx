@@ -224,7 +224,7 @@ const AnswerTable = () => {
                                                 id="button" className="button" onClick={() => { showFeedback(info) }}>Ver Feedback</button></td>
                                             <td>
                                                 <button id="btn_answer" onClick={() => { setObject(info) }}>
-                                                    <img id="next" src={next}></img>
+                                                    <img id="next" src={next} alt="Proximo"></img>
                                                 </button>
                                             </td>
 

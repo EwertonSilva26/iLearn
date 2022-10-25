@@ -11,7 +11,7 @@ const ClassList = () => {
     if (authentication().isAuthenticated === false) {
         window.location.href = "http://localhost:3000/login";
     }
-    
+
     const [classes, setClasses] = useState([]);
 
     let count = 0;

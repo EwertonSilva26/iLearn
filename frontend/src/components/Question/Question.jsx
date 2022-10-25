@@ -185,7 +185,7 @@ const Question = () => {
 
         let similarityCounter = 0;
         for (let d = 0; d < studentAnswer.length; d++) {
-            if (studentAnswer[d] == teacherAnswer[d]) {
+            if (studentAnswer[d] === teacherAnswer[d]) {
                 similarityCounter++;
             }
         }
@@ -262,7 +262,7 @@ const Question = () => {
                     <span className="tooltiptext">
                         Clique para ter uma dica.
                     </span>
-                    <img src={lamp}></img>
+                    <img src={lamp} alt="Lampada"></img>
                 </button>
             </div>
 
@@ -313,11 +313,11 @@ const Question = () => {
 
 
                         {emotion.image ? (
-                            <img id="emotion_img" src={emotion.image} style={{ width: "45px" }}></img>
+                            <img id="emotion_img" src={emotion.image} alt="Reação" style={{ width: "45px" }}></img>
 
                         ) : (
 
-                            <img id="emotion_img" src={emotion.image} style={{ display: "none" }}></img>
+                            <img id="emotion_img" src={emotion.image} alt="Reação" style={{ display: "none" }}></img>
                         )}
 
                     </div>

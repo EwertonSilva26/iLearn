@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "./Header.css";
 import home from "./img/home.png";
@@ -62,6 +62,12 @@ function Header() {
       }
 
       let classCode = window.location.href.split("/class/")[1].split('/')[0];
+
+      if (actualLocation === `${localHost}/teacher/class/${classCode}/add/question`) {
+        navigate(`/classes/teacher/${token.userId}`);
+        window.location.reload();
+      }
+
       let questionCode = window.location.href.split("/class/")[1].split('/')[2];
       if (actualLocation === `${localHost}/class/${classCode}/question/${questionCode}/answers`) {
         navigate(`/questions/class/${classCode}`);
@@ -80,19 +86,19 @@ function Header() {
 
   return (
     <div>
-      {token && (!location.pathname.match("/login")) ||
-        (!location.pathname.match("/")) ? (
+      {token && ((!location.pathname.match("/login")) ||
+        (!location.pathname.match("/"))) ? (
 
         <div className="header">
 
           <div id="images">
             <div id="img_buttons">
               <button onClick={backPreviewPage}>
-                <img id="back" src={back}></img>
+                <img id="back" src={back} alt="Voltar"></img>
               </button>
 
               <button onClick={backHome}>
-                <img id="home" src={home}></img>
+                <img id="home" src={home} alt="casa"></img>
               </button>
             </div>
 
