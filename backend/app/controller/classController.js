@@ -6,6 +6,7 @@ const {
     getAllClasses,
     insertStudentInClass,
     deleteClassModel,
+    updateClassNameModel,
     getClassInformationModel
 } = require("../model/classModel");
 
@@ -60,6 +61,16 @@ module.exports = {
 
     deleteClassController: async function (app, req, res) {
         deleteClassModel(req, connection, function (error, result) {
+            if (error) {
+                res.status(400).send({ status: 400, error });
+            }
+
+            res.status(204).send({ status: 204, result });
+        })
+    },
+
+    updateClassNameController: async function (app, req, res) {
+        updateClassNameModel(req, connection, function (error, result) {
             if (error) {
                 res.status(400).send({ status: 400, error });
             }

@@ -14,6 +14,7 @@ classRoutes.insertStudentsInClasses(app);
 classRoutes.getStudentClasses(app);
 classRoutes.getClassInformation(app);
 classRoutes.deleteClass(app);
+classRoutes.updateClassName(app);
 
 questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);

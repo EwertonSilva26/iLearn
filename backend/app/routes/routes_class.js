@@ -3,6 +3,7 @@ const {
   createClassController, 
   getAllClassesController,
   deleteClassController,
+  updateClassNameController,
   insertStudentInClassesController,
   getClassInformationController
 } = require("../controller/classController");
@@ -27,8 +28,17 @@ module.exports = {
   deleteClass: function (app) {
     app.delete("/class/:code", (req, res) => {
       try{
-        console.log("$$$$$$$$$$$$: ", req.params.code)
         deleteClassController(app, req, res);
+      } catch(error) {
+        throw error;
+      }
+    });
+  },
+
+  updateClassName: function (app) {
+    app.put("/class/:code", (req, res) => {
+      try{
+        updateClassNameController(app, req, res);
       } catch(error) {
         throw error;
       }

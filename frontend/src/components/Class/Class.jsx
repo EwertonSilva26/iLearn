@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import swal from 'sweetalert';
@@ -11,6 +11,10 @@ import plus from "./img/plus.png";
 const Class = ({ props }) => {
     const token = sessionStorage.getItem("token");
     const location = useLocation();
+    const [errorClass, setErrorClass] = useState("");
+    const [modalIdClass, setModalIdClass] = useState("");
+
+    let newClassName = "";
 
     let id = "";
     if (props.itemTotal > 0) { id = 'id_margin_botton'; }
@@ -20,38 +24,105 @@ const Class = ({ props }) => {
             .delete(`http://localhost:3003/class/${props.class_code}`)
             .then((response) => {
                 if (response.status === 204) {
-                    swal({
-                        icon: "success",
-                        title: "Turma excluida!",
-                        text: `A turma "${props.class_name}"
-                        foi excluida com sucesso!`,
-                        button: {
-                            text: "fechar"
-                        }
-                    }).then(() => {
-                        window.location.reload();
-                    });
+                    createNewMessage("success", "Turma excluida!", 
+                    `A turma "${props.class_name}" 
+                    foi excluida com sucesso!`);
+                }
+            })
+            .catch((err) => {
+                console.log(`Erro ao deletar turma ${JSON.stringify(err)}`)
+                createNewMessage("error", "Turma não foi excluida!",
+                 "Tente novamente!");
+    
+            });
+
+    }
+
+    function UpdateClassName() {
+
+        if(newClassName === "") {
+            setErrorClass("Campo não pode estar vazio!");
+            return
+        }
+
+        axios
+            .put(`http://localhost:3003/class/${props.class_code}`, 
+            {className: newClassName})
+            .then((response) => {
+                if (response.status === 204) {
+                    createNewMessage("success", "Turma foi atualizada!",
+                    `Novo nome da turma: ${newClassName}`);
                 }
             })
             .catch((err) => {
                 console.log(`Erro ao deletar turma ${JSON.stringify(err)}`)
 
-                swal({
-                    icon: "error",
-                    title: "Turma não foi excluida!",
-                    text: "Tente novamente!",
-                    button: {
-                        text: "fechar"
-                    }
-                }).then(() => {
-                    window.location.reload();
-                });
+                createNewMessage("error", "Nome da turma não foi atualizada!",
+                "Tente novamente!");
             });
 
     }
 
+    function closeModalClass() {
+        if (modalIdClass !== "") {
+            setModalIdClass("");
+            setErrorClass("");
+        }
+    }
+
+    function createNewMessage(icon, title, text) {
+        swal({
+            icon: icon,
+            title: title,
+            text: text,
+            button: {
+                text: "fechar"
+            }
+        }).then(() => {
+            window.location.reload();
+        });
+    }
+
+    function openModalClass() {
+        setModalIdClass("modal_id_class");
+    }
+
+    function setNewClassName(e) {
+        newClassName = e.target.value;
+    }
+
     return (
         <div className="main_class">
+
+            {/* Modal */}
+            <div id={modalIdClass} className="modalClass">
+                <div className="modal_content_class">
+                    <span className="classClose" onClick={closeModalClass}>&times;</span>
+                    <p className="pMessageClass" style={{ fontSize: "30px" }}>Editar nome da turma</p>
+
+                    <input onChange={(e) => {setNewClassName(e)}} style={
+                        {
+                            width: "98%", marginTop: "-10px",
+                            height: "30px", borderRadius: "10px"
+                        }}
+                        placeholder="Insira novo nome para a turma">
+                    </input>
+                    <button onClick={UpdateClassName} style={{ float: "right", marginTop: "20px", marginRight: "4px", width: "100px" }}>
+                        Enviar
+                    </button>
+                    {errorClass ? (
+                        <span className="errorMessageClass" style={{ display: "block" }}>
+                            {errorClass}
+                        </span>
+                    ) : (
+                        <span className="errorMessageClass" style={{ display: "none" }}>
+                            {errorClass}
+                        </span>
+                    )}
+
+                </div>
+            </div>
+
             {token &&
                 (!location.pathname.match(`/classes/student/${JSON.parse(token).userId}`))
                 ? (
@@ -66,7 +137,7 @@ const Class = ({ props }) => {
 
                         <div className="buttons">
                             <button onClick={deleteClass}><img src={trashCan}></img></button>
-                            <button><img src={pencil}></img></button>
+                            <button onClick={openModalClass}><img src={pencil}></img></button>
 
                             <Link to={`/teacher/class/${props.class_code}/add/question`}>
                                 <button><img src={plus}></img></button>
@@ -75,6 +146,7 @@ const Class = ({ props }) => {
                     </div>
                 ) : (
                     <div className="all_classes" id={id}>
+
                         <h1 className="class_name_id">{props.class_name}</h1>
                         <h1 className="class_name_id">ID: {props.class_code}</h1>
                         <div id="enter_class">

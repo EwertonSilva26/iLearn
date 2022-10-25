@@ -51,6 +51,16 @@ module.exports = {
     connection.query(sql, callback);
   },
 
+
+    /** Atualiza o nome da turma **/
+    updateClassNameModel: async function (req, connection, callback) {
+      console.log(`[MODEL] - Atualizando no da turma com código: ${req.params.code}`)
+  
+      sql = `UPDATE tb_class SET class_name = '${req.body.className}' WHERE id_class = ${await getIdClass(req, connection)}`;
+      connection.query(sql, callback);
+  
+    },
+
   /** Insere aluno em um turma **/
   insertStudentInClass: function (body, connection, callback) {
     console.log(`[MODEL] - Inserindo aluno na turma de código: ${body.classCode}`)
