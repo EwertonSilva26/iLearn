@@ -13,6 +13,7 @@ const ClassList = () => {
     }
 
     const [classes, setClasses] = useState([]);
+    const token = JSON.parse(sessionStorage.getItem('token'));
 
     let count = 0;
 
@@ -23,7 +24,11 @@ const ClassList = () => {
         classCount++;
 
         axios
-            .get(`http://localhost:3003/classes/${JSON.parse(sessionStorage.getItem('token')).userId}`)
+            .get(`http://localhost:3003/classes/${token.userId}`,{
+                headers: {
+                    'Authorization': token.token,
+                },
+            })
             .then((response) => {
                 setClasses(response.data.result[0]);
             })

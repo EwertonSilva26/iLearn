@@ -28,21 +28,25 @@ const Question = () => {
     const [fontText, fontTextError] = useState("");
     let [modalId, setModalId] = useState("");
     let [newAnswer, setNewAnswer] = useState("");
-
     const { id } = useParams();
     const { code } = useParams();
+    const token = JSON.parse(sessionStorage.getItem('token'));
 
     const obj = {
         questionId: id,
         classCode: code,
-        userId: JSON.parse(sessionStorage.getItem('token')).userId
+        userId: token.userId
     }
 
     useEffect(() => {
         if (count === 0) {
             count++;
 
-            axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`)
+            axios.get(`http://localhost:3003/question/${obj.questionId}/${obj.classCode}/${obj.userId}`, {
+                headers: {
+                    'Authorization': token.token,
+                },
+            })
                 .then((response) => {
                     if (response.data.status === 200) {
                         let result = response.data.result[0];
@@ -77,7 +81,11 @@ const Question = () => {
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
             axios
-                .post('http://localhost:3003/answer', obj)
+                .post('http://localhost:3003/answer', obj, {
+                    headers: {
+                        'Authorization': token.token,
+                    },
+                })
                 .then((response) => {
                     if (response.data.status === 200) {
                         createMessage("success", "Resposta enviada!", `Seu algoritimo teve ${parseFloat(result.toFixed(2))}% de similaridade!`);
@@ -104,7 +112,11 @@ const Question = () => {
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
             axios
-                .put(`http://localhost:3003/answer/${question.id_answer}`, obj)
+                .put(`http://localhost:3003/answer/${question.id_answer}`, obj, {
+                    headers: {
+                        'Authorization': token.token,
+                    },
+                })
                 .then((response) => {
                     if (response.data.status === 200) {
                         createMessage("success", "Resposta editada!", `Seu algoritimo teve ${parseFloat(result.toFixed(2))}% de similaridade!`);

@@ -21,7 +21,11 @@ const Class = ({ props }) => {
 
     function deleteClass() {
         axios
-            .delete(`http://localhost:3003/class/${props.class_code}`)
+            .delete(`http://localhost:3003/class/${props.class_code}`, {
+                headers: {
+                    'Authorization': JSON.parse(token).token,
+                },
+            })
             .then((response) => {
                 if (response.status === 204) {
                     createNewMessage("success", "Turma excluida!",
@@ -47,7 +51,11 @@ const Class = ({ props }) => {
 
         axios
             .put(`http://localhost:3003/class/${props.class_code}`,
-                { className: newClassName })
+                { className: newClassName }, {
+                headers: {
+                    'Authorization': JSON.parse(token).token,
+                },
+            })
             .then((response) => {
                 if (response.status === 204) {
                     createNewMessage("success", "Turma foi atualizada!",

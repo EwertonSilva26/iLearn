@@ -29,6 +29,7 @@ module.exports = {
     },
 
     getAllClassesController: async function (app, req, res) {
+        console.log("Authorization: ", req.headers.authorization)
         getAllClasses(req, connection, function (error, result) {
             if (error) {
                 res.status(400).send({ status: 400, error });

@@ -29,13 +29,18 @@ const AnswerTable = () => {
 
     let feedback = "";
 
+    const token = JSON.parse(sessionStorage.getItem("token")).token;
 
     useEffect(() => {
         if (number === 0) {
             number++
 
             axios
-                .get(`http://localhost:3003/class/${code}/question/${id}/answers`)
+                .get(`http://localhost:3003/class/${code}/question/${id}/answers`, {
+                    headers: {
+                        'Authorization': token.token,
+                    },
+                })
                 .then((response) => {
                     if (response.data.status === 200) {
                         setInfos(response.data.result);
@@ -69,7 +74,11 @@ const AnswerTable = () => {
 
         axios
             .put(`http://localhost:3003/class/${obj.classId}/question/${obj.questionId}
-            /answer/${obj.answerId}/student/${obj.studentId}`, object)
+            /answer/${obj.answerId}/student/${obj.studentId}`, object, {
+                headers: {
+                    'Authorization': token.token,
+                },
+            })
             .then((response) => {
                 if (response.status === 204) {
                     closeModal();

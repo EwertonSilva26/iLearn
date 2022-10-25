@@ -25,7 +25,11 @@ const Home = () => {
 
     function createNewClass(info) {
         axios
-            .post("http://localhost:3003/class/create", info)
+            .post("http://localhost:3003/class/create", info, {
+                headers: {
+                    'Authorization': token.token,
+                },
+            })
             .then((response) => {
 
                 if ((response.data.result[0] !== undefined) && (response.data.result[0].number !== 0)) {
@@ -90,7 +94,11 @@ const Home = () => {
         }
 
         axios
-            .post("http://localhost:3003/student/classes/", obj)
+            .post("http://localhost:3003/student/classes/", obj, {
+                headers: {
+                    'Authorization': token.token,
+                },
+            })
             .then((response) => {
                 createMessage("success", "Sucesso", "Você foi cadastrado à turma com sucesso!")
                 console.log(response);

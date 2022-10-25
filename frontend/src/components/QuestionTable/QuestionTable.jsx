@@ -24,7 +24,11 @@ const Question = () => {
             countNumber++;
 
             axios
-                .get(`http://localhost:3003/questions/${code}/user/${token.userId}/email/${token.email}`)
+                .get(`http://localhost:3003/questions/${code}/user/${token.userId}/email/${token.email}`, {
+                    headers: {
+                        'Authorization': token.token,
+                    },
+                })
                 .then((response) => {
                     if (response.data.status === 200) {
                         setQuestions(response.data.result[0]);

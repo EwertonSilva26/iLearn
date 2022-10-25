@@ -57,12 +57,6 @@ const AddQuestion = () => {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        // if(total >= 10) {
-        //     createMessage("error", "Número de questões excedido!", 'Você só pode adicionar 10 questões por classe');
-        //     cleanFields();
-        //     return;
-        // }
-
         if (validateForm(event)) {
             return;
         }
@@ -79,7 +73,7 @@ const AddQuestion = () => {
         axios
             .post("http://localhost:3003/question", question, {
                 headers: {
-                    Authorization: token.token,
+                    'Authorization': token.token,
                 },
             })
             .then((response) => {
