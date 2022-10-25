@@ -136,11 +136,11 @@ const Class = ({ props }) => {
                         </div>
 
                         <div className="buttons">
-                            <button onClick={deleteClass}><img src={trashCan}></img></button>
-                            <button onClick={openModalClass}><img src={pencil}></img></button>
+                            <button onClick={deleteClass}><img src={trashCan} alt="Lata de lixo"></img></button>
+                            <button onClick={openModalClass}><img src={pencil} alt="Pincel"></img></button>
 
                             <Link to={`/teacher/class/${props.class_code}/add/question`}>
-                                <button><img src={plus}></img></button>
+                                <button><img src={plus} alt="Sinal de soma"></img></button>
                             </Link>
                         </div>
                     </div>
