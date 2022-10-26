@@ -17,6 +17,7 @@ module.exports = {
         let email = req.body.email;
         console.log(`[UserController] - Iniciando login: ${email}`);
 
+        // try{
         const isEmailvalid = await checkEmail(email, connection);
         if (isEmailvalid <= 0) {
             res.status(400).send({ status: 400, message: 'E-mail invalido!' });
@@ -32,20 +33,25 @@ module.exports = {
         const isMatch = auth.decryptPassword(req.body.password, hash);
         req.body.password = hash;
         if (isMatch) {
-            login(req.body, connection, function (error, result) {
-                if (error) {
-                    res.status(403)
-                        .send({
-                            status: 403, error,
-                            message: "Não foi possivel efetuar login!"
-                        });
-                }
-                let id = result[0].id_user;
-                let token = jwt.sign({ id }, SECRET, { expiresIn: 300 });
+            try {
+                login(req.body, connection, function (error, result) {
+                    if (error) {
+                        res.status(403)
+                            .send({
+                                status: 403, error,
+                                message: "Não foi possivel efetuar login!"
+                            });
+                    }
+                    let id = result[0].id_user;
+                    let token = jwt.sign({ id }, SECRET, { expiresIn: 300 });
 
-                res.status(200)
-                    .send({ status: 200, id_user: id, token, email })
-            })
+                    res.status(200)
+                        .send({ status: 200, id_user: id, token, email })
+                })
+            } catch (e) {
+                console.error(`Erro inesperado: ${e.message}`);
+                throw e;
+            }
         } else {
             res.status(400)
                 .send({ status: 400, message: 'Senha invalida!' });
@@ -72,7 +78,8 @@ module.exports = {
                     .send({ status: 201, message: "Usuario cadastrado com sucesso!", result })
             })
         } catch (e) {
-            throw Error("Error inesperado: ", JSON.parse(e));
+            console.error(`Erro inesperado: ${e.message}`);
+            throw e;
         }
     }
 }
