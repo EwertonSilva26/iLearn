@@ -5,7 +5,6 @@ import swal from 'sweetalert';
 
 import authentication from '../../authentication.js';
 
-let classCount = 0;
 const ClassList = () => {
 
     if (authentication().isAuthenticated === false) {
@@ -14,23 +13,33 @@ const ClassList = () => {
 
     const [classes, setClasses] = useState([]);
     const token = JSON.parse(sessionStorage.getItem('token'));
-
+    let [classCount, setClassCount] = useState(0);
     let count = 0;
 
     useEffect(() => {
-        if (classCount > 0) {
-            return;
-        }
-        classCount++;
-
+        if (classCount === 0) {
+        
         axios
-            .get(`http://localhost:3003/classes/${token.userId}`,{
+            .get(`http://localhost:3003/classes/${token.userId}`, {
                 headers: {
                     'Authorization': token.token,
                 },
-            })
-            .then((response) => {
-                setClasses(response.data.result[0]);
+            }).then((response) => {
+                if (response.status === 200) {
+                    setClasses(response.data.result[0]);
+                } else if(response.status === 401) {
+                    swal({
+                        icon: "error",
+                        title: "Não foi possivel buscar as suas turmas",
+                        text: `Error ${response.message}`,
+                        button: {
+                            text: "Ok"
+                        }
+                    }).then(() => {
+                        window.location.href = "http://localhost:3000/login";
+                    });
+
+                }
             })
             .catch((err) => {
                 console.log(`Erro ao buscar turmas ${err}`)
@@ -46,6 +55,10 @@ const ClassList = () => {
                     window.location.reload();
                 });
             });
+
+        }
+
+        setClassCount(classCount+1);
     });
 
     return (

@@ -2,6 +2,7 @@ const {
     getQuestionsByClassCodeController,
     getQuestionController,
     sendQuestionController,
+    editQuestionByIdController,
     getQuestionsNumberByClassCodeCodeController
 } = require("../controller/questionController");
 
@@ -40,6 +41,16 @@ module.exports = {
         app.get("/questions/class/:code", (req, res) => {
             try {
                 getQuestionsNumberByClassCodeCodeController(app, req, res);
+            } catch (error) {
+                throw error;
+            }
+        });
+    },
+
+    editQuestionById: function (app) {
+        app.put("/question/:id", (req, res) => {
+            try {
+                editQuestionByIdController(app, req, res);
             } catch (error) {
                 throw error;
             }

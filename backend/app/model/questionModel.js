@@ -109,6 +109,22 @@ module.exports = {
 
   },
 
+    /** Edita questão **/
+    editQuestionByIdModel: function (req, connection, callback) {
+      const body = req.body;
+      console.log(`[MODEL] - Editando questão com id da questão: ${req.params.id}`)
+  
+      sql = `UPDATE tb_question SET
+      title = '${body.newTitle}', 
+      question = '${body.question}', 
+      teacher_answer = '${body.newAnswer}', 
+      tip = '${body.newTip}' 
+      where id_question = ${req.params.id};`;
+    
+      connection.query(sql, callback);
+  
+    },
+
   /** Busca o numero total de questões no banco de dados pelo código da classe. **/
   getQuestionsNumberByClassCodeCodeModel: function (req, connection, callback) {
     console.log(`[MODEL] - Busca o numero total de questões com código da classe:

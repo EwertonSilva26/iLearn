@@ -2,14 +2,14 @@ import React from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import authentication from '../../authentication.js';
 
 import "./AddQuestion.css";
 
 const AddQuestion = () => {
-
+    
     if (authentication().isAuthenticated === false) {
         window.location.href = "http://localhost:3000/login";
     }
@@ -24,6 +24,7 @@ const AddQuestion = () => {
 
     const { code } = useParams();
     let hasError = 0;
+    let countCalls = 0
 
     function validateForm(event) {
         if (event.target[0].value.length === 0) {
@@ -57,34 +58,45 @@ const AddQuestion = () => {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        if (validateForm(event)) {
-            return;
+        if (countCalls === 0) {
+            countCalls++;
+            if (validateForm(event)) {
+                return;
+            }
+
+            const question = {
+                userId: token.userId,
+                title: event.target[0].value,
+                question: event.target[1].value,
+                teacherAnswer: event.target[2].value,
+                tip: event.target[3].value,
+                classCode: code
+            };
+
+            axios
+                .post("http://localhost:3003/question", question, {
+                    headers: {
+                        'Authorization': token.token,
+                    },
+                })
+                .then((response) => {
+                    if (response.status === 201) {
+                        setModalId("modal_id");
+                        countCalls = 0;
+                    }
+                }).catch((e) => {
+                    console.log(JSON.stringify(e));
+                    setErrorModalId("modal_id");
+                });
+        }
+    }
+
+    function closeSucessModal(){
+        if (modalId !== "") {
+            setModalId("");
         }
 
-        const question = {
-            userId: token.userId,
-            title: event.target[0].value,
-            question: event.target[1].value,
-            teacherAnswer: event.target[2].value,
-            tip: event.target[3].value,
-            classCode: code
-        };
-
-        axios
-            .post("http://localhost:3003/question", question, {
-                headers: {
-                    'Authorization': token.token,
-                },
-            })
-            .then((response) => {
-                if (response.status === 204) {
-                    setModalId("modal_id");
-                }
-            }).catch((e) => {
-                console.log(JSON.stringify(e));
-                setErrorModalId("modal_id");
-            });
-
+        window.location.href = `/classes/teacher/${token.userId}`;
     }
 
     function closeModal() {
@@ -124,13 +136,11 @@ const AddQuestion = () => {
                             Adicionar nova questão
                         </button>
 
-                        <Link to={`/classes/teacher/${token.userId}`}>
                             <button id="leave_page"
                                 style={{ backgroundColor: "red" }}
-                                onClick={closeModal}>
+                                onClick={closeSucessModal}>
                                 Sair
                             </button>
-                        </Link>
                     </div>
                 </div>
             </div>

@@ -20,6 +20,7 @@ questionRoutes.getQuestionsByClassCode(app);
 questionRoutes.getQuestion(app);
 questionRoutes.sendQuestion(app);
 questionRoutes.getQuestionsNumberByClassCode(app);
+questionRoutes.editQuestionById(app);
 
 answerRoutes.sendFeedback(app);
 answerRoutes.postAnswer(app);

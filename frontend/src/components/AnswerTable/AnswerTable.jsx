@@ -7,7 +7,7 @@ import axios from "axios";
 import swal from 'sweetalert';
 
 import "./AnswerTable.css";
-import next from "./next.png";
+import next from "./img/next.png"
 import authentication from '../../authentication.js';
 
 let number = 0;

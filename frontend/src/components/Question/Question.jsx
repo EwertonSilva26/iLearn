@@ -62,7 +62,7 @@ const Question = () => {
                         }
 
                         if (result.percentage) {
-                            verifyPercentege(parseInt(result.percentage.split("%")));
+                            verifyPercentageAndAddReaction(parseInt(result.percentage.split("%")));
                         }
 
                     }
@@ -76,7 +76,7 @@ const Question = () => {
 
     function sendAnswer() {
         if (answer !== "") {
-            let result = removeSpace(answer);
+            let result = removeSpaceAndCalculateSimilarity(answer);
             obj.answer = answer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
@@ -107,7 +107,7 @@ const Question = () => {
 
     function editAnswer() {
         if (newAnswer !== "") {
-            let result = removeSpace(newAnswer);
+            let result = removeSpaceAndCalculateSimilarity(newAnswer);
             obj.answer = newAnswer;
             obj.percentage = `${parseFloat(result.toFixed(2))}%`;
 
@@ -175,20 +175,20 @@ const Question = () => {
         return list;
     }
 
-    const verifyPercentege = (result) => {
+    const verifyPercentageAndAddReaction = (result) => {
         if ((result >= 80) && (result <= 100)) {
             emotion.image = tooHappy;
-            emotion.message = "Parabens, seu desempenho foi muito bom!"
+            emotion.message = "Parabens, seu desempenho foi muito bom!";
         } else if ((result >= 60) && (result < 80)) {
             emotion.image = happy;
-            emotion.message = "Parabens, seu desempenho foi bom!"
+            emotion.message = "Parabens, seu desempenho foi bom!";
         } else {
             emotion.image = sad;
-            emotion.message = "Você não teve um desempenho adequado!"
+            emotion.message = "Você não teve um desempenho adequado!";
         }
     }
 
-    const removeSpace = (answer) => {
+    const removeSpaceAndCalculateSimilarity = (answer) => {
         const studentAnswer = removeString(answer.trim()
             .replace(/(\r\n|\n|\r)/gm, '').split(";"));
 

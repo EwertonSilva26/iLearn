@@ -7,6 +7,7 @@ const {
     postAnswerModel,
     putAnswerModel,
     sendQuestionModel,
+    editQuestionByIdModel,
     sendFeedbackModel,
     getQuestionsNumberByClassCodeCodeModel
 } = require("../model/questionModel");
@@ -142,6 +143,28 @@ module.exports = {
                     res.status(200).send({
                         status: 200, result,
                         message: "Numero total de questões retornado com sucesso!"
+                    });
+                })
+            } catch (e) {
+                console.error(`Erro inesperado: ${e.message}`);
+                throw e;
+            }
+        } else {
+            res.status(401).send({ status: 401, message: "Usuário não autoriazado!" });
+        }
+    },
+
+    editQuestionByIdController: async function (app, req, res) {
+        if (req.headers.authorization) {
+            try {
+                editQuestionByIdModel(req, connection, function (error, result) {
+                    if (error) {
+                        res.status(400).send({ status: 400, error });
+                    }
+
+                    res.status(204).send({
+                        status: 204, result,
+                        message: "Questão Atualizada com sucesso!"
                     });
                 })
             } catch (e) {
