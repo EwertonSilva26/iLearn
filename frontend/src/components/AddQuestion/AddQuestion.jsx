@@ -3,22 +3,19 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import swal from 'sweetalert';
 
 import authentication from '../../authentication.js';
 
 import "./AddQuestion.css";
 
 const AddQuestion = () => {
-    
+
     if (authentication().isAuthenticated === false) {
         window.location.href = "http://localhost:3000/login";
     }
 
     const token = JSON.parse(sessionStorage.getItem("token"));
-    let [errorTitle, setErrorTitle] = useState("");
-    let [errorQuestion, setErrorQuestion] = useState("");
-    let [errorAnswer, setErrorAnswer] = useState("");
-    let [errorTip, setErrorTip] = useState("");
     let [modalId, setModalId] = useState("");
     let [errorModalId, setErrorModalId] = useState("");
 
@@ -28,27 +25,15 @@ const AddQuestion = () => {
 
     function validateForm(event) {
         if (event.target[0].value.length === 0) {
-            if (errorTitle === "") {
-                setErrorTitle((errorTitle += "O campo título é obrigatório! "));
-            }
             hasError++;
         }
         if (event.target[1].value.length === 0) {
-            if (errorQuestion === "") {
-                setErrorQuestion((errorQuestion += "O campo questão é obrigatório! "));
-            }
             hasError++;
         }
         if (event.target[2].value.length === 0) {
-            if (errorAnswer === "") {
-                setErrorAnswer((errorAnswer += "O campo resposta é obrigatório! "));
-            }
             hasError++;
         }
         if (event.target[3].value.length === 0) {
-            if (errorTip === "") {
-                setErrorTip((errorTip += "O campo dica é obrigatório! "));
-            }
             hasError++;
         }
 
@@ -61,6 +46,17 @@ const AddQuestion = () => {
         if (countCalls === 0) {
             countCalls++;
             if (validateForm(event)) {
+                swal({
+                    icon: "warning",
+                    title: "Campo vazio!",
+                    text: "Todos os campos são obrigatórios!",
+                    button: {
+                        text: "Fechar"
+                    }
+                }).then(() => {
+                    window.location.reload();
+                });
+    
                 return;
             }
 
@@ -91,7 +87,7 @@ const AddQuestion = () => {
         }
     }
 
-    function closeSucessModal(){
+    function closeSucessModal() {
         if (modalId !== "") {
             setModalId("");
         }
@@ -106,11 +102,6 @@ const AddQuestion = () => {
         if (errorModalId !== "") {
             setErrorModalId("");
         }
-
-        setErrorQuestion("");
-        setErrorTitle("");
-        setErrorAnswer("");
-        setErrorTip("");
 
         cleanFields();
 
@@ -136,11 +127,11 @@ const AddQuestion = () => {
                             Adicionar nova questão
                         </button>
 
-                            <button id="leave_page"
-                                style={{ backgroundColor: "red" }}
-                                onClick={closeSucessModal}>
-                                Sair
-                            </button>
+                        <button id="leave_page"
+                            style={{ backgroundColor: "red" }}
+                            onClick={closeSucessModal}>
+                            Sair
+                        </button>
                     </div>
                 </div>
             </div>
@@ -161,33 +152,29 @@ const AddQuestion = () => {
                     <Form.Group size="lg" controlId="title">
                         <Form.Control id="input_title" autoFocus type="text"
                             placeholder="Insira o título / descrição da questão" maxLength="500"
-                            onKeyUp={() => { setErrorTitle("") }} />
+                        />
                     </Form.Group>
-                    <span className="error-message">{errorTitle}</span>
 
                     <label>Questão</label>
                     <Form.Group size="lg" controlId="content">
                         <Form.Control id="txt_question" as="textarea"
                             rows="5" placeholder="Insira o texto da questão"
-                            onKeyUp={() => { setErrorQuestion("") }} />
+                        />
                     </Form.Group>
-                    <span className="error-message">{errorQuestion}</span>
 
                     <label>Resposta</label>
                     <Form.Group size="lg" controlId="content">
-                        <Form.Control id="txt_answer" as="textarea"
+                        <Form.Control style={{height: "170px"}} id="txt_answer" as="textarea"
                             rows="5" placeholder="Insira a resposta da questão"
-                            onKeyUp={() => { setErrorAnswer("") }} />
+                        />
                     </Form.Group>
-                    <span className="error-message">{errorAnswer}</span>
 
                     <label>Dica</label>
                     <Form.Group size="lg" controlId="content">
                         <Form.Control id="txt_tip" as="textarea"
                             rows="5" placeholder="Insira a dica para a questão"
-                            onKeyUp={() => { setErrorTip("") }} />
+                        />
                     </Form.Group>
-                    <span className="error-message">{errorTip}</span>
 
                     <Button block size="lg" type="submit">
                         Adicionar Questão

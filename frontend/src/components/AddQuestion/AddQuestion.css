@@ -34,7 +34,7 @@ textarea {
 }
 
 .add-question-container button {
-  margin-top: 3px;
+  margin-top: 10px;
   width: 200px;
   float: right;
 }
@@ -48,15 +48,6 @@ textarea {
   display: flex;
   font-weight: 700;
   margin-left: 10px;
-}
-
-.error-message {
-  color: red !important;
-  margin-bottom: 0;
-  font-size: 15px;
-  display: flex;
-  justify-content: left;
-  width: 200px;
 }
 
 /* The Modal (background) */

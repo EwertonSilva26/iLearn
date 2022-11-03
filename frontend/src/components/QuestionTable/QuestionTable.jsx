@@ -159,9 +159,9 @@ const Question = () => {
         <div className="main_questions_list">
 
             {/* Modal de sucesso */}
-            <div id={modalId} className="new_modal">
-                <div className="new_modal-content">
-                    <span className="close" onClick={closeModal}>&times;</span>
+            <div id={modalId} className="new_modal_table">
+                <div className="new_modal-content_table">
+                    <span className="close_table" onClick={closeModal}>&times;</span>
                     <div style={{ textAlign: "center", marginBottom: "20px" }}>
                         <p className="p_header">Editar questão!</p>
                     </div>
